@@ -1,0 +1,2657 @@
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"lcd_io_fsmc8.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.LCD_Delay,"ax",%progbits
+  18              		.align	1
+  19              		.global	LCD_Delay
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	LCD_Delay:
+  27              	.LVL0:
+  28              	.LFB126:
+  29              		.file 1 "Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c"
+   1:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* 
+   2:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****  * 8 bit paralell LCD FSMC driver for STM32F4
+   3:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****  * 5 controll pins (CS, RS, WR, RD, RST) + 8 data pins + 1 backlight pin
+   4:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****  */
+   5:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+   6:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* 
+   7:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****  * Author: Roberto Benjami
+   8:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****  * version:  2020.01
+   9:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****  */
+  10:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  11:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #include "main.h"
+  12:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #include "lcd.h"
+  13:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #include "lcd_io_fsmc8.h"
+  14:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  15:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* Change the byte order of 16bits data? */
+  16:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #if LCD_REVERSE16 == 0
+  17:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define RD(a)                 __REVSH(a)
+  18:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #endif
+  19:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #if LCD_REVERSE16 == 1
+  20:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define RD(a)                 a
+  21:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #endif
+  22:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  23:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define LCD_ADDR_DATA         (LCD_ADDR_BASE + (1 << (LCD_REGSELECT_BIT + 2)) - 2)
+  24:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  25:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_MAXSIZE           0xFFFE
+  26:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  27:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+  28:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* Link function for LCD peripheral */
+  29:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_Delay (uint32_t delay);
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 2
+
+
+  30:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_Init(void);
+  31:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_Bl_OnOff(uint8_t Bl);
+  32:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  33:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd8(uint8_t Cmd);
+  34:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd16(uint16_t Cmd);
+  35:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteData8(uint8_t Data);
+  36:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteData16(uint16_t Data);
+  37:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  38:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd8DataFill16(uint8_t Cmd, uint16_t Data, uint32_t Size);
+  39:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd8MultipleData8(uint8_t Cmd, uint8_t *pData, uint32_t Size);
+  40:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd8MultipleData16(uint8_t Cmd, uint16_t *pData, uint32_t Size);
+  41:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd16DataFill16(uint16_t Cmd, uint16_t Data, uint32_t Size);
+  42:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd16MultipleData8(uint16_t Cmd, uint8_t *pData, uint32_t Size);
+  43:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_WriteCmd16MultipleData16(uint16_t Cmd, uint16_t *pData, uint32_t Size);
+  44:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  45:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_ReadCmd8MultipleData8(uint8_t Cmd, uint8_t *pData, uint32_t Size, uint32_t DummySiz
+  46:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_ReadCmd8MultipleData16(uint8_t Cmd, uint16_t *pData, uint32_t Size, uint32_t DummyS
+  47:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_ReadCmd8MultipleData24to16(uint8_t Cmd, uint16_t *pData, uint32_t Size, uint32_t Du
+  48:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_ReadCmd16MultipleData8(uint16_t Cmd, uint8_t *pData, uint32_t Size, uint32_t DummyS
+  49:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_ReadCmd16MultipleData16(uint16_t Cmd, uint16_t *pData, uint32_t Size, uint32_t Dumm
+  50:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void     LCD_IO_ReadCmd16MultipleData24to16(uint16_t Cmd, uint16_t *pData, uint32_t Size, uint32_t 
+  51:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  52:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+  53:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define BITBAND_ACCESS(a, b)  *(volatile uint32_t*)(((uint32_t)&a & 0xF0000000) + 0x2000000 + (((ui
+  54:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  55:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* GPIO mode */
+  56:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_DIGITAL_INPUT    0x0
+  57:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_OUT              0x1
+  58:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_ALTER            0x2
+  59:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_ANALOG_INPUT     0x3
+  60:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  61:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_SPD_LOW          0x0
+  62:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_SPD_MEDIUM       0x1
+  63:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_SPD_HIGH         0x2
+  64:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_SPD_VHIGH        0x3
+  65:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  66:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_PU_NONE          0x0
+  67:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_PU_UP            0x1
+  68:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define MODE_PU_DOWN          0x2
+  69:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  70:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORT_(a, b)     GPIO ## a
+  71:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORT(a)         GPIOX_PORT_(a)
+  72:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  73:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PIN_(a, b)      b
+  74:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PIN(a)          GPIOX_PIN_(a)
+  75:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  76:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_AFR_(a,b,c)     GPIO ## b->AFR[c >> 3] = (GPIO ## b->AFR[c >> 3] & ~(0x0F << (4 * (c 
+  77:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_AFR(a, b)       GPIOX_AFR_(a, b)
+  78:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  79:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_MODER_(a,b,c)   GPIO ## b->MODER = (GPIO ## b->MODER & ~(3 << (2 * c))) | (a << (2 * 
+  80:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_MODER(a, b)     GPIOX_MODER_(a, b)
+  81:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  82:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_OSPEEDR_(a,b,c) GPIO ## b->OSPEEDR = (GPIO ## b->OSPEEDR & ~(3 << (2 * c))) | (a << (
+  83:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_OSPEEDR(a, b)   GPIOX_OSPEEDR_(a, b)
+  84:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  85:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PUPDR_(a,b,c)   GPIO ## b->PUPDR = (GPIO ## b->PUPDR & ~(3 << (2 * c))) | (a << (2 * 
+  86:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PUPDR(a, b)     GPIOX_PUPDR_(a, b)
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 3
+
+
+  87:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  88:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_ODR_(a, b)      BITBAND_ACCESS(GPIO ## a ->ODR, b)
+  89:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_ODR(a)          GPIOX_ODR_(a)
+  90:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  91:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_IDR_(a, b)      BITBAND_ACCESS(GPIO ## a ->IDR, b)
+  92:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_IDR(a)          GPIOX_IDR_(a)
+  93:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  94:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_LINE_(a, b)     EXTI_Line ## b
+  95:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_LINE(a)         GPIOX_LINE_(a)
+  96:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+  97:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTSRC_(a, b)  GPIO_PortSourceGPIO ## a
+  98:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTSRC(a)      GPIOX_PORTSRC_(a)
+  99:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 100:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PINSRC_(a, b)   GPIO_PinSource ## b
+ 101:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PINSRC(a)       GPIOX_PINSRC_(a)
+ 102:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 103:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_CLOCK_(a, b)    RCC_AHB1ENR_GPIO ## a ## EN
+ 104:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_CLOCK(a)        GPIOX_CLOCK_(a)
+ 105:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 106:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_A       1
+ 107:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_B       2
+ 108:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_C       3
+ 109:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_D       4
+ 110:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_E       5
+ 111:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_F       6
+ 112:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_G       7
+ 113:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_H       8
+ 114:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_I       9
+ 115:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_J       10
+ 116:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_K       11
+ 117:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM_(a, b)  GPIOX_PORTNUM_ ## a
+ 118:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNUM(a)      GPIOX_PORTNUM_(a)
+ 119:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 120:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNAME_(a, b) a
+ 121:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define GPIOX_PORTNAME(a)     GPIOX_PORTNAME_(a)
+ 122:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 123:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 124:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* DMA mode */
+ 125:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF0_Pos       (5U)
+ 126:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF0           (0x1U << DMA_ISR_TCIF0_Pos)                  /*!< 0x00000020 */
+ 127:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF0_Pos       (4U)
+ 128:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF0           (0x1U << DMA_ISR_HTIF0_Pos)                  /*!< 0x00000010 */
+ 129:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF0_Pos       (3U)
+ 130:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF0           (0x1U << DMA_ISR_TEIF0_Pos)                  /*!< 0x00000008 */
+ 131:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF0_Pos      (2U)
+ 132:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF0          (0x1U << DMA_ISR_DMEIF0_Pos)                 /*!< 0x00000004 */
+ 133:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF0_Pos       (0U)
+ 134:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF0           (0x1U << DMA_ISR_FEIF0_Pos)                  /*!< 0x00000001 */
+ 135:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF1_Pos       (11U)
+ 136:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF1           (0x1U << DMA_ISR_TCIF1_Pos)                  /*!< 0x00000800 */
+ 137:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF1_Pos       (10U)
+ 138:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF1           (0x1U << DMA_ISR_HTIF1_Pos)                  /*!< 0x00000400 */
+ 139:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF1_Pos       (9U)
+ 140:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF1           (0x1U << DMA_ISR_TEIF1_Pos)                  /*!< 0x00000200 */
+ 141:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF1_Pos      (8U)
+ 142:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF1          (0x1U << DMA_ISR_DMEIF1_Pos)                 /*!< 0x00000100 */
+ 143:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF1_Pos       (6U)
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 4
+
+
+ 144:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF1           (0x1U << DMA_ISR_FEIF1_Pos)                  /*!< 0x00000040 */
+ 145:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF2_Pos       (21U)
+ 146:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF2           (0x1U << DMA_ISR_TCIF2_Pos)                  /*!< 0x00200000 */
+ 147:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF2_Pos       (20U)
+ 148:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF2           (0x1U << DMA_ISR_HTIF2_Pos)                  /*!< 0x00100000 */
+ 149:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF2_Pos       (19U)
+ 150:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF2           (0x1U << DMA_ISR_TEIF2_Pos)                  /*!< 0x00080000 */
+ 151:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF2_Pos      (18U)
+ 152:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF2          (0x1U << DMA_ISR_DMEIF2_Pos)                 /*!< 0x00040000 */
+ 153:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF2_Pos       (16U)
+ 154:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF2           (0x1U << DMA_ISR_FEIF2_Pos)                  /*!< 0x00010000 */
+ 155:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF3_Pos       (27U)
+ 156:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF3           (0x1U << DMA_ISR_TCIF3_Pos)                  /*!< 0x08000000 */
+ 157:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF3_Pos       (26U)
+ 158:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF3           (0x1U << DMA_ISR_HTIF3_Pos)                  /*!< 0x04000000 */
+ 159:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF3_Pos       (25U)
+ 160:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF3           (0x1U << DMA_ISR_TEIF3_Pos)                  /*!< 0x02000000 */
+ 161:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF3_Pos      (24U)
+ 162:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF3          (0x1U << DMA_ISR_DMEIF3_Pos)                 /*!< 0x01000000 */
+ 163:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF3_Pos       (22U)
+ 164:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF3           (0x1U << DMA_ISR_FEIF3_Pos)                  /*!< 0x00400000 */
+ 165:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF4_Pos       (5U)
+ 166:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF4           (0x1U << DMA_ISR_TCIF4_Pos)                  /*!< 0x00000020 */
+ 167:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF4_Pos       (4U)
+ 168:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF4           (0x1U << DMA_ISR_HTIF4_Pos)                  /*!< 0x00000010 */
+ 169:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF4_Pos       (3U)
+ 170:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF4           (0x1U << DMA_ISR_TEIF4_Pos)                  /*!< 0x00000008 */
+ 171:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF4_Pos      (2U)
+ 172:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF4          (0x1U << DMA_ISR_DMEIF4_Pos)                 /*!< 0x00000004 */
+ 173:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF4_Pos       (0U)
+ 174:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF4           (0x1U << DMA_ISR_FEIF4_Pos)                  /*!< 0x00000001 */
+ 175:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF5_Pos       (11U)
+ 176:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF5           (0x1U << DMA_ISR_TCIF5_Pos)                  /*!< 0x00000800 */
+ 177:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF5_Pos       (10U)
+ 178:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF5           (0x1U << DMA_ISR_HTIF5_Pos)                  /*!< 0x00000400 */
+ 179:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF5_Pos       (9U)
+ 180:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF5           (0x1U << DMA_ISR_TEIF5_Pos)                  /*!< 0x00000200 */
+ 181:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF5_Pos      (8U)
+ 182:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF5          (0x1U << DMA_ISR_DMEIF5_Pos)                 /*!< 0x00000100 */
+ 183:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF5_Pos       (6U)
+ 184:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF5           (0x1U << DMA_ISR_FEIF5_Pos)                  /*!< 0x00000040 */
+ 185:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF6_Pos       (21U)
+ 186:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF6           (0x1U << DMA_ISR_TCIF6_Pos)                  /*!< 0x00200000 */
+ 187:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF6_Pos       (20U)
+ 188:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF6           (0x1U << DMA_ISR_HTIF6_Pos)                  /*!< 0x00100000 */
+ 189:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF6_Pos       (19U)
+ 190:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF6           (0x1U << DMA_ISR_TEIF6_Pos)                  /*!< 0x00080000 */
+ 191:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF6_Pos      (18U)
+ 192:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF6          (0x1U << DMA_ISR_DMEIF6_Pos)                 /*!< 0x00040000 */
+ 193:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF6_Pos       (16U)
+ 194:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF6           (0x1U << DMA_ISR_FEIF6_Pos)                  /*!< 0x00010000 */
+ 195:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF7_Pos       (27U)
+ 196:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TCIF7           (0x1U << DMA_ISR_TCIF7_Pos)                  /*!< 0x08000000 */
+ 197:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF7_Pos       (26U)
+ 198:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_HTIF7           (0x1U << DMA_ISR_HTIF7_Pos)                  /*!< 0x04000000 */
+ 199:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF7_Pos       (25U)
+ 200:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_TEIF7           (0x1U << DMA_ISR_TEIF7_Pos)                  /*!< 0x02000000 */
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 5
+
+
+ 201:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF7_Pos      (24U)
+ 202:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_DMEIF7          (0x1U << DMA_ISR_DMEIF7_Pos)                 /*!< 0x01000000 */
+ 203:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF7_Pos       (22U)
+ 204:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_ISR_FEIF7           (0x1U << DMA_ISR_FEIF7_Pos)                  /*!< 0x00400000 */
+ 205:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 206:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF0_Pos     (5U)
+ 207:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF0         (0x1U << DMA_IFCR_CTCIF0_Pos)                /*!< 0x00000020 */
+ 208:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF0_Pos     (4U)
+ 209:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF0         (0x1U << DMA_IFCR_CHTIF0_Pos)                /*!< 0x00000010 */
+ 210:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF0_Pos     (3U)
+ 211:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF0         (0x1U << DMA_IFCR_CTEIF0_Pos)                /*!< 0x00000008 */
+ 212:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF0_Pos    (2U)
+ 213:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF0        (0x1U << DMA_IFCR_CDMEIF0_Pos)               /*!< 0x00000004 */
+ 214:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF0_Pos     (0U)
+ 215:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF0         (0x1U << DMA_IFCR_CFEIF0_Pos)                /*!< 0x00000001 */
+ 216:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF1_Pos     (11U)
+ 217:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF1         (0x1U << DMA_IFCR_CTCIF1_Pos)                /*!< 0x00000800 */
+ 218:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF1_Pos     (10U)
+ 219:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF1         (0x1U << DMA_IFCR_CHTIF1_Pos)                /*!< 0x00000400 */
+ 220:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF1_Pos     (9U)
+ 221:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF1         (0x1U << DMA_IFCR_CTEIF1_Pos)                /*!< 0x00000200 */
+ 222:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF1_Pos    (8U)
+ 223:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF1        (0x1U << DMA_IFCR_CDMEIF1_Pos)               /*!< 0x00000100 */
+ 224:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF1_Pos     (6U)
+ 225:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF1         (0x1U << DMA_IFCR_CFEIF1_Pos)                /*!< 0x00000040 */
+ 226:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF2_Pos     (21U)
+ 227:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF2         (0x1U << DMA_IFCR_CTCIF2_Pos)                /*!< 0x00200000 */
+ 228:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF2_Pos     (20U)
+ 229:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF2         (0x1U << DMA_IFCR_CHTIF2_Pos)                /*!< 0x00100000 */
+ 230:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF2_Pos     (19U)
+ 231:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF2         (0x1U << DMA_IFCR_CTEIF2_Pos)                /*!< 0x00080000 */
+ 232:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF2_Pos    (18U)
+ 233:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF2        (0x1U << DMA_IFCR_CDMEIF2_Pos)               /*!< 0x00040000 */
+ 234:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF2_Pos     (16U)
+ 235:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF2         (0x1U << DMA_IFCR_CFEIF2_Pos)                /*!< 0x00010000 */
+ 236:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF3_Pos     (27U)
+ 237:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF3         (0x1U << DMA_IFCR_CTCIF3_Pos)                /*!< 0x08000000 */
+ 238:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF3_Pos     (26U)
+ 239:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF3         (0x1U << DMA_IFCR_CHTIF3_Pos)                /*!< 0x04000000 */
+ 240:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF3_Pos     (25U)
+ 241:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF3         (0x1U << DMA_IFCR_CTEIF3_Pos)                /*!< 0x02000000 */
+ 242:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF3_Pos    (24U)
+ 243:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF3        (0x1U << DMA_IFCR_CDMEIF3_Pos)               /*!< 0x01000000 */
+ 244:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF3_Pos     (22U)
+ 245:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF3         (0x1U << DMA_IFCR_CFEIF3_Pos)                /*!< 0x00400000 */
+ 246:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF4_Pos     (5U)
+ 247:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF4         (0x1U << DMA_IFCR_CTCIF4_Pos)                /*!< 0x00000020 */
+ 248:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF4_Pos     (4U)
+ 249:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF4         (0x1U << DMA_IFCR_CHTIF4_Pos)                /*!< 0x00000010 */
+ 250:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF4_Pos     (3U)
+ 251:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF4         (0x1U << DMA_IFCR_CTEIF4_Pos)                /*!< 0x00000008 */
+ 252:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF4_Pos    (2U)
+ 253:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF4        (0x1U << DMA_IFCR_CDMEIF4_Pos)               /*!< 0x00000004 */
+ 254:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF4_Pos     (0U)
+ 255:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF4         (0x1U << DMA_IFCR_CFEIF4_Pos)                /*!< 0x00000001 */
+ 256:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF5_Pos     (11U)
+ 257:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF5         (0x1U << DMA_IFCR_CTCIF5_Pos)                /*!< 0x00000800 */
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 6
+
+
+ 258:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF5_Pos     (10U)
+ 259:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF5         (0x1U << DMA_IFCR_CHTIF5_Pos)                /*!< 0x00000400 */
+ 260:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF5_Pos     (9U)
+ 261:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF5         (0x1U << DMA_IFCR_CTEIF5_Pos)                /*!< 0x00000200 */
+ 262:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF5_Pos    (8U)
+ 263:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF5        (0x1U << DMA_IFCR_CDMEIF5_Pos)               /*!< 0x00000100 */
+ 264:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF5_Pos     (6U)
+ 265:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF5         (0x1U << DMA_IFCR_CFEIF5_Pos)                /*!< 0x00000040 */
+ 266:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF6_Pos     (21U)
+ 267:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF6         (0x1U << DMA_IFCR_CTCIF6_Pos)                /*!< 0x00200000 */
+ 268:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF6_Pos     (20U)
+ 269:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF6         (0x1U << DMA_IFCR_CHTIF6_Pos)                /*!< 0x00100000 */
+ 270:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF6_Pos     (19U)
+ 271:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF6         (0x1U << DMA_IFCR_CTEIF6_Pos)                /*!< 0x00080000 */
+ 272:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF6_Pos    (18U)
+ 273:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF6        (0x1U << DMA_IFCR_CDMEIF6_Pos)               /*!< 0x00040000 */
+ 274:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF6_Pos     (16U)
+ 275:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF6         (0x1U << DMA_IFCR_CFEIF6_Pos)                /*!< 0x00010000 */
+ 276:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF7_Pos     (27U)
+ 277:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTCIF7         (0x1U << DMA_IFCR_CTCIF7_Pos)                /*!< 0x08000000 */
+ 278:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF7_Pos     (26U)
+ 279:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CHTIF7         (0x1U << DMA_IFCR_CHTIF7_Pos)                /*!< 0x04000000 */
+ 280:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF7_Pos     (25U)
+ 281:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CTEIF7         (0x1U << DMA_IFCR_CTEIF7_Pos)                /*!< 0x02000000 */
+ 282:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF7_Pos    (24U)
+ 283:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CDMEIF7        (0x1U << DMA_IFCR_CDMEIF7_Pos)               /*!< 0x01000000 */
+ 284:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF7_Pos     (22U)
+ 285:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMA_IFCR_CFEIF7         (0x1U << DMA_IFCR_CFEIF7_Pos)                /*!< 0x00400000 */
+ 286:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 287:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** typedef struct
+ 288:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 289:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   __IO uint32_t ISR[2];  /*!< DMA interrupt status register,      Address offset: 0x00 */
+ 290:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   __IO uint32_t IFCR[2]; /*!< DMA interrupt flag clear register,  Address offset: 0x08 */
+ 291:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** } DMA_TypeDef_Array;
+ 292:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 293:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMANUM_(a, b, c, d)             a
+ 294:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMANUM(a)                       DMANUM_(a)
+ 295:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 296:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMACHN_(a, b, c, d)             b
+ 297:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMACHN(a)                       DMACHN_(a)
+ 298:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 299:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMASTREAM_(a, b, c, d)          c
+ 300:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMASTREAM(a)                    DMASTREAM_(a)
+ 301:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 302:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAPRIORITY_(a, b, c, d)        d
+ 303:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAPRIORITY(a)                  DMAPRIORITY_(a)
+ 304:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 305:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_STREAMX_(a, b, c, d)       DMA ## a ## _Stream ## c
+ 306:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_STREAMX(a)                 DMAX_STREAMX_(a)
+ 307:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 308:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_STREAMX_IRQ_(a, b, c, d)   DMA ## a ## _Stream ## c ## _IRQn
+ 309:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_STREAMX_IRQ(a)             DMAX_STREAMX_IRQ_(a)
+ 310:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 311:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_STREAMX_IRQHANDLER_(a, b, c, d) DMA ## a ## _Stream ## c ## _IRQHandler
+ 312:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_STREAMX_IRQHANDLER(a)      DMAX_STREAMX_IRQHANDLER_(a)
+ 313:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 314:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** // Interrupt event pl: if(DMAX_ISR(LCD_DMA_TX) & DMAX_ISR_TCIF(LCD_DMA_TX))...
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 7
+
+
+ 315:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_(a, b, c, d)           ((DMA_TypeDef_Array*) + DMA ## a ## _BASE)->ISR[c >> 2]
+ 316:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR(a)                     DMAX_ISR_(a)
+ 317:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 318:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_TCIF_(a, b, c, d)      DMA_ISR_TCIF ## c
+ 319:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_TCIF(a)                DMAX_ISR_TCIF_(a)
+ 320:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 321:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_HTIF_(a, b, c, d)      DMA_ISR_HTIF ## c
+ 322:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_HTIF(a)                DMAX_ISR_HTIF_(a)
+ 323:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 324:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_TEIF_(a, b, c, d)      DMA_ISR_TEIF ## c
+ 325:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_TEIF(a)                DMAX_ISR_TEIF_(a)
+ 326:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 327:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_DMEIF_(a, b, c, d)     DMA_ISR_DMEIF ## c
+ 328:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_DMEIF(a)               DMAX_ISR_DMEIF_(a)
+ 329:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 330:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_FEIF_(a, b, c, d)      DMA_ISR_FEIF ## c
+ 331:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_ISR_FEIF(a)                DMAX_ISR_FEIF_(a)
+ 332:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 333:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** // Interrupt clear pl: DMAX_IFCR(LCD_DMA_TX) = DMAX_IFCR_CTCIF(LCD_DMA_TX) | DMAX_IFCR_CFEIF(LCD_DM
+ 334:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_(a, b, c, d)          ((DMA_TypeDef_Array*) + DMA ## a ## _BASE)->IFCR[c >> 2]
+ 335:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR(a)                    DMAX_IFCR_(a)
+ 336:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 337:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CTCIF_(a, b, c, d)    DMA_IFCR_CTCIF ## c
+ 338:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CTCIF(a)              DMAX_IFCR_CTCIF_(a)
+ 339:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 340:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CHTIF_(a, b, c, d)    DMA_IFCR_CHTIF ## c
+ 341:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CHTIF(a)              DMAX_IFCR_CHTIF_(a)
+ 342:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 343:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CTEIF_(a, b, c, d)    DMA_IFCR_CTEIF ## c
+ 344:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CTEIF(a)              DMAX_IFCR_CTEIF_(a)
+ 345:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 346:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CDMEIF_(a, b, c, d)   DMA_IFCR_CDMEIF ## c
+ 347:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CDMEIF(a)             DMAX_IFCR_CDMEIF_(a)
+ 348:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 349:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CFEIF_(a, b, c, d)    DMA_IFCR_CFEIF ## c
+ 350:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define DMAX_IFCR_CFEIF(a)              DMAX_IFCR_CFEIF_(a)
+ 351:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 352:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 353:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #if DMANUM(LCD_DMA) > 0
+ 354:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* SPI DMA WRITE(a: src data pointer, b: target data pointer, c: source increment, d: target increm
+ 355:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****                  e: number of data, f: 0=8 bit, 1=16bit */
+ 356:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define LCD_FSMC_DMA(a, b, c, d, e, f) {                                        \
+ 357:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(e)                                                                      \
+ 358:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {                                                                             \
+ 359:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DMAX_STREAMX(LCD_DMA)->CR = 0;                                              \
+ 360:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DMAX_IFCR(LCD_DMA) = DMAX_IFCR_CTCIF(LCD_DMA);                              \
+ 361:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DMAX_STREAMX(LCD_DMA)->PAR = (uint32_t)a;                                   \
+ 362:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DMAX_STREAMX(LCD_DMA)->M0AR = (uint32_t)b;                                  \
+ 363:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     if(e > DMA_MAXSIZE)                                                         \
+ 364:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     {                                                                           \
+ 365:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       DMAX_STREAMX(LCD_DMA)->NDTR = DMA_MAXSIZE;                                \
+ 366:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       e -= DMA_MAXSIZE;                                                         \
+ 367:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     }                                                                           \
+ 368:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     else                                                                        \
+ 369:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     {                                                                           \
+ 370:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       DMAX_STREAMX(LCD_DMA)->NDTR = e;                                          \
+ 371:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       e = 0;                                                                    \
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 8
+
+
+ 372:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     }                                                                           \
+ 373:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DMAX_STREAMX(LCD_DMA)->CR = TCIE |                                          \
+ 374:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       (c << DMA_SxCR_PINC_Pos) | (d << DMA_SxCR_MINC_Pos) |                     \
+ 375:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       (f << DMA_SxCR_PSIZE_Pos) | (f << DMA_SxCR_MSIZE_Pos) |                   \
+ 376:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       (2 << DMA_SxCR_DIR_Pos) | (DMACHN(LCD_DMA) << DMA_SxCR_CHSEL_Pos) |       \
+ 377:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****       (DMAPRIORITY(LCD_DMA) << DMA_SxCR_PL_Pos);                                \
+ 378:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DMAX_STREAMX(LCD_DMA)->CR |= DMA_SxCR_EN;                                   \
+ 379:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     WAIT_FOR_DMA_END;                                                           \
+ 380:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }                                                                             }
+ 381:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 382:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #ifdef  osFeature_Semaphore
+ 383:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define WAIT_FOR_DMA_END      osSemaphoreWait(BinarySemDmaHandle, osWaitForever)
+ 384:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define TCIE                  DMA_SxCR_TCIE
+ 385:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define LCD_DMA_IRQ
+ 386:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #else   /* #ifdef  osFeature_Semaphore */
+ 387:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define WAIT_FOR_DMA_END      while(!(DMAX_ISR(LCD_DMA) & DMAX_ISR_TCIF(LCD_DMA)));
+ 388:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define TCIE                  0
+ 389:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #endif  /* #else  osFeature_Semaphore */
+ 390:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 391:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #endif  /* #if LCD_DMA > 0 */
+ 392:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 393:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 394:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** /* reset pin setting */
+ 395:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define LCD_RST_ON            GPIOX_ODR(LCD_RST) = 0
+ 396:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #define LCD_RST_OFF           GPIOX_ODR(LCD_RST) = 1
+ 397:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 398:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 399:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #ifdef  LCD_DMA_IRQ
+ 400:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** osSemaphoreId BinarySemDmaHandle;
+ 401:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void DMAX_STREAMX_IRQHANDLER(LCD_DMA)(void)
+ 402:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 403:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   if(DMAX_ISR(LCD_DMA) & DMAX_ISR_TCIF(LCD_DMA))
+ 404:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 405:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DMAX_IFCR(LCD_DMA) = DMAX_IFCR_CTCIF(LCD_DMA);
+ 406:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     osSemaphoreRelease(BinarySemDmaHandle);
+ 407:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 408:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 409:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** #endif
+ 410:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 411:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 412:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_Delay(uint32_t Delay)
+ 413:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+  30              		.loc 1 413 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 413 1 is_stmt 0 view .LVU1
+  35 0000 08B5     		push	{r3, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+ 414:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   HAL_Delay(Delay);
+  40              		.loc 1 414 3 is_stmt 1 view .LVU2
+  41 0002 FFF7FEFF 		bl	HAL_Delay
+  42              	.LVL1:
+ 415:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 9
+
+
+  43              		.loc 1 415 1 is_stmt 0 view .LVU3
+  44 0006 08BD     		pop	{r3, pc}
+  45              		.cfi_endproc
+  46              	.LFE126:
+  48              		.section	.text.LCD_IO_Bl_OnOff,"ax",%progbits
+  49              		.align	1
+  50              		.global	LCD_IO_Bl_OnOff
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu fpv4-sp-d16
+  56              	LCD_IO_Bl_OnOff:
+  57              	.LVL2:
+  58              	.LFB127:
+ 416:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 417:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 418:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_Bl_OnOff(uint8_t Bl)
+ 419:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+  59              		.loc 1 419 1 is_stmt 1 view -0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+ 420:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if GPIOX_PORTNUM(LCD_BL) >= GPIOX_PORTNUM_A
+ 421:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   if(Bl)
+  64              		.loc 1 421 3 view .LVU5
+  65              		.loc 1 421 5 is_stmt 0 view .LVU6
+  66 0000 18B1     		cbz	r0, .L4
+ 422:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     GPIOX_ODR(LCD_BL) = LCD_BLON;
+  67              		.loc 1 422 5 is_stmt 1 view .LVU7
+  68              		.loc 1 422 23 is_stmt 0 view .LVU8
+  69 0002 044B     		ldr	r3, .L6
+  70 0004 0122     		movs	r2, #1
+  71 0006 1A60     		str	r2, [r3]
+  72 0008 7047     		bx	lr
+  73              	.L4:
+ 423:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   else
+ 424:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     GPIOX_ODR(LCD_BL) = 1 - LCD_BLON;
+  74              		.loc 1 424 5 is_stmt 1 view .LVU9
+  75              		.loc 1 424 23 is_stmt 0 view .LVU10
+  76 000a 024B     		ldr	r3, .L6
+  77 000c 0022     		movs	r2, #0
+  78 000e 1A60     		str	r2, [r3]
+ 425:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 426:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+  79              		.loc 1 426 1 view .LVU11
+  80 0010 7047     		bx	lr
+  81              	.L7:
+  82 0012 00BF     		.align	2
+  83              	.L6:
+  84 0014 84024042 		.word	1111491204
+  85              		.cfi_endproc
+  86              	.LFE127:
+  88              		.section	.text.LCD_IO_Init,"ax",%progbits
+  89              		.align	1
+  90              		.global	LCD_IO_Init
+  91              		.syntax unified
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 10
+
+
+  92              		.thumb
+  93              		.thumb_func
+  94              		.fpu fpv4-sp-d16
+  96              	LCD_IO_Init:
+  97              	.LFB128:
+ 427:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 428:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 429:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_Init(void)
+ 430:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+  98              		.loc 1 430 1 is_stmt 1 view -0
+  99              		.cfi_startproc
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102 0000 08B5     		push	{r3, lr}
+ 103              	.LCFI1:
+ 104              		.cfi_def_cfa_offset 8
+ 105              		.cfi_offset 3, -8
+ 106              		.cfi_offset 14, -4
+ 431:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if GPIOX_PORTNUM(LCD_RST) >= GPIOX_PORTNUM_A
+ 432:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   RCC->AHB1ENR |= GPIOX_CLOCK(LCD_RST);
+ 433:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   GPIOX_MODER(MODE_OUT, LCD_RST);       /* RST = GPIO OUT */
+ 434:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   GPIOX_ODR(LCD_RST) = 1;               /* RST = 1 */
+ 435:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 436:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 437:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if GPIOX_PORTNUM(LCD_BL) >= GPIOX_PORTNUM_A
+ 438:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   RCC->AHB1ENR |= GPIOX_CLOCK(LCD_BL);
+ 107              		.loc 1 438 3 view .LVU13
+ 108              		.loc 1 438 16 is_stmt 0 view .LVU14
+ 109 0002 094A     		ldr	r2, .L10
+ 110 0004 136B     		ldr	r3, [r2, #48]
+ 111 0006 43F00103 		orr	r3, r3, #1
+ 112 000a 1363     		str	r3, [r2, #48]
+ 439:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   GPIOX_ODR(LCD_BL) = LCD_BLON;
+ 113              		.loc 1 439 3 is_stmt 1 view .LVU15
+ 114              		.loc 1 439 21 is_stmt 0 view .LVU16
+ 115 000c 0120     		movs	r0, #1
+ 116 000e 074B     		ldr	r3, .L10+4
+ 117 0010 1860     		str	r0, [r3]
+ 440:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   GPIOX_MODER(MODE_OUT, LCD_BL);
+ 118              		.loc 1 440 3 is_stmt 1 view .LVU17
+ 119 0012 A2F56052 		sub	r2, r2, #14336
+ 120 0016 1368     		ldr	r3, [r2]
+ 121 0018 23F00C03 		bic	r3, r3, #12
+ 122 001c 43F00403 		orr	r3, r3, #4
+ 123 0020 1360     		str	r3, [r2]
+ 124              		.loc 1 440 32 view .LVU18
+ 441:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 442:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 443:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   /* Reset the LCD */
+ 444:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if GPIOX_PORTNUM(LCD_RST) >= GPIOX_PORTNUM_A
+ 445:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_Delay(1);
+ 446:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_RST_ON;
+ 447:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_Delay(1);
+ 448:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_RST_OFF;
+ 449:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 450:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_Delay(1);
+ 125              		.loc 1 450 3 view .LVU19
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 11
+
+
+ 126 0022 FFF7FEFF 		bl	LCD_Delay
+ 127              	.LVL3:
+ 451:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 452:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 1
+ 453:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
+ 454:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #elif DMANUM(LCD_DMA) == 2
+ 455:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
+ 456:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 457:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 458:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #ifdef LCD_DMA_IRQ
+ 459:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   osSemaphoreDef(myBinarySem01);
+ 460:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   BinarySemDmaHandle = osSemaphoreCreate(osSemaphore(myBinarySem01), 1);
+ 461:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   HAL_NVIC_SetPriority(DMAX_STREAMX_IRQ(LCD_DMA), configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, 0);
+ 462:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   HAL_NVIC_EnableIRQ(DMAX_STREAMX_IRQ(LCD_DMA));
+ 463:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   osSemaphoreWait(BinarySemDmaHandle, 1);
+ 464:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 465:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 128              		.loc 1 465 1 is_stmt 0 view .LVU20
+ 129 0026 08BD     		pop	{r3, pc}
+ 130              	.L11:
+ 131              		.align	2
+ 132              	.L10:
+ 133 0028 00380240 		.word	1073887232
+ 134 002c 84024042 		.word	1111491204
+ 135              		.cfi_endproc
+ 136              	.LFE128:
+ 138              		.section	.text.LCD_IO_WriteCmd8,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	LCD_IO_WriteCmd8
+ 141              		.syntax unified
+ 142              		.thumb
+ 143              		.thumb_func
+ 144              		.fpu fpv4-sp-d16
+ 146              	LCD_IO_WriteCmd8:
+ 147              	.LVL4:
+ 148              	.LFB129:
+ 466:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 467:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 468:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd8(uint8_t Cmd)
+ 469:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 149              		.loc 1 469 1 is_stmt 1 view -0
+ 150              		.cfi_startproc
+ 151              		@ args = 0, pretend = 0, frame = 0
+ 152              		@ frame_needed = 0, uses_anonymous_args = 0
+ 153              		@ link register save eliminated.
+ 470:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(uint8_t *)LCD_ADDR_BASE = Cmd;
+ 154              		.loc 1 470 3 view .LVU22
+ 155              		.loc 1 470 29 is_stmt 0 view .LVU23
+ 156 0000 4FF0C043 		mov	r3, #1610612736
+ 157 0004 1870     		strb	r0, [r3]
+ 471:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 158              		.loc 1 471 1 view .LVU24
+ 159 0006 7047     		bx	lr
+ 160              		.cfi_endproc
+ 161              	.LFE129:
+ 163              		.section	.text.LCD_IO_WriteCmd16,"ax",%progbits
+ 164              		.align	1
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 12
+
+
+ 165              		.global	LCD_IO_WriteCmd16
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.fpu fpv4-sp-d16
+ 171              	LCD_IO_WriteCmd16:
+ 172              	.LVL5:
+ 173              	.LFB130:
+ 472:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 473:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 474:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd16(uint16_t Cmd)
+ 475:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 174              		.loc 1 475 1 is_stmt 1 view -0
+ 175              		.cfi_startproc
+ 176              		@ args = 0, pretend = 0, frame = 0
+ 177              		@ frame_needed = 0, uses_anonymous_args = 0
+ 178              		@ link register save eliminated.
+ 476:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_BASE = RD(Cmd);
+ 179              		.loc 1 476 3 view .LVU26
+ 180              	.LBB30:
+ 181              	.LBI30:
+ 182              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
+   1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
+   2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS Cortex-M Core Function/Instruction Header File
+   4:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @version  V4.30
+   5:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @date     20. October 2015
+   6:Drivers/CMSIS/Include/cmsis_gcc.h ****  ******************************************************************************/
+   7:Drivers/CMSIS/Include/cmsis_gcc.h **** /* Copyright (c) 2009 - 2015 ARM LIMITED
+   8:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+   9:Drivers/CMSIS/Include/cmsis_gcc.h ****    All rights reserved.
+  10:Drivers/CMSIS/Include/cmsis_gcc.h ****    Redistribution and use in source and binary forms, with or without
+  11:Drivers/CMSIS/Include/cmsis_gcc.h ****    modification, are permitted provided that the following conditions are met:
+  12:Drivers/CMSIS/Include/cmsis_gcc.h ****    - Redistributions of source code must retain the above copyright
+  13:Drivers/CMSIS/Include/cmsis_gcc.h ****      notice, this list of conditions and the following disclaimer.
+  14:Drivers/CMSIS/Include/cmsis_gcc.h ****    - Redistributions in binary form must reproduce the above copyright
+  15:Drivers/CMSIS/Include/cmsis_gcc.h ****      notice, this list of conditions and the following disclaimer in the
+  16:Drivers/CMSIS/Include/cmsis_gcc.h ****      documentation and/or other materials provided with the distribution.
+  17:Drivers/CMSIS/Include/cmsis_gcc.h ****    - Neither the name of ARM nor the names of its contributors may be used
+  18:Drivers/CMSIS/Include/cmsis_gcc.h ****      to endorse or promote products derived from this software without
+  19:Drivers/CMSIS/Include/cmsis_gcc.h ****      specific prior written permission.
+  20:Drivers/CMSIS/Include/cmsis_gcc.h ****    *
+  21:Drivers/CMSIS/Include/cmsis_gcc.h ****    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:Drivers/CMSIS/Include/cmsis_gcc.h ****    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:Drivers/CMSIS/Include/cmsis_gcc.h ****    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:Drivers/CMSIS/Include/cmsis_gcc.h ****    ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
+  25:Drivers/CMSIS/Include/cmsis_gcc.h ****    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:Drivers/CMSIS/Include/cmsis_gcc.h ****    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:Drivers/CMSIS/Include/cmsis_gcc.h ****    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:Drivers/CMSIS/Include/cmsis_gcc.h ****    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:Drivers/CMSIS/Include/cmsis_gcc.h ****    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:Drivers/CMSIS/Include/cmsis_gcc.h ****    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:Drivers/CMSIS/Include/cmsis_gcc.h ****    POSSIBILITY OF SUCH DAMAGE.
+  32:Drivers/CMSIS/Include/cmsis_gcc.h ****    ---------------------------------------------------------------------------*/
+  33:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  34:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  35:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 13
+
+
+  36:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_H
+  37:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  38:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ignore some GCC warnings */
+  39:Drivers/CMSIS/Include/cmsis_gcc.h **** #if defined ( __GNUC__ )
+  40:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic push
+  41:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  42:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  43:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  44:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+  45:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  46:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  47:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+  48:Drivers/CMSIS/Include/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+  49:Drivers/CMSIS/Include/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+  50:Drivers/CMSIS/Include/cmsis_gcc.h ****   @{
+  51:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  52:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  53:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+  54:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+  55:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+  56:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+  57:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  58:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_irq(void)
+  59:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+  60:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+  61:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+  62:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  63:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  64:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+  65:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+  66:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+  67:Drivers/CMSIS/Include/cmsis_gcc.h ****   Can only be executed in Privileged modes.
+  68:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  69:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_irq(void)
+  70:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+  71:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+  72:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+  73:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  74:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  75:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+  76:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Control Register
+  77:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the content of the Control Register.
+  78:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Control Register value
+  79:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  80:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_CONTROL(void)
+  81:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+  82:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+  83:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  84:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, control" : "=r" (result) );
+  85:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+  86:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+  87:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  88:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  89:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+  90:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Control Register
+  91:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Writes the given value to the Control Register.
+  92:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    control  Control Register value to set
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 14
+
+
+  93:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+  94:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_CONTROL(uint32_t control)
+  95:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+  96:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
+  97:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+  98:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+  99:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 100:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 101:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get IPSR Register
+ 102:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the content of the IPSR Register.
+ 103:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               IPSR Register value
+ 104:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 105:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_IPSR(void)
+ 106:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 107:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 108:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 109:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
+ 110:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 111:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 112:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 113:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 114:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 115:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get APSR Register
+ 116:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the content of the APSR Register.
+ 117:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               APSR Register value
+ 118:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 119:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_APSR(void)
+ 120:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 121:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 122:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 123:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
+ 124:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 125:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 126:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 127:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 128:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 129:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get xPSR Register
+ 130:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the content of the xPSR Register.
+ 131:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 132:Drivers/CMSIS/Include/cmsis_gcc.h ****     \return               xPSR Register value
+ 133:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 134:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_xPSR(void)
+ 135:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 136:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 137:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 138:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, xpsr" : "=r" (result) );
+ 139:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 140:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 141:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 142:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 143:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 144:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Process Stack Pointer
+ 145:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer (PSP).
+ 146:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               PSP Register value
+ 147:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 148:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_PSP(void)
+ 149:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 15
+
+
+ 150:Drivers/CMSIS/Include/cmsis_gcc.h ****   register uint32_t result;
+ 151:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 152:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp\n"  : "=r" (result) );
+ 153:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 154:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 155:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 156:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 157:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 158:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Process Stack Pointer
+ 159:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer (PSP).
+ 160:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
+ 161:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 162:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_PSP(uint32_t topOfProcStack)
+ 163:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 164:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR psp, %0\n" : : "r" (topOfProcStack) : "sp");
+ 165:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 166:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 167:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 168:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 169:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Main Stack Pointer
+ 170:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer (MSP).
+ 171:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               MSP Register value
+ 172:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 173:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_MSP(void)
+ 174:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 175:Drivers/CMSIS/Include/cmsis_gcc.h ****   register uint32_t result;
+ 176:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 177:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp\n" : "=r" (result) );
+ 178:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 179:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 180:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 181:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 182:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 183:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Main Stack Pointer
+ 184:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer (MSP).
+ 185:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 186:Drivers/CMSIS/Include/cmsis_gcc.h ****     \param [in]    topOfMainStack  Main Stack Pointer value to set
+ 187:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 188:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_MSP(uint32_t topOfMainStack)
+ 189:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 190:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR msp, %0\n" : : "r" (topOfMainStack) : "sp");
+ 191:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 192:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 193:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 194:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 195:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Priority Mask
+ 196:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current state of the priority mask bit from the Priority Mask Register.
+ 197:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Priority Mask value
+ 198:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 199:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_PRIMASK(void)
+ 200:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 201:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 202:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 203:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask" : "=r" (result) );
+ 204:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 205:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 206:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 16
+
+
+ 207:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 208:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 209:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Priority Mask
+ 210:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Priority Mask Register.
+ 211:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
+ 212:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 213:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_PRIMASK(uint32_t priMask)
+ 214:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 215:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR primask, %0" : : "r" (priMask) : "memory");
+ 216:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 217:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 218:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 219:Drivers/CMSIS/Include/cmsis_gcc.h **** #if       (__CORTEX_M >= 0x03U)
+ 220:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 221:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 222:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable FIQ
+ 223:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
+ 224:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 225:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 226:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_fault_irq(void)
+ 227:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 228:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsie f" : : : "memory");
+ 229:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 230:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 231:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 232:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 233:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Disable FIQ
+ 234:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Disables FIQ interrupts by setting the F-bit in the CPSR.
+ 235:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 236:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 237:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_fault_irq(void)
+ 238:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 239:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid f" : : : "memory");
+ 240:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 241:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 242:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 243:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 244:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Base Priority
+ 245:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Base Priority register.
+ 246:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Base Priority register value
+ 247:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 248:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_BASEPRI(void)
+ 249:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 250:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 251:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 252:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri" : "=r" (result) );
+ 253:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 254:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 255:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 256:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 257:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 258:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Base Priority
+ 259:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register.
+ 260:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 261:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 262:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_BASEPRI(uint32_t value)
+ 263:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 17
+
+
+ 264:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR basepri, %0" : : "r" (value) : "memory");
+ 265:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 266:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 267:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 268:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 269:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Base Priority with condition
+ 270:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register only if BASEPRI masking is disable
+ 271:Drivers/CMSIS/Include/cmsis_gcc.h ****            or the new value increases the BASEPRI priority level.
+ 272:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 273:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 274:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_BASEPRI_MAX(uint32_t value)
+ 275:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 276:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR basepri_max, %0" : : "r" (value) : "memory");
+ 277:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 278:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 279:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 280:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 281:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Fault Mask
+ 282:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Fault Mask register.
+ 283:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Fault Mask register value
+ 284:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 285:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_FAULTMASK(void)
+ 286:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 287:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 288:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 289:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask" : "=r" (result) );
+ 290:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 291:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 292:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 293:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 294:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 295:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set Fault Mask
+ 296:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Fault Mask register.
+ 297:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
+ 298:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 299:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_FAULTMASK(uint32_t faultMask)
+ 300:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 301:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) : "memory");
+ 302:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 303:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 304:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif /* (__CORTEX_M >= 0x03U) */
+ 305:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 306:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 307:Drivers/CMSIS/Include/cmsis_gcc.h **** #if       (__CORTEX_M == 0x04U) || (__CORTEX_M == 0x07U)
+ 308:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 309:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 310:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get FPSCR
+ 311:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Floating Point Status/Control register.
+ 312:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Floating Point Status/Control register value
+ 313:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 314:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_FPSCR(void)
+ 315:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 316:Drivers/CMSIS/Include/cmsis_gcc.h **** #if (__FPU_PRESENT == 1U) && (__FPU_USED == 1U)
+ 317:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 318:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 319:Drivers/CMSIS/Include/cmsis_gcc.h ****   /* Empty asm statement works as a scheduling barrier */
+ 320:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("");
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 18
+
+
+ 321:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
+ 322:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("");
+ 323:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 324:Drivers/CMSIS/Include/cmsis_gcc.h **** #else
+ 325:Drivers/CMSIS/Include/cmsis_gcc.h ****    return(0);
+ 326:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 327:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 328:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 329:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 330:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 331:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Set FPSCR
+ 332:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Assigns the given value to the Floating Point Status/Control register.
+ 333:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    fpscr  Floating Point Status/Control value to set
+ 334:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 335:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_FPSCR(uint32_t fpscr)
+ 336:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 337:Drivers/CMSIS/Include/cmsis_gcc.h **** #if (__FPU_PRESENT == 1U) && (__FPU_USED == 1U)
+ 338:Drivers/CMSIS/Include/cmsis_gcc.h ****   /* Empty asm statement works as a scheduling barrier */
+ 339:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("");
+ 340:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("VMSR fpscr, %0" : : "r" (fpscr) : "vfpcc");
+ 341:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("");
+ 342:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 343:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 344:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 345:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif /* (__CORTEX_M == 0x04U) || (__CORTEX_M == 0x07U) */
+ 346:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 347:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 348:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 349:Drivers/CMSIS/Include/cmsis_gcc.h **** /*@} end of CMSIS_Core_RegAccFunctions */
+ 350:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 351:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 352:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ##########################  Core Instruction Access  ######################### */
+ 353:Drivers/CMSIS/Include/cmsis_gcc.h **** /** \defgroup CMSIS_Core_InstructionInterface CMSIS Core Instruction Interface
+ 354:Drivers/CMSIS/Include/cmsis_gcc.h ****   Access to dedicated instructions
+ 355:Drivers/CMSIS/Include/cmsis_gcc.h ****   @{
+ 356:Drivers/CMSIS/Include/cmsis_gcc.h **** */
+ 357:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 358:Drivers/CMSIS/Include/cmsis_gcc.h **** /* Define macros for porting to both thumb1 and thumb2.
+ 359:Drivers/CMSIS/Include/cmsis_gcc.h ****  * For thumb1, use low register (r0-r7), specified by constraint "l"
+ 360:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Otherwise, use general registers, specified by constraint "r" */
+ 361:Drivers/CMSIS/Include/cmsis_gcc.h **** #if defined (__thumb__) && !defined (__thumb2__)
+ 362:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=l" (r)
+ 363:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "l" (r)
+ 364:Drivers/CMSIS/Include/cmsis_gcc.h **** #else
+ 365:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=r" (r)
+ 366:Drivers/CMSIS/Include/cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "r" (r)
+ 367:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 368:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 369:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 370:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   No Operation
+ 371:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details No Operation does nothing. This instruction can be used for code alignment purposes.
+ 372:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 373:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
+ 374:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 375:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("nop");
+ 376:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 377:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 19
+
+
+ 378:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 379:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 380:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Wait For Interrupt
+ 381:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Wait For Interrupt is a hint instruction that suspends execution until one of a number o
+ 382:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 383:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __WFI(void)
+ 384:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 385:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("wfi");
+ 386:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 387:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 388:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 389:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 390:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Wait For Event
+ 391:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Wait For Event is a hint instruction that permits the processor to enter
+ 392:Drivers/CMSIS/Include/cmsis_gcc.h ****     a low-power state until one of a number of events occurs.
+ 393:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 394:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __WFE(void)
+ 395:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 396:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("wfe");
+ 397:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 398:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 399:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 400:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 401:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Send Event
+ 402:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Send Event is a hint instruction. It causes an event to be signaled to the CPU.
+ 403:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 404:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __SEV(void)
+ 405:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 406:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("sev");
+ 407:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 408:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 409:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 410:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 411:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Instruction Synchronization Barrier
+ 412:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Instruction Synchronization Barrier flushes the pipeline in the processor,
+ 413:Drivers/CMSIS/Include/cmsis_gcc.h ****            so that all instructions following the ISB are fetched from cache or memory,
+ 414:Drivers/CMSIS/Include/cmsis_gcc.h ****            after the instruction has been completed.
+ 415:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 416:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __ISB(void)
+ 417:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 418:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("isb 0xF":::"memory");
+ 419:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 420:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 421:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 422:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 423:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Data Synchronization Barrier
+ 424:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Acts as a special kind of Data Memory Barrier.
+ 425:Drivers/CMSIS/Include/cmsis_gcc.h ****            It completes when all explicit memory accesses before this instruction complete.
+ 426:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 427:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __DSB(void)
+ 428:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 429:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("dsb 0xF":::"memory");
+ 430:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 431:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 432:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 433:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 434:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Data Memory Barrier
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 20
+
+
+ 435:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Ensures the apparent order of the explicit memory operations before
+ 436:Drivers/CMSIS/Include/cmsis_gcc.h ****            and after the instruction, without ensuring their completion.
+ 437:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 438:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __DMB(void)
+ 439:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 440:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("dmb 0xF":::"memory");
+ 441:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 442:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 443:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 444:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 445:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Reverse byte order (32 bit)
+ 446:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Reverses the byte order in integer value.
+ 447:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    value  Value to reverse
+ 448:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Reversed value
+ 449:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 450:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE uint32_t __REV(uint32_t value)
+ 451:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 452:Drivers/CMSIS/Include/cmsis_gcc.h **** #if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)
+ 453:Drivers/CMSIS/Include/cmsis_gcc.h ****   return __builtin_bswap32(value);
+ 454:Drivers/CMSIS/Include/cmsis_gcc.h **** #else
+ 455:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 456:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 457:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("rev %0, %1" : __CMSIS_GCC_OUT_REG (result) : __CMSIS_GCC_USE_REG (value) );
+ 458:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 459:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ 460:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 461:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 462:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 463:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 464:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Reverse byte order (16 bit)
+ 465:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Reverses the byte order in two unsigned short values.
+ 466:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    value  Value to reverse
+ 467:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Reversed value
+ 468:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 469:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE uint32_t __REV16(uint32_t value)
+ 470:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 471:Drivers/CMSIS/Include/cmsis_gcc.h ****   uint32_t result;
+ 472:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 473:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("rev16 %0, %1" : __CMSIS_GCC_OUT_REG (result) : __CMSIS_GCC_USE_REG (value) );
+ 474:Drivers/CMSIS/Include/cmsis_gcc.h ****   return(result);
+ 475:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 476:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 477:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ 478:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
+ 479:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Reverse byte order in signed short value
+ 480:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Reverses the byte order in a signed short value with sign extension to integer.
+ 481:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    value  Value to reverse
+ 482:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Reversed value
+ 483:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE int32_t __REVSH(int32_t value)
+ 183              		.loc 2 484 56 view .LVU27
+ 184              	.LBB31:
+ 485:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 486:Drivers/CMSIS/Include/cmsis_gcc.h **** #if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 8)
+ 487:Drivers/CMSIS/Include/cmsis_gcc.h ****   return (short)__builtin_bswap16(value);
+ 185              		.loc 2 487 3 view .LVU28
+ 186              		.loc 2 487 17 is_stmt 0 view .LVU29
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 21
+
+
+ 187 0000 40BA     		rev16	r0, r0
+ 188              	.LVL6:
+ 189              		.loc 2 487 17 view .LVU30
+ 190              	.LBE31:
+ 191              	.LBE30:
+ 192              		.loc 1 476 39 view .LVU31
+ 193 0002 4FF0C043 		mov	r3, #1610612736
+ 194 0006 1880     		strh	r0, [r3]	@ movhi
+ 477:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 195              		.loc 1 477 1 view .LVU32
+ 196 0008 7047     		bx	lr
+ 197              		.cfi_endproc
+ 198              	.LFE130:
+ 200              		.section	.text.LCD_IO_WriteData8,"ax",%progbits
+ 201              		.align	1
+ 202              		.global	LCD_IO_WriteData8
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ 206              		.fpu fpv4-sp-d16
+ 208              	LCD_IO_WriteData8:
+ 209              	.LVL7:
+ 210              	.LFB131:
+ 478:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 479:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 480:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteData8(uint8_t Data)
+ 481:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 211              		.loc 1 481 1 is_stmt 1 view -0
+ 212              		.cfi_startproc
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215              		@ link register save eliminated.
+ 482:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint8_t *)LCD_ADDR_DATA = Data;
+ 216              		.loc 1 482 3 view .LVU34
+ 217              		.loc 1 482 38 is_stmt 0 view .LVU35
+ 218 0000 014B     		ldr	r3, .L15
+ 219 0002 1870     		strb	r0, [r3]
+ 483:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 220              		.loc 1 483 1 view .LVU36
+ 221 0004 7047     		bx	lr
+ 222              	.L16:
+ 223 0006 00BF     		.align	2
+ 224              	.L15:
+ 225 0008 FEFF0760 		.word	1611137022
+ 226              		.cfi_endproc
+ 227              	.LFE131:
+ 229              		.section	.text.LCD_IO_WriteData16,"ax",%progbits
+ 230              		.align	1
+ 231              		.global	LCD_IO_WriteData16
+ 232              		.syntax unified
+ 233              		.thumb
+ 234              		.thumb_func
+ 235              		.fpu fpv4-sp-d16
+ 237              	LCD_IO_WriteData16:
+ 238              	.LVL8:
+ 239              	.LFB132:
+ 484:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 22
+
+
+ 485:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 486:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteData16(uint16_t Data)
+ 487:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 240              		.loc 1 487 1 is_stmt 1 view -0
+ 241              		.cfi_startproc
+ 242              		@ args = 0, pretend = 0, frame = 0
+ 243              		@ frame_needed = 0, uses_anonymous_args = 0
+ 244              		@ link register save eliminated.
+ 488:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_DATA = RD(Data);
+ 245              		.loc 1 488 3 view .LVU38
+ 246              	.LBB32:
+ 247              	.LBI32:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 248              		.loc 2 484 56 view .LVU39
+ 249              	.LBB33:
+ 250              		.loc 2 487 3 view .LVU40
+ 251              		.loc 2 487 17 is_stmt 0 view .LVU41
+ 252 0000 40BA     		rev16	r0, r0
+ 253              	.LVL9:
+ 254              		.loc 2 487 17 view .LVU42
+ 255              	.LBE33:
+ 256              	.LBE32:
+ 257              		.loc 1 488 39 view .LVU43
+ 258 0002 014B     		ldr	r3, .L18
+ 259 0004 1880     		strh	r0, [r3]	@ movhi
+ 489:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 260              		.loc 1 489 1 view .LVU44
+ 261 0006 7047     		bx	lr
+ 262              	.L19:
+ 263              		.align	2
+ 264              	.L18:
+ 265 0008 FEFF0760 		.word	1611137022
+ 266              		.cfi_endproc
+ 267              	.LFE132:
+ 269              		.section	.text.LCD_IO_WriteCmd8DataFill16,"ax",%progbits
+ 270              		.align	1
+ 271              		.global	LCD_IO_WriteCmd8DataFill16
+ 272              		.syntax unified
+ 273              		.thumb
+ 274              		.thumb_func
+ 275              		.fpu fpv4-sp-d16
+ 277              	LCD_IO_WriteCmd8DataFill16:
+ 278              	.LVL10:
+ 279              	.LFB133:
+ 490:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 491:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 492:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd8DataFill16(uint8_t Cmd, uint16_t Data, uint32_t Size)
+ 493:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 280              		.loc 1 493 1 is_stmt 1 view -0
+ 281              		.cfi_startproc
+ 282              		@ args = 0, pretend = 0, frame = 0
+ 283              		@ frame_needed = 0, uses_anonymous_args = 0
+ 284              		@ link register save eliminated.
+ 494:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint16_t d = RD(Data);
+ 285              		.loc 1 494 3 view .LVU46
+ 286              	.LBB34:
+ 287              	.LBI34:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 23
+
+
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 288              		.loc 2 484 56 view .LVU47
+ 289              	.LBB35:
+ 290              		.loc 2 487 3 view .LVU48
+ 291              		.loc 2 487 17 is_stmt 0 view .LVU49
+ 292 0000 49BA     		rev16	r1, r1
+ 293              	.LVL11:
+ 294              		.loc 2 487 17 view .LVU50
+ 295 0002 89B2     		uxth	r1, r1
+ 296              	.LVL12:
+ 297              		.loc 2 487 17 view .LVU51
+ 298              	.LBE35:
+ 299              	.LBE34:
+ 495:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint8_t *)LCD_ADDR_BASE = Cmd;
+ 300              		.loc 1 495 3 is_stmt 1 view .LVU52
+ 301              		.loc 1 495 38 is_stmt 0 view .LVU53
+ 302 0004 4FF0C043 		mov	r3, #1610612736
+ 303 0008 1870     		strb	r0, [r3]
+ 496:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 497:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0
+ 498:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 304              		.loc 1 498 3 is_stmt 1 view .LVU54
+ 305              	.L21:
+ 306              		.loc 1 498 13 is_stmt 0 view .LVU55
+ 307 000a 531E     		subs	r3, r2, #1
+ 308              	.LVL13:
+ 309              		.loc 1 498 8 view .LVU56
+ 310 000c 1AB1     		cbz	r2, .L23
+ 499:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint16_t *)LCD_ADDR_DATA = d;
+ 311              		.loc 1 499 5 is_stmt 1 view .LVU57
+ 312              		.loc 1 499 41 is_stmt 0 view .LVU58
+ 313 000e 024A     		ldr	r2, .L24
+ 314 0010 1180     		strh	r1, [r2]	@ movhi
+ 498:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint16_t *)LCD_ADDR_DATA = d;
+ 315              		.loc 1 498 13 view .LVU59
+ 316 0012 1A46     		mov	r2, r3
+ 317 0014 F9E7     		b	.L21
+ 318              	.L23:
+ 500:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 501:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 502:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(&d, LCD_ADDR_DATA, 0, 0, Size, 1);
+ 503:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 504:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 319              		.loc 1 504 1 view .LVU60
+ 320 0016 7047     		bx	lr
+ 321              	.L25:
+ 322              		.align	2
+ 323              	.L24:
+ 324 0018 FEFF0760 		.word	1611137022
+ 325              		.cfi_endproc
+ 326              	.LFE133:
+ 328              		.section	.text.LCD_IO_WriteCmd8MultipleData8,"ax",%progbits
+ 329              		.align	1
+ 330              		.global	LCD_IO_WriteCmd8MultipleData8
+ 331              		.syntax unified
+ 332              		.thumb
+ 333              		.thumb_func
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 24
+
+
+ 334              		.fpu fpv4-sp-d16
+ 336              	LCD_IO_WriteCmd8MultipleData8:
+ 337              	.LVL14:
+ 338              	.LFB134:
+ 505:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 506:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 507:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd8MultipleData8(uint8_t Cmd, uint8_t *pData, uint32_t Size)
+ 508:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 339              		.loc 1 508 1 is_stmt 1 view -0
+ 340              		.cfi_startproc
+ 341              		@ args = 0, pretend = 0, frame = 0
+ 342              		@ frame_needed = 0, uses_anonymous_args = 0
+ 343              		@ link register save eliminated.
+ 509:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint8_t *)LCD_ADDR_BASE = Cmd;
+ 344              		.loc 1 509 3 view .LVU62
+ 345              		.loc 1 509 38 is_stmt 0 view .LVU63
+ 346 0000 4FF0C043 		mov	r3, #1610612736
+ 347 0004 1870     		strb	r0, [r3]
+ 510:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 511:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0
+ 512:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 348              		.loc 1 512 3 is_stmt 1 view .LVU64
+ 349              	.LVL15:
+ 350              	.L27:
+ 351              		.loc 1 512 13 is_stmt 0 view .LVU65
+ 352 0006 531E     		subs	r3, r2, #1
+ 353              	.LVL16:
+ 354              		.loc 1 512 8 view .LVU66
+ 355 0008 2AB1     		cbz	r2, .L29
+ 513:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 514:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint8_t *)LCD_ADDR_DATA =*pData;
+ 356              		.loc 1 514 5 is_stmt 1 view .LVU67
+ 357              		.loc 1 514 41 is_stmt 0 view .LVU68
+ 358 000a 11F8010B 		ldrb	r0, [r1], #1	@ zero_extendqisi2
+ 359              	.LVL17:
+ 360              		.loc 1 514 40 view .LVU69
+ 361 000e 024A     		ldr	r2, .L30
+ 362 0010 1070     		strb	r0, [r2]
+ 515:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 363              		.loc 1 515 5 is_stmt 1 view .LVU70
+ 364              	.LVL18:
+ 512:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 365              		.loc 1 512 13 is_stmt 0 view .LVU71
+ 366 0012 1A46     		mov	r2, r3
+ 367 0014 F7E7     		b	.L27
+ 368              	.L29:
+ 516:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 517:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 518:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 519:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(pData, LCD_ADDR_DATA, 1, 0, Size, 0);
+ 520:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 521:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 369              		.loc 1 521 1 view .LVU72
+ 370 0016 7047     		bx	lr
+ 371              	.L31:
+ 372              		.align	2
+ 373              	.L30:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 25
+
+
+ 374 0018 FEFF0760 		.word	1611137022
+ 375              		.cfi_endproc
+ 376              	.LFE134:
+ 378              		.section	.text.LCD_IO_WriteCmd8MultipleData16,"ax",%progbits
+ 379              		.align	1
+ 380              		.global	LCD_IO_WriteCmd8MultipleData16
+ 381              		.syntax unified
+ 382              		.thumb
+ 383              		.thumb_func
+ 384              		.fpu fpv4-sp-d16
+ 386              	LCD_IO_WriteCmd8MultipleData16:
+ 387              	.LVL19:
+ 388              	.LFB135:
+ 522:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 523:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 524:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd8MultipleData16(uint8_t Cmd, uint16_t *pData, uint32_t Size)
+ 525:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 389              		.loc 1 525 1 is_stmt 1 view -0
+ 390              		.cfi_startproc
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393              		@ link register save eliminated.
+ 526:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint8_t *)LCD_ADDR_BASE = Cmd;
+ 394              		.loc 1 526 3 view .LVU74
+ 395              		.loc 1 526 38 is_stmt 0 view .LVU75
+ 396 0000 4FF0C043 		mov	r3, #1610612736
+ 397 0004 1870     		strb	r0, [r3]
+ 527:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 528:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0 || LCD_REVERSE16 == 0
+ 529:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 398              		.loc 1 529 3 is_stmt 1 view .LVU76
+ 399              	.LVL20:
+ 400              	.L33:
+ 401              		.loc 1 529 13 is_stmt 0 view .LVU77
+ 402 0006 501E     		subs	r0, r2, #1
+ 403              	.LVL21:
+ 404              		.loc 1 529 8 view .LVU78
+ 405 0008 32B1     		cbz	r2, .L35
+ 530:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 531:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint16_t *)LCD_ADDR_DATA = RD(*pData);
+ 406              		.loc 1 531 5 is_stmt 1 view .LVU79
+ 407              		.loc 1 531 43 is_stmt 0 view .LVU80
+ 408 000a 31F8023B 		ldrh	r3, [r1], #2
+ 409              	.LVL22:
+ 410              	.LBB36:
+ 411              	.LBI36:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 412              		.loc 2 484 56 is_stmt 1 view .LVU81
+ 413              	.LBB37:
+ 414              		.loc 2 487 3 view .LVU82
+ 415              		.loc 2 487 17 is_stmt 0 view .LVU83
+ 416 000e 5BBA     		rev16	r3, r3
+ 417              	.LVL23:
+ 418              		.loc 2 487 17 view .LVU84
+ 419              	.LBE37:
+ 420              	.LBE36:
+ 421              		.loc 1 531 41 view .LVU85
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 26
+
+
+ 422 0010 024A     		ldr	r2, .L36
+ 423 0012 1380     		strh	r3, [r2]	@ movhi
+ 532:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 424              		.loc 1 532 5 is_stmt 1 view .LVU86
+ 425              	.LVL24:
+ 529:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 426              		.loc 1 529 13 is_stmt 0 view .LVU87
+ 427 0014 0246     		mov	r2, r0
+ 428 0016 F6E7     		b	.L33
+ 429              	.L35:
+ 533:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 534:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 535:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 536:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(pData, LCD_ADDR_DATA, 1, 0, Size, 1);
+ 537:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 538:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 430              		.loc 1 538 1 view .LVU88
+ 431 0018 7047     		bx	lr
+ 432              	.L37:
+ 433 001a 00BF     		.align	2
+ 434              	.L36:
+ 435 001c FEFF0760 		.word	1611137022
+ 436              		.cfi_endproc
+ 437              	.LFE135:
+ 439              		.section	.text.LCD_IO_WriteCmd16DataFill16,"ax",%progbits
+ 440              		.align	1
+ 441              		.global	LCD_IO_WriteCmd16DataFill16
+ 442              		.syntax unified
+ 443              		.thumb
+ 444              		.thumb_func
+ 445              		.fpu fpv4-sp-d16
+ 447              	LCD_IO_WriteCmd16DataFill16:
+ 448              	.LVL25:
+ 449              	.LFB136:
+ 539:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 540:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 541:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd16DataFill16(uint16_t Cmd, uint16_t Data, uint32_t Size)
+ 542:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 450              		.loc 1 542 1 is_stmt 1 view -0
+ 451              		.cfi_startproc
+ 452              		@ args = 0, pretend = 0, frame = 0
+ 453              		@ frame_needed = 0, uses_anonymous_args = 0
+ 454              		@ link register save eliminated.
+ 543:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_BASE = RD(Cmd);
+ 455              		.loc 1 543 3 view .LVU90
+ 456              	.LBB38:
+ 457              	.LBI38:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 458              		.loc 2 484 56 view .LVU91
+ 459              	.LBB39:
+ 460              		.loc 2 487 3 view .LVU92
+ 461              		.loc 2 487 17 is_stmt 0 view .LVU93
+ 462 0000 40BA     		rev16	r0, r0
+ 463              	.LVL26:
+ 464              		.loc 2 487 17 view .LVU94
+ 465              	.LBE39:
+ 466              	.LBE38:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 27
+
+
+ 467              		.loc 1 543 39 view .LVU95
+ 468 0002 4FF0C043 		mov	r3, #1610612736
+ 469 0006 1880     		strh	r0, [r3]	@ movhi
+ 544:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint16_t d = RD(Data);
+ 470              		.loc 1 544 3 is_stmt 1 view .LVU96
+ 471              	.LVL27:
+ 472              	.LBB40:
+ 473              	.LBI40:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 474              		.loc 2 484 56 view .LVU97
+ 475              	.LBB41:
+ 476              		.loc 2 487 3 view .LVU98
+ 477              		.loc 2 487 17 is_stmt 0 view .LVU99
+ 478 0008 49BA     		rev16	r1, r1
+ 479              	.LVL28:
+ 480              		.loc 2 487 17 view .LVU100
+ 481 000a 89B2     		uxth	r1, r1
+ 482              	.LVL29:
+ 483              		.loc 2 487 17 view .LVU101
+ 484              	.LBE41:
+ 485              	.LBE40:
+ 545:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 546:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0
+ 547:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 486              		.loc 1 547 3 is_stmt 1 view .LVU102
+ 487              	.L39:
+ 488              		.loc 1 547 13 is_stmt 0 view .LVU103
+ 489 000c 531E     		subs	r3, r2, #1
+ 490              	.LVL30:
+ 491              		.loc 1 547 8 view .LVU104
+ 492 000e 1AB1     		cbz	r2, .L41
+ 548:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint16_t *)LCD_ADDR_DATA = d;
+ 493              		.loc 1 548 5 is_stmt 1 view .LVU105
+ 494              		.loc 1 548 41 is_stmt 0 view .LVU106
+ 495 0010 024A     		ldr	r2, .L42
+ 496 0012 1180     		strh	r1, [r2]	@ movhi
+ 547:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint16_t *)LCD_ADDR_DATA = d;
+ 497              		.loc 1 547 13 view .LVU107
+ 498 0014 1A46     		mov	r2, r3
+ 499 0016 F9E7     		b	.L39
+ 500              	.L41:
+ 549:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 550:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 551:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(&d, LCD_ADDR_DATA, 0, 0, Size, 1);
+ 552:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 553:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 501              		.loc 1 553 1 view .LVU108
+ 502 0018 7047     		bx	lr
+ 503              	.L43:
+ 504 001a 00BF     		.align	2
+ 505              	.L42:
+ 506 001c FEFF0760 		.word	1611137022
+ 507              		.cfi_endproc
+ 508              	.LFE136:
+ 510              		.section	.text.LCD_IO_WriteCmd16MultipleData8,"ax",%progbits
+ 511              		.align	1
+ 512              		.global	LCD_IO_WriteCmd16MultipleData8
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 28
+
+
+ 513              		.syntax unified
+ 514              		.thumb
+ 515              		.thumb_func
+ 516              		.fpu fpv4-sp-d16
+ 518              	LCD_IO_WriteCmd16MultipleData8:
+ 519              	.LVL31:
+ 520              	.LFB137:
+ 554:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 555:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 556:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd16MultipleData8(uint16_t Cmd, uint8_t *pData, uint32_t Size)
+ 557:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 521              		.loc 1 557 1 is_stmt 1 view -0
+ 522              		.cfi_startproc
+ 523              		@ args = 0, pretend = 0, frame = 0
+ 524              		@ frame_needed = 0, uses_anonymous_args = 0
+ 525              		@ link register save eliminated.
+ 558:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_BASE = RD(Cmd);
+ 526              		.loc 1 558 3 view .LVU110
+ 527              	.LBB42:
+ 528              	.LBI42:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 529              		.loc 2 484 56 view .LVU111
+ 530              	.LBB43:
+ 531              		.loc 2 487 3 view .LVU112
+ 532              		.loc 2 487 17 is_stmt 0 view .LVU113
+ 533 0000 40BA     		rev16	r0, r0
+ 534              	.LVL32:
+ 535              		.loc 2 487 17 view .LVU114
+ 536              	.LBE43:
+ 537              	.LBE42:
+ 538              		.loc 1 558 39 view .LVU115
+ 539 0002 4FF0C043 		mov	r3, #1610612736
+ 540 0006 1880     		strh	r0, [r3]	@ movhi
+ 559:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 560:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0
+ 561:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 541              		.loc 1 561 3 is_stmt 1 view .LVU116
+ 542              	.L45:
+ 543              		.loc 1 561 13 is_stmt 0 view .LVU117
+ 544 0008 531E     		subs	r3, r2, #1
+ 545              	.LVL33:
+ 546              		.loc 1 561 8 view .LVU118
+ 547 000a 2AB1     		cbz	r2, .L47
+ 562:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 563:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint8_t *)LCD_ADDR_DATA =*pData;
+ 548              		.loc 1 563 5 is_stmt 1 view .LVU119
+ 549              		.loc 1 563 41 is_stmt 0 view .LVU120
+ 550 000c 11F8010B 		ldrb	r0, [r1], #1	@ zero_extendqisi2
+ 551              	.LVL34:
+ 552              		.loc 1 563 40 view .LVU121
+ 553 0010 024A     		ldr	r2, .L48
+ 554 0012 1070     		strb	r0, [r2]
+ 564:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 555              		.loc 1 564 5 is_stmt 1 view .LVU122
+ 556              	.LVL35:
+ 561:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 557              		.loc 1 561 13 is_stmt 0 view .LVU123
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 29
+
+
+ 558 0014 1A46     		mov	r2, r3
+ 559 0016 F7E7     		b	.L45
+ 560              	.L47:
+ 565:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 566:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 567:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 568:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(pData, LCD_ADDR_DATA, 1, 0, Size, 0);
+ 569:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 570:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 561              		.loc 1 570 1 view .LVU124
+ 562 0018 7047     		bx	lr
+ 563              	.L49:
+ 564 001a 00BF     		.align	2
+ 565              	.L48:
+ 566 001c FEFF0760 		.word	1611137022
+ 567              		.cfi_endproc
+ 568              	.LFE137:
+ 570              		.section	.text.LCD_IO_WriteCmd16MultipleData16,"ax",%progbits
+ 571              		.align	1
+ 572              		.global	LCD_IO_WriteCmd16MultipleData16
+ 573              		.syntax unified
+ 574              		.thumb
+ 575              		.thumb_func
+ 576              		.fpu fpv4-sp-d16
+ 578              	LCD_IO_WriteCmd16MultipleData16:
+ 579              	.LVL36:
+ 580              	.LFB138:
+ 571:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 572:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 573:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_WriteCmd16MultipleData16(uint16_t Cmd, uint16_t *pData, uint32_t Size)
+ 574:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 581              		.loc 1 574 1 is_stmt 1 view -0
+ 582              		.cfi_startproc
+ 583              		@ args = 0, pretend = 0, frame = 0
+ 584              		@ frame_needed = 0, uses_anonymous_args = 0
+ 585              		@ link register save eliminated.
+ 575:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_BASE = RD(Cmd);
+ 586              		.loc 1 575 3 view .LVU126
+ 587              	.LBB44:
+ 588              	.LBI44:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 589              		.loc 2 484 56 view .LVU127
+ 590              	.LBB45:
+ 591              		.loc 2 487 3 view .LVU128
+ 592              		.loc 2 487 17 is_stmt 0 view .LVU129
+ 593 0000 40BA     		rev16	r0, r0
+ 594              	.LVL37:
+ 595              		.loc 2 487 17 view .LVU130
+ 596              	.LBE45:
+ 597              	.LBE44:
+ 598              		.loc 1 575 39 view .LVU131
+ 599 0002 4FF0C043 		mov	r3, #1610612736
+ 600 0006 1880     		strh	r0, [r3]	@ movhi
+ 576:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 577:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0 || LCD_REVERSE16 == 0
+ 578:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 601              		.loc 1 578 3 is_stmt 1 view .LVU132
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 30
+
+
+ 602              	.L51:
+ 603              		.loc 1 578 13 is_stmt 0 view .LVU133
+ 604 0008 501E     		subs	r0, r2, #1
+ 605              	.LVL38:
+ 606              		.loc 1 578 8 view .LVU134
+ 607 000a 32B1     		cbz	r2, .L53
+ 579:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 580:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *(volatile uint16_t *)LCD_ADDR_DATA = RD(*pData);
+ 608              		.loc 1 580 5 is_stmt 1 view .LVU135
+ 609              		.loc 1 580 43 is_stmt 0 view .LVU136
+ 610 000c 31F8023B 		ldrh	r3, [r1], #2
+ 611              	.LVL39:
+ 612              	.LBB46:
+ 613              	.LBI46:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 614              		.loc 2 484 56 is_stmt 1 view .LVU137
+ 615              	.LBB47:
+ 616              		.loc 2 487 3 view .LVU138
+ 617              		.loc 2 487 17 is_stmt 0 view .LVU139
+ 618 0010 5BBA     		rev16	r3, r3
+ 619              	.LVL40:
+ 620              		.loc 2 487 17 view .LVU140
+ 621              	.LBE47:
+ 622              	.LBE46:
+ 623              		.loc 1 580 41 view .LVU141
+ 624 0012 024A     		ldr	r2, .L54
+ 625 0014 1380     		strh	r3, [r2]	@ movhi
+ 581:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 626              		.loc 1 581 5 is_stmt 1 view .LVU142
+ 627              	.LVL41:
+ 578:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 628              		.loc 1 578 13 is_stmt 0 view .LVU143
+ 629 0016 0246     		mov	r2, r0
+ 630 0018 F6E7     		b	.L51
+ 631              	.L53:
+ 582:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 583:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 584:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 585:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(pData, LCD_ADDR_DATA, 1, 0, Size, 1);
+ 586:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 587:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 632              		.loc 1 587 1 view .LVU144
+ 633 001a 7047     		bx	lr
+ 634              	.L55:
+ 635              		.align	2
+ 636              	.L54:
+ 637 001c FEFF0760 		.word	1611137022
+ 638              		.cfi_endproc
+ 639              	.LFE138:
+ 641              		.section	.text.LCD_IO_ReadCmd8MultipleData8,"ax",%progbits
+ 642              		.align	1
+ 643              		.global	LCD_IO_ReadCmd8MultipleData8
+ 644              		.syntax unified
+ 645              		.thumb
+ 646              		.thumb_func
+ 647              		.fpu fpv4-sp-d16
+ 649              	LCD_IO_ReadCmd8MultipleData8:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 31
+
+
+ 650              	.LVL42:
+ 651              	.LFB139:
+ 588:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 589:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 590:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_ReadCmd8MultipleData8(uint8_t Cmd, uint8_t *pData, uint32_t Size, uint32_t DummySize)
+ 591:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 652              		.loc 1 591 1 is_stmt 1 view -0
+ 653              		.cfi_startproc
+ 654              		@ args = 0, pretend = 0, frame = 0
+ 655              		@ frame_needed = 0, uses_anonymous_args = 0
+ 656              		@ link register save eliminated.
+ 657              		.loc 1 591 1 is_stmt 0 view .LVU146
+ 658 0000 10B4     		push	{r4}
+ 659              	.LCFI2:
+ 660              		.cfi_def_cfa_offset 4
+ 661              		.cfi_offset 4, -4
+ 592:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #ifdef  __GNUC__
+ 593:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic push
+ 594:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+ 595:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 662              		.loc 1 595 3 is_stmt 1 view .LVU147
+ 596:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic pop
+ 597:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #elif   defined(__CC_ARM)
+ 598:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 599:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 600:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 601:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint8_t *)LCD_ADDR_BASE = Cmd;
+ 663              		.loc 1 601 3 view .LVU148
+ 664              		.loc 1 601 38 is_stmt 0 view .LVU149
+ 665 0002 4FF0C044 		mov	r4, #1610612736
+ 666 0006 2070     		strb	r0, [r4]
+ 602:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 603:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(DummySize--)
+ 667              		.loc 1 603 3 is_stmt 1 view .LVU150
+ 668              	.LVL43:
+ 669              	.L57:
+ 670              		.loc 1 603 18 is_stmt 0 view .LVU151
+ 671 0008 581E     		subs	r0, r3, #1
+ 672              	.LVL44:
+ 673              		.loc 1 603 8 view .LVU152
+ 674 000a 43B1     		cbz	r3, .L59
+ 604:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 675              		.loc 1 604 5 is_stmt 1 view .LVU153
+ 676              		.loc 1 604 15 is_stmt 0 view .LVU154
+ 677 000c 074B     		ldr	r3, .L62
+ 678 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 679              	.LVL45:
+ 603:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 680              		.loc 1 603 18 view .LVU155
+ 681 0010 0346     		mov	r3, r0
+ 682 0012 F9E7     		b	.L57
+ 683              	.LVL46:
+ 684              	.L60:
+ 605:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 606:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0
+ 607:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 608:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 32
+
+
+ 609:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 685              		.loc 1 609 5 is_stmt 1 view .LVU156
+ 686              		.loc 1 609 14 is_stmt 0 view .LVU157
+ 687 0014 054A     		ldr	r2, .L62
+ 688 0016 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 689              		.loc 1 609 12 view .LVU158
+ 690 0018 01F8012B 		strb	r2, [r1], #1
+ 691              	.LVL47:
+ 610:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 692              		.loc 1 610 5 is_stmt 1 view .LVU159
+ 607:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 693              		.loc 1 607 13 is_stmt 0 view .LVU160
+ 694 001c 1A46     		mov	r2, r3
+ 695              	.LVL48:
+ 696              	.L59:
+ 607:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 697              		.loc 1 607 13 view .LVU161
+ 698 001e 531E     		subs	r3, r2, #1
+ 699              	.LVL49:
+ 607:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 700              		.loc 1 607 8 view .LVU162
+ 701 0020 002A     		cmp	r2, #0
+ 702 0022 F7D1     		bne	.L60
+ 611:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 612:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 613:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 614:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(LCD_ADDR_DATA, pData, 0, 1, Size, 0);
+ 615:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 616:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 703              		.loc 1 616 1 view .LVU163
+ 704 0024 5DF8044B 		ldr	r4, [sp], #4
+ 705              	.LCFI3:
+ 706              		.cfi_restore 4
+ 707              		.cfi_def_cfa_offset 0
+ 708 0028 7047     		bx	lr
+ 709              	.L63:
+ 710 002a 00BF     		.align	2
+ 711              	.L62:
+ 712 002c FEFF0760 		.word	1611137022
+ 713              		.cfi_endproc
+ 714              	.LFE139:
+ 716              		.section	.text.LCD_IO_ReadCmd8MultipleData16,"ax",%progbits
+ 717              		.align	1
+ 718              		.global	LCD_IO_ReadCmd8MultipleData16
+ 719              		.syntax unified
+ 720              		.thumb
+ 721              		.thumb_func
+ 722              		.fpu fpv4-sp-d16
+ 724              	LCD_IO_ReadCmd8MultipleData16:
+ 725              	.LVL50:
+ 726              	.LFB140:
+ 617:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 618:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 619:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_ReadCmd8MultipleData16(uint8_t Cmd, uint16_t *pData, uint32_t Size, uint32_t DummySize)
+ 620:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 727              		.loc 1 620 1 is_stmt 1 view -0
+ 728              		.cfi_startproc
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 33
+
+
+ 729              		@ args = 0, pretend = 0, frame = 0
+ 730              		@ frame_needed = 0, uses_anonymous_args = 0
+ 731              		@ link register save eliminated.
+ 732              		.loc 1 620 1 is_stmt 0 view .LVU165
+ 733 0000 10B4     		push	{r4}
+ 734              	.LCFI4:
+ 735              		.cfi_def_cfa_offset 4
+ 736              		.cfi_offset 4, -4
+ 621:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #ifdef  __GNUC__
+ 622:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic push
+ 623:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+ 624:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 737              		.loc 1 624 3 is_stmt 1 view .LVU166
+ 625:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic pop
+ 626:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #elif   defined(__CC_ARM)
+ 627:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 628:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 629:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 630:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint8_t *)LCD_ADDR_BASE = Cmd;
+ 738              		.loc 1 630 3 view .LVU167
+ 739              		.loc 1 630 38 is_stmt 0 view .LVU168
+ 740 0002 4FF0C044 		mov	r4, #1610612736
+ 741 0006 2070     		strb	r0, [r4]
+ 631:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 632:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(DummySize)
+ 742              		.loc 1 632 3 is_stmt 1 view .LVU169
+ 743              	.LVL51:
+ 744              	.L65:
+ 745              		.loc 1 632 8 is_stmt 0 view .LVU170
+ 746 0008 4BB1     		cbz	r3, .L67
+ 633:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 634:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 747              		.loc 1 634 5 is_stmt 1 view .LVU171
+ 748              		.loc 1 634 15 is_stmt 0 view .LVU172
+ 749 000a 0848     		ldr	r0, .L70
+ 750 000c 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 751              	.LVL52:
+ 635:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummySize--;
+ 752              		.loc 1 635 5 is_stmt 1 view .LVU173
+ 753              		.loc 1 635 14 is_stmt 0 view .LVU174
+ 754 000e 013B     		subs	r3, r3, #1
+ 755              	.LVL53:
+ 756              		.loc 1 635 14 view .LVU175
+ 757 0010 FAE7     		b	.L65
+ 758              	.LVL54:
+ 759              	.L68:
+ 636:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 637:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 638:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0 || LCD_REVERSE16 == 0
+ 639:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 640:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 641:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = RD(*(volatile uint16_t *)LCD_ADDR_DATA);
+ 760              		.loc 1 641 5 is_stmt 1 view .LVU176
+ 761              		.loc 1 641 14 is_stmt 0 view .LVU177
+ 762 0012 064B     		ldr	r3, .L70
+ 763 0014 1B88     		ldrh	r3, [r3]
+ 764              	.LVL55:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 34
+
+
+ 765              	.LBB48:
+ 766              	.LBI48:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 767              		.loc 2 484 56 is_stmt 1 view .LVU178
+ 768              	.LBB49:
+ 769              		.loc 2 487 3 view .LVU179
+ 770              		.loc 2 487 17 is_stmt 0 view .LVU180
+ 771 0016 5BBA     		rev16	r3, r3
+ 772              	.LVL56:
+ 773              		.loc 2 487 17 view .LVU181
+ 774              	.LBE49:
+ 775              	.LBE48:
+ 776              		.loc 1 641 12 view .LVU182
+ 777 0018 21F8023B 		strh	r3, [r1], #2	@ movhi
+ 778              	.LVL57:
+ 642:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 779              		.loc 1 642 5 is_stmt 1 view .LVU183
+ 639:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 780              		.loc 1 639 13 is_stmt 0 view .LVU184
+ 781 001c 0246     		mov	r2, r0
+ 782              	.LVL58:
+ 783              	.L67:
+ 639:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 784              		.loc 1 639 13 view .LVU185
+ 785 001e 501E     		subs	r0, r2, #1
+ 786              	.LVL59:
+ 639:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 787              		.loc 1 639 8 view .LVU186
+ 788 0020 002A     		cmp	r2, #0
+ 789 0022 F6D1     		bne	.L68
+ 643:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 644:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 645:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 646:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(LCD_ADDR_DATA, pData, 0, 1, Size, 1);
+ 647:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 648:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 790              		.loc 1 648 1 view .LVU187
+ 791 0024 5DF8044B 		ldr	r4, [sp], #4
+ 792              	.LCFI5:
+ 793              		.cfi_restore 4
+ 794              		.cfi_def_cfa_offset 0
+ 795 0028 7047     		bx	lr
+ 796              	.L71:
+ 797 002a 00BF     		.align	2
+ 798              	.L70:
+ 799 002c FEFF0760 		.word	1611137022
+ 800              		.cfi_endproc
+ 801              	.LFE140:
+ 803              		.section	.text.LCD_IO_ReadCmd8MultipleData24to16,"ax",%progbits
+ 804              		.align	1
+ 805              		.global	LCD_IO_ReadCmd8MultipleData24to16
+ 806              		.syntax unified
+ 807              		.thumb
+ 808              		.thumb_func
+ 809              		.fpu fpv4-sp-d16
+ 811              	LCD_IO_ReadCmd8MultipleData24to16:
+ 812              	.LVL60:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 35
+
+
+ 813              	.LFB141:
+ 649:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 650:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 651:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_ReadCmd8MultipleData24to16(uint8_t Cmd, uint16_t *pData, uint32_t Size, uint32_t DummyS
+ 652:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 814              		.loc 1 652 1 is_stmt 1 view -0
+ 815              		.cfi_startproc
+ 816              		@ args = 0, pretend = 0, frame = 0
+ 817              		@ frame_needed = 0, uses_anonymous_args = 0
+ 818              		@ link register save eliminated.
+ 819              		.loc 1 652 1 is_stmt 0 view .LVU189
+ 820 0000 10B4     		push	{r4}
+ 821              	.LCFI6:
+ 822              		.cfi_def_cfa_offset 4
+ 823              		.cfi_offset 4, -4
+ 653:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t rgb888[3];
+ 824              		.loc 1 653 3 is_stmt 1 view .LVU190
+ 654:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 655:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #ifdef  __GNUC__
+ 656:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic push
+ 657:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+ 658:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 825              		.loc 1 658 3 view .LVU191
+ 659:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic pop
+ 660:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #elif   defined(__CC_ARM)
+ 661:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 662:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 663:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 664:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint8_t *)LCD_ADDR_BASE = Cmd;
+ 826              		.loc 1 664 3 view .LVU192
+ 827              		.loc 1 664 38 is_stmt 0 view .LVU193
+ 828 0002 4FF0C044 		mov	r4, #1610612736
+ 829 0006 2070     		strb	r0, [r4]
+ 665:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 666:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(DummySize--)
+ 830              		.loc 1 666 3 is_stmt 1 view .LVU194
+ 831              	.LVL61:
+ 832              	.L73:
+ 833              		.loc 1 666 18 is_stmt 0 view .LVU195
+ 834 0008 581E     		subs	r0, r3, #1
+ 835              	.LVL62:
+ 836              		.loc 1 666 8 view .LVU196
+ 837 000a A3B1     		cbz	r3, .L75
+ 667:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 838              		.loc 1 667 5 is_stmt 1 view .LVU197
+ 839              		.loc 1 667 15 is_stmt 0 view .LVU198
+ 840 000c 0D4B     		ldr	r3, .L78
+ 841 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 842              	.LVL63:
+ 666:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 843              		.loc 1 666 18 view .LVU199
+ 844 0010 0346     		mov	r3, r0
+ 845 0012 F9E7     		b	.L73
+ 846              	.LVL64:
+ 847              	.L76:
+ 668:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 669:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 36
+
+
+ 670:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 671:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     rgb888[0] = *(volatile uint8_t*)LCD_ADDR_DATA;
+ 848              		.loc 1 671 5 is_stmt 1 view .LVU200
+ 849              		.loc 1 671 17 is_stmt 0 view .LVU201
+ 850 0014 0B48     		ldr	r0, .L78
+ 851 0016 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 672:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     rgb888[1] = *(volatile uint8_t*)LCD_ADDR_DATA;
+ 852              		.loc 1 672 5 is_stmt 1 view .LVU202
+ 853              		.loc 1 672 17 is_stmt 0 view .LVU203
+ 854 0018 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 673:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     rgb888[2] = *(volatile uint8_t*)LCD_ADDR_DATA;
+ 855              		.loc 1 673 5 is_stmt 1 view .LVU204
+ 856              		.loc 1 673 17 is_stmt 0 view .LVU205
+ 857 001a 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 674:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     #if LCD_REVERSE16 == 0
+ 675:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = ((rgb888[0] & 0xF8) << 8 | (rgb888[1] & 0xFC) << 3 | rgb888[2] >> 3);
+ 858              		.loc 1 675 5 is_stmt 1 view .LVU206
+ 859              		.loc 1 675 34 is_stmt 0 view .LVU207
+ 860 001c 1B02     		lsls	r3, r3, #8
+ 861 001e 03F47843 		and	r3, r3, #63488
+ 862 0022 1BB2     		sxth	r3, r3
+ 863              		.loc 1 675 60 view .LVU208
+ 864 0024 D200     		lsls	r2, r2, #3
+ 865 0026 02F4FC62 		and	r2, r2, #2016
+ 866              		.loc 1 675 39 view .LVU209
+ 867 002a 1343     		orrs	r3, r3, r2
+ 868              		.loc 1 675 65 view .LVU210
+ 869 002c 43EAD003 		orr	r3, r3, r0, lsr #3
+ 870              		.loc 1 675 12 view .LVU211
+ 871 0030 21F8023B 		strh	r3, [r1], #2	@ movhi
+ 872              	.LVL65:
+ 676:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     #else
+ 677:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = __REVSH((rgb888[0] & 0xF8) << 8 | (rgb888[1] & 0xFC) << 3 | rgb888[2] >> 3);
+ 678:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     #endif
+ 679:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 873              		.loc 1 679 5 is_stmt 1 view .LVU212
+ 669:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 874              		.loc 1 669 13 is_stmt 0 view .LVU213
+ 875 0034 2246     		mov	r2, r4
+ 876              	.LVL66:
+ 877              	.L75:
+ 669:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 878              		.loc 1 669 13 view .LVU214
+ 879 0036 541E     		subs	r4, r2, #1
+ 880              	.LVL67:
+ 669:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 881              		.loc 1 669 8 view .LVU215
+ 882 0038 002A     		cmp	r2, #0
+ 883 003a EBD1     		bne	.L76
+ 680:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 681:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 884              		.loc 1 681 1 view .LVU216
+ 885 003c 5DF8044B 		ldr	r4, [sp], #4
+ 886              	.LCFI7:
+ 887              		.cfi_restore 4
+ 888              		.cfi_def_cfa_offset 0
+ 889              	.LVL68:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 37
+
+
+ 890              		.loc 1 681 1 view .LVU217
+ 891 0040 7047     		bx	lr
+ 892              	.L79:
+ 893 0042 00BF     		.align	2
+ 894              	.L78:
+ 895 0044 FEFF0760 		.word	1611137022
+ 896              		.cfi_endproc
+ 897              	.LFE141:
+ 899              		.section	.text.LCD_IO_ReadCmd16MultipleData8,"ax",%progbits
+ 900              		.align	1
+ 901              		.global	LCD_IO_ReadCmd16MultipleData8
+ 902              		.syntax unified
+ 903              		.thumb
+ 904              		.thumb_func
+ 905              		.fpu fpv4-sp-d16
+ 907              	LCD_IO_ReadCmd16MultipleData8:
+ 908              	.LVL69:
+ 909              	.LFB142:
+ 682:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 683:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 684:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_ReadCmd16MultipleData8(uint16_t Cmd, uint8_t *pData, uint32_t Size, uint32_t DummySize)
+ 685:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 910              		.loc 1 685 1 is_stmt 1 view -0
+ 911              		.cfi_startproc
+ 912              		@ args = 0, pretend = 0, frame = 0
+ 913              		@ frame_needed = 0, uses_anonymous_args = 0
+ 914              		@ link register save eliminated.
+ 915              		.loc 1 685 1 is_stmt 0 view .LVU219
+ 916 0000 10B4     		push	{r4}
+ 917              	.LCFI8:
+ 918              		.cfi_def_cfa_offset 4
+ 919              		.cfi_offset 4, -4
+ 686:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #ifdef  __GNUC__
+ 687:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic push
+ 688:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+ 689:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 920              		.loc 1 689 3 is_stmt 1 view .LVU220
+ 690:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic pop
+ 691:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #elif   defined(__CC_ARM)
+ 692:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 693:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 694:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 695:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_BASE = RD(Cmd);
+ 921              		.loc 1 695 3 view .LVU221
+ 922              	.LVL70:
+ 923              	.LBB50:
+ 924              	.LBI50:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 925              		.loc 2 484 56 view .LVU222
+ 926              	.LBB51:
+ 927              		.loc 2 487 3 view .LVU223
+ 928              		.loc 2 487 17 is_stmt 0 view .LVU224
+ 929 0002 40BA     		rev16	r0, r0
+ 930              	.LVL71:
+ 931              		.loc 2 487 17 view .LVU225
+ 932              	.LBE51:
+ 933              	.LBE50:
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 38
+
+
+ 934              		.loc 1 695 39 view .LVU226
+ 935 0004 4FF0C044 		mov	r4, #1610612736
+ 936 0008 2080     		strh	r0, [r4]	@ movhi
+ 696:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 697:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(DummySize--)
+ 937              		.loc 1 697 3 is_stmt 1 view .LVU227
+ 938              	.L81:
+ 939              		.loc 1 697 18 is_stmt 0 view .LVU228
+ 940 000a 581E     		subs	r0, r3, #1
+ 941              	.LVL72:
+ 942              		.loc 1 697 8 view .LVU229
+ 943 000c 43B1     		cbz	r3, .L83
+ 698:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 944              		.loc 1 698 5 is_stmt 1 view .LVU230
+ 945              		.loc 1 698 15 is_stmt 0 view .LVU231
+ 946 000e 074B     		ldr	r3, .L86
+ 947 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 948              	.LVL73:
+ 697:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 949              		.loc 1 697 18 view .LVU232
+ 950 0012 0346     		mov	r3, r0
+ 951 0014 F9E7     		b	.L81
+ 952              	.LVL74:
+ 953              	.L84:
+ 699:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 700:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0
+ 701:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 702:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 703:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 954              		.loc 1 703 5 is_stmt 1 view .LVU233
+ 955              		.loc 1 703 14 is_stmt 0 view .LVU234
+ 956 0016 054A     		ldr	r2, .L86
+ 957 0018 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 958              		.loc 1 703 12 view .LVU235
+ 959 001a 01F8012B 		strb	r2, [r1], #1
+ 960              	.LVL75:
+ 704:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 961              		.loc 1 704 5 is_stmt 1 view .LVU236
+ 701:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 962              		.loc 1 701 13 is_stmt 0 view .LVU237
+ 963 001e 1A46     		mov	r2, r3
+ 964              	.LVL76:
+ 965              	.L83:
+ 701:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 966              		.loc 1 701 13 view .LVU238
+ 967 0020 531E     		subs	r3, r2, #1
+ 968              	.LVL77:
+ 701:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 969              		.loc 1 701 8 view .LVU239
+ 970 0022 002A     		cmp	r2, #0
+ 971 0024 F7D1     		bne	.L84
+ 705:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 706:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 707:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 708:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(LCD_ADDR_DATA, pData, 0, 1, Size, 0);
+ 709:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 710:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 39
+
+
+ 972              		.loc 1 710 1 view .LVU240
+ 973 0026 5DF8044B 		ldr	r4, [sp], #4
+ 974              	.LCFI9:
+ 975              		.cfi_restore 4
+ 976              		.cfi_def_cfa_offset 0
+ 977 002a 7047     		bx	lr
+ 978              	.L87:
+ 979              		.align	2
+ 980              	.L86:
+ 981 002c FEFF0760 		.word	1611137022
+ 982              		.cfi_endproc
+ 983              	.LFE142:
+ 985              		.section	.text.LCD_IO_ReadCmd16MultipleData16,"ax",%progbits
+ 986              		.align	1
+ 987              		.global	LCD_IO_ReadCmd16MultipleData16
+ 988              		.syntax unified
+ 989              		.thumb
+ 990              		.thumb_func
+ 991              		.fpu fpv4-sp-d16
+ 993              	LCD_IO_ReadCmd16MultipleData16:
+ 994              	.LVL78:
+ 995              	.LFB143:
+ 711:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 712:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 713:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_ReadCmd16MultipleData16(uint16_t Cmd, uint16_t *pData, uint32_t Size, uint32_t DummySiz
+ 714:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 996              		.loc 1 714 1 is_stmt 1 view -0
+ 997              		.cfi_startproc
+ 998              		@ args = 0, pretend = 0, frame = 0
+ 999              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1000              		@ link register save eliminated.
+ 1001              		.loc 1 714 1 is_stmt 0 view .LVU242
+ 1002 0000 10B4     		push	{r4}
+ 1003              	.LCFI10:
+ 1004              		.cfi_def_cfa_offset 4
+ 1005              		.cfi_offset 4, -4
+ 715:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #ifdef  __GNUC__
+ 716:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic push
+ 717:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+ 718:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 1006              		.loc 1 718 3 is_stmt 1 view .LVU243
+ 719:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic pop
+ 720:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #elif   defined(__CC_ARM)
+ 721:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 722:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 723:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 724:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_BASE = RD(Cmd);
+ 1007              		.loc 1 724 3 view .LVU244
+ 1008              	.LVL79:
+ 1009              	.LBB52:
+ 1010              	.LBI52:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 1011              		.loc 2 484 56 view .LVU245
+ 1012              	.LBB53:
+ 1013              		.loc 2 487 3 view .LVU246
+ 1014              		.loc 2 487 17 is_stmt 0 view .LVU247
+ 1015 0002 40BA     		rev16	r0, r0
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 40
+
+
+ 1016              	.LVL80:
+ 1017              		.loc 2 487 17 view .LVU248
+ 1018              	.LBE53:
+ 1019              	.LBE52:
+ 1020              		.loc 1 724 39 view .LVU249
+ 1021 0004 4FF0C044 		mov	r4, #1610612736
+ 1022 0008 2080     		strh	r0, [r4]	@ movhi
+ 725:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 726:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(DummySize--)
+ 1023              		.loc 1 726 3 is_stmt 1 view .LVU250
+ 1024              	.L89:
+ 1025              		.loc 1 726 18 is_stmt 0 view .LVU251
+ 1026 000a 581E     		subs	r0, r3, #1
+ 1027              	.LVL81:
+ 1028              		.loc 1 726 8 view .LVU252
+ 1029 000c 4BB1     		cbz	r3, .L91
+ 727:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 1030              		.loc 1 727 5 is_stmt 1 view .LVU253
+ 1031              		.loc 1 727 15 is_stmt 0 view .LVU254
+ 1032 000e 074B     		ldr	r3, .L94
+ 1033 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1034              	.LVL82:
+ 726:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 1035              		.loc 1 726 18 view .LVU255
+ 1036 0012 0346     		mov	r3, r0
+ 1037 0014 F9E7     		b	.L89
+ 1038              	.L92:
+ 728:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 729:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #if DMANUM(LCD_DMA) == 0 || LCD_REVERSE16 == 0
+ 730:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size)
+ 731:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 732:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = RD(*(volatile uint16_t *)LCD_ADDR_DATA);
+ 1039              		.loc 1 732 5 is_stmt 1 view .LVU256
+ 1040              		.loc 1 732 14 is_stmt 0 view .LVU257
+ 1041 0016 054B     		ldr	r3, .L94
+ 1042 0018 1B88     		ldrh	r3, [r3]
+ 1043              	.LVL83:
+ 1044              	.LBB54:
+ 1045              	.LBI54:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 1046              		.loc 2 484 56 is_stmt 1 view .LVU258
+ 1047              	.LBB55:
+ 1048              		.loc 2 487 3 view .LVU259
+ 1049              		.loc 2 487 17 is_stmt 0 view .LVU260
+ 1050 001a 5BBA     		rev16	r3, r3
+ 1051              	.LVL84:
+ 1052              		.loc 2 487 17 view .LVU261
+ 1053              	.LBE55:
+ 1054              	.LBE54:
+ 1055              		.loc 1 732 12 view .LVU262
+ 1056 001c 21F8023B 		strh	r3, [r1], #2	@ movhi
+ 1057              	.LVL85:
+ 733:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 1058              		.loc 1 733 5 is_stmt 1 view .LVU263
+ 734:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     Size--;
+ 1059              		.loc 1 734 5 view .LVU264
+ 1060              		.loc 1 734 9 is_stmt 0 view .LVU265
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 41
+
+
+ 1061 0020 013A     		subs	r2, r2, #1
+ 1062              	.LVL86:
+ 1063              	.L91:
+ 730:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 1064              		.loc 1 730 8 view .LVU266
+ 1065 0022 002A     		cmp	r2, #0
+ 1066 0024 F7D1     		bne	.L92
+ 735:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 736:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 737:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #else
+ 738:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   LCD_FSMC_DMA(LCD_ADDR_DATA, pData, 0, 1, Size, 1);
+ 739:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 740:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 1067              		.loc 1 740 1 view .LVU267
+ 1068 0026 5DF8044B 		ldr	r4, [sp], #4
+ 1069              	.LCFI11:
+ 1070              		.cfi_restore 4
+ 1071              		.cfi_def_cfa_offset 0
+ 1072 002a 7047     		bx	lr
+ 1073              	.L95:
+ 1074              		.align	2
+ 1075              	.L94:
+ 1076 002c FEFF0760 		.word	1611137022
+ 1077              		.cfi_endproc
+ 1078              	.LFE143:
+ 1080              		.section	.text.LCD_IO_ReadCmd16MultipleData24to16,"ax",%progbits
+ 1081              		.align	1
+ 1082              		.global	LCD_IO_ReadCmd16MultipleData24to16
+ 1083              		.syntax unified
+ 1084              		.thumb
+ 1085              		.thumb_func
+ 1086              		.fpu fpv4-sp-d16
+ 1088              	LCD_IO_ReadCmd16MultipleData24to16:
+ 1089              	.LVL87:
+ 1090              	.LFB144:
+ 741:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 742:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** //-----------------------------------------------------------------------------
+ 743:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** void LCD_IO_ReadCmd16MultipleData24to16(uint16_t Cmd, uint16_t *pData, uint32_t Size, uint32_t Dumm
+ 744:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** {
+ 1091              		.loc 1 744 1 is_stmt 1 view -0
+ 1092              		.cfi_startproc
+ 1093              		@ args = 0, pretend = 0, frame = 0
+ 1094              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1095              		@ link register save eliminated.
+ 1096              		.loc 1 744 1 is_stmt 0 view .LVU269
+ 1097 0000 10B4     		push	{r4}
+ 1098              	.LCFI12:
+ 1099              		.cfi_def_cfa_offset 4
+ 1100              		.cfi_offset 4, -4
+ 745:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t rgb888[3];
+ 1101              		.loc 1 745 3 is_stmt 1 view .LVU270
+ 746:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 747:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #ifdef  __GNUC__
+ 748:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic push
+ 749:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+ 750:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 1102              		.loc 1 750 3 view .LVU271
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 42
+
+
+ 751:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #pragma GCC diagnostic pop
+ 752:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #elif   defined(__CC_ARM)
+ 753:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   uint8_t DummyData;
+ 754:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   #endif
+ 755:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 756:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   *(volatile uint16_t *)LCD_ADDR_BASE = RD(Cmd);
+ 1103              		.loc 1 756 3 view .LVU272
+ 1104              	.LVL88:
+ 1105              	.LBB56:
+ 1106              	.LBI56:
+ 484:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ 1107              		.loc 2 484 56 view .LVU273
+ 1108              	.LBB57:
+ 1109              		.loc 2 487 3 view .LVU274
+ 1110              		.loc 2 487 17 is_stmt 0 view .LVU275
+ 1111 0002 40BA     		rev16	r0, r0
+ 1112              	.LVL89:
+ 1113              		.loc 2 487 17 view .LVU276
+ 1114              	.LBE57:
+ 1115              	.LBE56:
+ 1116              		.loc 1 756 39 view .LVU277
+ 1117 0004 4FF0C044 		mov	r4, #1610612736
+ 1118 0008 2080     		strh	r0, [r4]	@ movhi
+ 757:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 758:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(DummySize--)
+ 1119              		.loc 1 758 3 is_stmt 1 view .LVU278
+ 1120              	.L97:
+ 1121              		.loc 1 758 18 is_stmt 0 view .LVU279
+ 1122 000a 581E     		subs	r0, r3, #1
+ 1123              	.LVL90:
+ 1124              		.loc 1 758 8 view .LVU280
+ 1125 000c A3B1     		cbz	r3, .L99
+ 759:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 1126              		.loc 1 759 5 is_stmt 1 view .LVU281
+ 1127              		.loc 1 759 15 is_stmt 0 view .LVU282
+ 1128 000e 0D4B     		ldr	r3, .L102
+ 1129 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1130              	.LVL91:
+ 758:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     DummyData = *(volatile uint8_t *)LCD_ADDR_DATA;
+ 1131              		.loc 1 758 18 view .LVU283
+ 1132 0012 0346     		mov	r3, r0
+ 1133 0014 F9E7     		b	.L97
+ 1134              	.LVL92:
+ 1135              	.L100:
+ 760:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** 
+ 761:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   while(Size--)
+ 762:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 763:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     rgb888[0] = *(volatile uint8_t*)LCD_ADDR_DATA;
+ 1136              		.loc 1 763 5 is_stmt 1 view .LVU284
+ 1137              		.loc 1 763 17 is_stmt 0 view .LVU285
+ 1138 0016 0B48     		ldr	r0, .L102
+ 1139 0018 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 764:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     rgb888[1] = *(volatile uint8_t*)LCD_ADDR_DATA;
+ 1140              		.loc 1 764 5 is_stmt 1 view .LVU286
+ 1141              		.loc 1 764 17 is_stmt 0 view .LVU287
+ 1142 001a 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 765:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     rgb888[2] = *(volatile uint8_t*)LCD_ADDR_DATA;
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 43
+
+
+ 1143              		.loc 1 765 5 is_stmt 1 view .LVU288
+ 1144              		.loc 1 765 17 is_stmt 0 view .LVU289
+ 1145 001c 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 766:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     #if LCD_REVERSE16 == 0
+ 767:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = ((rgb888[0] & 0xF8) << 8 | (rgb888[1] & 0xFC) << 3 | rgb888[2] >> 3);
+ 1146              		.loc 1 767 5 is_stmt 1 view .LVU290
+ 1147              		.loc 1 767 34 is_stmt 0 view .LVU291
+ 1148 001e 1B02     		lsls	r3, r3, #8
+ 1149 0020 03F47843 		and	r3, r3, #63488
+ 1150 0024 1BB2     		sxth	r3, r3
+ 1151              		.loc 1 767 60 view .LVU292
+ 1152 0026 D200     		lsls	r2, r2, #3
+ 1153 0028 02F4FC62 		and	r2, r2, #2016
+ 1154              		.loc 1 767 39 view .LVU293
+ 1155 002c 1343     		orrs	r3, r3, r2
+ 1156              		.loc 1 767 65 view .LVU294
+ 1157 002e 43EAD003 		orr	r3, r3, r0, lsr #3
+ 1158              		.loc 1 767 12 view .LVU295
+ 1159 0032 21F8023B 		strh	r3, [r1], #2	@ movhi
+ 1160              	.LVL93:
+ 768:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     #else
+ 769:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     *pData = __REVSH((rgb888[0] & 0xF8) << 8 | (rgb888[1] & 0xFC) << 3 | rgb888[2] >> 3);
+ 770:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     #endif
+ 771:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****     pData++;
+ 1161              		.loc 1 771 5 is_stmt 1 view .LVU296
+ 761:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 1162              		.loc 1 761 13 is_stmt 0 view .LVU297
+ 1163 0036 2246     		mov	r2, r4
+ 1164              	.LVL94:
+ 1165              	.L99:
+ 761:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 1166              		.loc 1 761 13 view .LVU298
+ 1167 0038 541E     		subs	r4, r2, #1
+ 1168              	.LVL95:
+ 761:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   {
+ 1169              		.loc 1 761 8 view .LVU299
+ 1170 003a 002A     		cmp	r2, #0
+ 1171 003c EBD1     		bne	.L100
+ 772:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c ****   }
+ 773:Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c **** }
+ 1172              		.loc 1 773 1 view .LVU300
+ 1173 003e 5DF8044B 		ldr	r4, [sp], #4
+ 1174              	.LCFI13:
+ 1175              		.cfi_restore 4
+ 1176              		.cfi_def_cfa_offset 0
+ 1177              	.LVL96:
+ 1178              		.loc 1 773 1 view .LVU301
+ 1179 0042 7047     		bx	lr
+ 1180              	.L103:
+ 1181              		.align	2
+ 1182              	.L102:
+ 1183 0044 FEFF0760 		.word	1611137022
+ 1184              		.cfi_endproc
+ 1185              	.LFE144:
+ 1187              		.text
+ 1188              	.Letext0:
+ 1189              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 44
+
+
+ 1190              		.file 4 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1191              		.file 5 "Drivers/CMSIS/Include/core_cm4.h"
+ 1192              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 1193              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 1194              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 1195              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 1196              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
+ 1197              		.file 11 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
+ 1198              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 45
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd_io_fsmc8.c
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:18     .text.LCD_Delay:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:26     .text.LCD_Delay:00000000 LCD_Delay
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:49     .text.LCD_IO_Bl_OnOff:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:56     .text.LCD_IO_Bl_OnOff:00000000 LCD_IO_Bl_OnOff
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:84     .text.LCD_IO_Bl_OnOff:00000014 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:89     .text.LCD_IO_Init:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:96     .text.LCD_IO_Init:00000000 LCD_IO_Init
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:133    .text.LCD_IO_Init:00000028 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:139    .text.LCD_IO_WriteCmd8:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:146    .text.LCD_IO_WriteCmd8:00000000 LCD_IO_WriteCmd8
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:164    .text.LCD_IO_WriteCmd16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:171    .text.LCD_IO_WriteCmd16:00000000 LCD_IO_WriteCmd16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:201    .text.LCD_IO_WriteData8:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:208    .text.LCD_IO_WriteData8:00000000 LCD_IO_WriteData8
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:225    .text.LCD_IO_WriteData8:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:230    .text.LCD_IO_WriteData16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:237    .text.LCD_IO_WriteData16:00000000 LCD_IO_WriteData16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:265    .text.LCD_IO_WriteData16:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:270    .text.LCD_IO_WriteCmd8DataFill16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:277    .text.LCD_IO_WriteCmd8DataFill16:00000000 LCD_IO_WriteCmd8DataFill16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:324    .text.LCD_IO_WriteCmd8DataFill16:00000018 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:329    .text.LCD_IO_WriteCmd8MultipleData8:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:336    .text.LCD_IO_WriteCmd8MultipleData8:00000000 LCD_IO_WriteCmd8MultipleData8
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:374    .text.LCD_IO_WriteCmd8MultipleData8:00000018 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:379    .text.LCD_IO_WriteCmd8MultipleData16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:386    .text.LCD_IO_WriteCmd8MultipleData16:00000000 LCD_IO_WriteCmd8MultipleData16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:435    .text.LCD_IO_WriteCmd8MultipleData16:0000001c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:440    .text.LCD_IO_WriteCmd16DataFill16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:447    .text.LCD_IO_WriteCmd16DataFill16:00000000 LCD_IO_WriteCmd16DataFill16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:506    .text.LCD_IO_WriteCmd16DataFill16:0000001c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:511    .text.LCD_IO_WriteCmd16MultipleData8:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:518    .text.LCD_IO_WriteCmd16MultipleData8:00000000 LCD_IO_WriteCmd16MultipleData8
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:566    .text.LCD_IO_WriteCmd16MultipleData8:0000001c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:571    .text.LCD_IO_WriteCmd16MultipleData16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:578    .text.LCD_IO_WriteCmd16MultipleData16:00000000 LCD_IO_WriteCmd16MultipleData16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:637    .text.LCD_IO_WriteCmd16MultipleData16:0000001c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:642    .text.LCD_IO_ReadCmd8MultipleData8:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:649    .text.LCD_IO_ReadCmd8MultipleData8:00000000 LCD_IO_ReadCmd8MultipleData8
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:712    .text.LCD_IO_ReadCmd8MultipleData8:0000002c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:717    .text.LCD_IO_ReadCmd8MultipleData16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:724    .text.LCD_IO_ReadCmd8MultipleData16:00000000 LCD_IO_ReadCmd8MultipleData16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:799    .text.LCD_IO_ReadCmd8MultipleData16:0000002c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:804    .text.LCD_IO_ReadCmd8MultipleData24to16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:811    .text.LCD_IO_ReadCmd8MultipleData24to16:00000000 LCD_IO_ReadCmd8MultipleData24to16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:895    .text.LCD_IO_ReadCmd8MultipleData24to16:00000044 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:900    .text.LCD_IO_ReadCmd16MultipleData8:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:907    .text.LCD_IO_ReadCmd16MultipleData8:00000000 LCD_IO_ReadCmd16MultipleData8
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:981    .text.LCD_IO_ReadCmd16MultipleData8:0000002c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:986    .text.LCD_IO_ReadCmd16MultipleData16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:993    .text.LCD_IO_ReadCmd16MultipleData16:00000000 LCD_IO_ReadCmd16MultipleData16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:1076   .text.LCD_IO_ReadCmd16MultipleData16:0000002c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:1081   .text.LCD_IO_ReadCmd16MultipleData24to16:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:1088   .text.LCD_IO_ReadCmd16MultipleData24to16:00000000 LCD_IO_ReadCmd16MultipleData24to16
+C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s:1183   .text.LCD_IO_ReadCmd16MultipleData24to16:00000044 $d
+
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cclYKmGb.s 			page 46
+
+
+UNDEFINED SYMBOLS
+HAL_Delay

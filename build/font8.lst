@@ -1,0 +1,846 @@
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"font8.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	Font8
+  18              		.global	Font8_Table
+  19              		.section	.data.Font8,"aw"
+  20              		.align	2
+  23              	Font8:
+  24 0000 00000000 		.word	Font8_Table
+  25 0004 0500     		.short	5
+  26 0006 0800     		.short	8
+  27              		.section	.rodata.Font8_Table,"a"
+  28              		.align	2
+  31              	Font8_Table:
+  32 0000 00       		.byte	0
+  33 0001 00       		.byte	0
+  34 0002 00       		.byte	0
+  35 0003 00       		.byte	0
+  36 0004 00       		.byte	0
+  37 0005 00       		.byte	0
+  38 0006 00       		.byte	0
+  39 0007 00       		.byte	0
+  40 0008 20       		.byte	32
+  41 0009 20       		.byte	32
+  42 000a 20       		.byte	32
+  43 000b 20       		.byte	32
+  44 000c 00       		.byte	0
+  45 000d 20       		.byte	32
+  46 000e 00       		.byte	0
+  47 000f 00       		.byte	0
+  48 0010 50       		.byte	80
+  49 0011 50       		.byte	80
+  50 0012 00       		.byte	0
+  51 0013 00       		.byte	0
+  52 0014 00       		.byte	0
+  53 0015 00       		.byte	0
+  54 0016 00       		.byte	0
+  55 0017 00       		.byte	0
+  56 0018 28       		.byte	40
+  57 0019 50       		.byte	80
+  58 001a F8       		.byte	-8
+  59 001b 50       		.byte	80
+  60 001c F8       		.byte	-8
+  61 001d 50       		.byte	80
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 2
+
+
+  62 001e A0       		.byte	-96
+  63 001f 00       		.byte	0
+  64 0020 20       		.byte	32
+  65 0021 30       		.byte	48
+  66 0022 60       		.byte	96
+  67 0023 30       		.byte	48
+  68 0024 10       		.byte	16
+  69 0025 60       		.byte	96
+  70 0026 20       		.byte	32
+  71 0027 00       		.byte	0
+  72 0028 20       		.byte	32
+  73 0029 20       		.byte	32
+  74 002a 18       		.byte	24
+  75 002b 60       		.byte	96
+  76 002c 10       		.byte	16
+  77 002d 10       		.byte	16
+  78 002e 00       		.byte	0
+  79 002f 00       		.byte	0
+  80 0030 00       		.byte	0
+  81 0031 38       		.byte	56
+  82 0032 20       		.byte	32
+  83 0033 60       		.byte	96
+  84 0034 50       		.byte	80
+  85 0035 78       		.byte	120
+  86 0036 00       		.byte	0
+  87 0037 00       		.byte	0
+  88 0038 20       		.byte	32
+  89 0039 20       		.byte	32
+  90 003a 20       		.byte	32
+  91 003b 00       		.byte	0
+  92 003c 00       		.byte	0
+  93 003d 00       		.byte	0
+  94 003e 00       		.byte	0
+  95 003f 00       		.byte	0
+  96 0040 10       		.byte	16
+  97 0041 20       		.byte	32
+  98 0042 20       		.byte	32
+  99 0043 20       		.byte	32
+ 100 0044 20       		.byte	32
+ 101 0045 20       		.byte	32
+ 102 0046 10       		.byte	16
+ 103 0047 00       		.byte	0
+ 104 0048 40       		.byte	64
+ 105 0049 20       		.byte	32
+ 106 004a 20       		.byte	32
+ 107 004b 20       		.byte	32
+ 108 004c 20       		.byte	32
+ 109 004d 20       		.byte	32
+ 110 004e 40       		.byte	64
+ 111 004f 00       		.byte	0
+ 112 0050 20       		.byte	32
+ 113 0051 70       		.byte	112
+ 114 0052 20       		.byte	32
+ 115 0053 50       		.byte	80
+ 116 0054 00       		.byte	0
+ 117 0055 00       		.byte	0
+ 118 0056 00       		.byte	0
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 3
+
+
+ 119 0057 00       		.byte	0
+ 120 0058 00       		.byte	0
+ 121 0059 20       		.byte	32
+ 122 005a 20       		.byte	32
+ 123 005b F8       		.byte	-8
+ 124 005c 20       		.byte	32
+ 125 005d 20       		.byte	32
+ 126 005e 00       		.byte	0
+ 127 005f 00       		.byte	0
+ 128 0060 00       		.byte	0
+ 129 0061 00       		.byte	0
+ 130 0062 00       		.byte	0
+ 131 0063 00       		.byte	0
+ 132 0064 10       		.byte	16
+ 133 0065 20       		.byte	32
+ 134 0066 20       		.byte	32
+ 135 0067 00       		.byte	0
+ 136 0068 00       		.byte	0
+ 137 0069 00       		.byte	0
+ 138 006a 00       		.byte	0
+ 139 006b 70       		.byte	112
+ 140 006c 00       		.byte	0
+ 141 006d 00       		.byte	0
+ 142 006e 00       		.byte	0
+ 143 006f 00       		.byte	0
+ 144 0070 00       		.byte	0
+ 145 0071 00       		.byte	0
+ 146 0072 00       		.byte	0
+ 147 0073 00       		.byte	0
+ 148 0074 00       		.byte	0
+ 149 0075 20       		.byte	32
+ 150 0076 00       		.byte	0
+ 151 0077 00       		.byte	0
+ 152 0078 10       		.byte	16
+ 153 0079 20       		.byte	32
+ 154 007a 20       		.byte	32
+ 155 007b 20       		.byte	32
+ 156 007c 40       		.byte	64
+ 157 007d 40       		.byte	64
+ 158 007e 80       		.byte	-128
+ 159 007f 00       		.byte	0
+ 160 0080 20       		.byte	32
+ 161 0081 50       		.byte	80
+ 162 0082 50       		.byte	80
+ 163 0083 50       		.byte	80
+ 164 0084 50       		.byte	80
+ 165 0085 20       		.byte	32
+ 166 0086 00       		.byte	0
+ 167 0087 00       		.byte	0
+ 168 0088 60       		.byte	96
+ 169 0089 20       		.byte	32
+ 170 008a 20       		.byte	32
+ 171 008b 20       		.byte	32
+ 172 008c 20       		.byte	32
+ 173 008d F8       		.byte	-8
+ 174 008e 00       		.byte	0
+ 175 008f 00       		.byte	0
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 4
+
+
+ 176 0090 20       		.byte	32
+ 177 0091 50       		.byte	80
+ 178 0092 20       		.byte	32
+ 179 0093 20       		.byte	32
+ 180 0094 40       		.byte	64
+ 181 0095 70       		.byte	112
+ 182 0096 00       		.byte	0
+ 183 0097 00       		.byte	0
+ 184 0098 20       		.byte	32
+ 185 0099 50       		.byte	80
+ 186 009a 10       		.byte	16
+ 187 009b 20       		.byte	32
+ 188 009c 10       		.byte	16
+ 189 009d 60       		.byte	96
+ 190 009e 00       		.byte	0
+ 191 009f 00       		.byte	0
+ 192 00a0 10       		.byte	16
+ 193 00a1 30       		.byte	48
+ 194 00a2 50       		.byte	80
+ 195 00a3 78       		.byte	120
+ 196 00a4 10       		.byte	16
+ 197 00a5 38       		.byte	56
+ 198 00a6 00       		.byte	0
+ 199 00a7 00       		.byte	0
+ 200 00a8 70       		.byte	112
+ 201 00a9 40       		.byte	64
+ 202 00aa 60       		.byte	96
+ 203 00ab 10       		.byte	16
+ 204 00ac 50       		.byte	80
+ 205 00ad 20       		.byte	32
+ 206 00ae 00       		.byte	0
+ 207 00af 00       		.byte	0
+ 208 00b0 30       		.byte	48
+ 209 00b1 40       		.byte	64
+ 210 00b2 60       		.byte	96
+ 211 00b3 50       		.byte	80
+ 212 00b4 50       		.byte	80
+ 213 00b5 60       		.byte	96
+ 214 00b6 00       		.byte	0
+ 215 00b7 00       		.byte	0
+ 216 00b8 70       		.byte	112
+ 217 00b9 50       		.byte	80
+ 218 00ba 10       		.byte	16
+ 219 00bb 20       		.byte	32
+ 220 00bc 20       		.byte	32
+ 221 00bd 20       		.byte	32
+ 222 00be 00       		.byte	0
+ 223 00bf 00       		.byte	0
+ 224 00c0 20       		.byte	32
+ 225 00c1 50       		.byte	80
+ 226 00c2 20       		.byte	32
+ 227 00c3 50       		.byte	80
+ 228 00c4 50       		.byte	80
+ 229 00c5 20       		.byte	32
+ 230 00c6 00       		.byte	0
+ 231 00c7 00       		.byte	0
+ 232 00c8 30       		.byte	48
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 5
+
+
+ 233 00c9 50       		.byte	80
+ 234 00ca 50       		.byte	80
+ 235 00cb 30       		.byte	48
+ 236 00cc 10       		.byte	16
+ 237 00cd 60       		.byte	96
+ 238 00ce 00       		.byte	0
+ 239 00cf 00       		.byte	0
+ 240 00d0 00       		.byte	0
+ 241 00d1 00       		.byte	0
+ 242 00d2 20       		.byte	32
+ 243 00d3 00       		.byte	0
+ 244 00d4 00       		.byte	0
+ 245 00d5 20       		.byte	32
+ 246 00d6 00       		.byte	0
+ 247 00d7 00       		.byte	0
+ 248 00d8 00       		.byte	0
+ 249 00d9 00       		.byte	0
+ 250 00da 10       		.byte	16
+ 251 00db 00       		.byte	0
+ 252 00dc 10       		.byte	16
+ 253 00dd 20       		.byte	32
+ 254 00de 00       		.byte	0
+ 255 00df 00       		.byte	0
+ 256 00e0 00       		.byte	0
+ 257 00e1 10       		.byte	16
+ 258 00e2 20       		.byte	32
+ 259 00e3 C0       		.byte	-64
+ 260 00e4 20       		.byte	32
+ 261 00e5 10       		.byte	16
+ 262 00e6 00       		.byte	0
+ 263 00e7 00       		.byte	0
+ 264 00e8 00       		.byte	0
+ 265 00e9 70       		.byte	112
+ 266 00ea 00       		.byte	0
+ 267 00eb 70       		.byte	112
+ 268 00ec 00       		.byte	0
+ 269 00ed 00       		.byte	0
+ 270 00ee 00       		.byte	0
+ 271 00ef 00       		.byte	0
+ 272 00f0 00       		.byte	0
+ 273 00f1 40       		.byte	64
+ 274 00f2 20       		.byte	32
+ 275 00f3 18       		.byte	24
+ 276 00f4 20       		.byte	32
+ 277 00f5 40       		.byte	64
+ 278 00f6 00       		.byte	0
+ 279 00f7 00       		.byte	0
+ 280 00f8 20       		.byte	32
+ 281 00f9 50       		.byte	80
+ 282 00fa 10       		.byte	16
+ 283 00fb 20       		.byte	32
+ 284 00fc 00       		.byte	0
+ 285 00fd 20       		.byte	32
+ 286 00fe 00       		.byte	0
+ 287 00ff 00       		.byte	0
+ 288 0100 30       		.byte	48
+ 289 0101 48       		.byte	72
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 6
+
+
+ 290 0102 48       		.byte	72
+ 291 0103 58       		.byte	88
+ 292 0104 48       		.byte	72
+ 293 0105 40       		.byte	64
+ 294 0106 38       		.byte	56
+ 295 0107 00       		.byte	0
+ 296 0108 60       		.byte	96
+ 297 0109 20       		.byte	32
+ 298 010a 50       		.byte	80
+ 299 010b 70       		.byte	112
+ 300 010c 88       		.byte	-120
+ 301 010d D8       		.byte	-40
+ 302 010e 00       		.byte	0
+ 303 010f 00       		.byte	0
+ 304 0110 F0       		.byte	-16
+ 305 0111 48       		.byte	72
+ 306 0112 70       		.byte	112
+ 307 0113 48       		.byte	72
+ 308 0114 48       		.byte	72
+ 309 0115 F0       		.byte	-16
+ 310 0116 00       		.byte	0
+ 311 0117 00       		.byte	0
+ 312 0118 70       		.byte	112
+ 313 0119 50       		.byte	80
+ 314 011a 40       		.byte	64
+ 315 011b 40       		.byte	64
+ 316 011c 40       		.byte	64
+ 317 011d 30       		.byte	48
+ 318 011e 00       		.byte	0
+ 319 011f 00       		.byte	0
+ 320 0120 F0       		.byte	-16
+ 321 0121 48       		.byte	72
+ 322 0122 48       		.byte	72
+ 323 0123 48       		.byte	72
+ 324 0124 48       		.byte	72
+ 325 0125 F0       		.byte	-16
+ 326 0126 00       		.byte	0
+ 327 0127 00       		.byte	0
+ 328 0128 F8       		.byte	-8
+ 329 0129 48       		.byte	72
+ 330 012a 60       		.byte	96
+ 331 012b 40       		.byte	64
+ 332 012c 48       		.byte	72
+ 333 012d F8       		.byte	-8
+ 334 012e 00       		.byte	0
+ 335 012f 00       		.byte	0
+ 336 0130 F8       		.byte	-8
+ 337 0131 48       		.byte	72
+ 338 0132 60       		.byte	96
+ 339 0133 40       		.byte	64
+ 340 0134 40       		.byte	64
+ 341 0135 E0       		.byte	-32
+ 342 0136 00       		.byte	0
+ 343 0137 00       		.byte	0
+ 344 0138 70       		.byte	112
+ 345 0139 40       		.byte	64
+ 346 013a 40       		.byte	64
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 7
+
+
+ 347 013b 58       		.byte	88
+ 348 013c 50       		.byte	80
+ 349 013d 30       		.byte	48
+ 350 013e 00       		.byte	0
+ 351 013f 00       		.byte	0
+ 352 0140 E8       		.byte	-24
+ 353 0141 48       		.byte	72
+ 354 0142 78       		.byte	120
+ 355 0143 48       		.byte	72
+ 356 0144 48       		.byte	72
+ 357 0145 E8       		.byte	-24
+ 358 0146 00       		.byte	0
+ 359 0147 00       		.byte	0
+ 360 0148 70       		.byte	112
+ 361 0149 20       		.byte	32
+ 362 014a 20       		.byte	32
+ 363 014b 20       		.byte	32
+ 364 014c 20       		.byte	32
+ 365 014d 70       		.byte	112
+ 366 014e 00       		.byte	0
+ 367 014f 00       		.byte	0
+ 368 0150 38       		.byte	56
+ 369 0151 10       		.byte	16
+ 370 0152 10       		.byte	16
+ 371 0153 50       		.byte	80
+ 372 0154 50       		.byte	80
+ 373 0155 20       		.byte	32
+ 374 0156 00       		.byte	0
+ 375 0157 00       		.byte	0
+ 376 0158 D8       		.byte	-40
+ 377 0159 50       		.byte	80
+ 378 015a 60       		.byte	96
+ 379 015b 70       		.byte	112
+ 380 015c 50       		.byte	80
+ 381 015d D8       		.byte	-40
+ 382 015e 00       		.byte	0
+ 383 015f 00       		.byte	0
+ 384 0160 E0       		.byte	-32
+ 385 0161 40       		.byte	64
+ 386 0162 40       		.byte	64
+ 387 0163 40       		.byte	64
+ 388 0164 48       		.byte	72
+ 389 0165 F8       		.byte	-8
+ 390 0166 00       		.byte	0
+ 391 0167 00       		.byte	0
+ 392 0168 D8       		.byte	-40
+ 393 0169 D8       		.byte	-40
+ 394 016a D8       		.byte	-40
+ 395 016b A8       		.byte	-88
+ 396 016c 88       		.byte	-120
+ 397 016d D8       		.byte	-40
+ 398 016e 00       		.byte	0
+ 399 016f 00       		.byte	0
+ 400 0170 D8       		.byte	-40
+ 401 0171 68       		.byte	104
+ 402 0172 68       		.byte	104
+ 403 0173 58       		.byte	88
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 8
+
+
+ 404 0174 58       		.byte	88
+ 405 0175 E8       		.byte	-24
+ 406 0176 00       		.byte	0
+ 407 0177 00       		.byte	0
+ 408 0178 30       		.byte	48
+ 409 0179 48       		.byte	72
+ 410 017a 48       		.byte	72
+ 411 017b 48       		.byte	72
+ 412 017c 48       		.byte	72
+ 413 017d 30       		.byte	48
+ 414 017e 00       		.byte	0
+ 415 017f 00       		.byte	0
+ 416 0180 F0       		.byte	-16
+ 417 0181 48       		.byte	72
+ 418 0182 48       		.byte	72
+ 419 0183 70       		.byte	112
+ 420 0184 40       		.byte	64
+ 421 0185 E0       		.byte	-32
+ 422 0186 00       		.byte	0
+ 423 0187 00       		.byte	0
+ 424 0188 30       		.byte	48
+ 425 0189 48       		.byte	72
+ 426 018a 48       		.byte	72
+ 427 018b 48       		.byte	72
+ 428 018c 48       		.byte	72
+ 429 018d 30       		.byte	48
+ 430 018e 18       		.byte	24
+ 431 018f 00       		.byte	0
+ 432 0190 F0       		.byte	-16
+ 433 0191 48       		.byte	72
+ 434 0192 48       		.byte	72
+ 435 0193 70       		.byte	112
+ 436 0194 48       		.byte	72
+ 437 0195 E8       		.byte	-24
+ 438 0196 00       		.byte	0
+ 439 0197 00       		.byte	0
+ 440 0198 70       		.byte	112
+ 441 0199 50       		.byte	80
+ 442 019a 20       		.byte	32
+ 443 019b 10       		.byte	16
+ 444 019c 50       		.byte	80
+ 445 019d 70       		.byte	112
+ 446 019e 00       		.byte	0
+ 447 019f 00       		.byte	0
+ 448 01a0 F8       		.byte	-8
+ 449 01a1 A8       		.byte	-88
+ 450 01a2 20       		.byte	32
+ 451 01a3 20       		.byte	32
+ 452 01a4 20       		.byte	32
+ 453 01a5 70       		.byte	112
+ 454 01a6 00       		.byte	0
+ 455 01a7 00       		.byte	0
+ 456 01a8 D8       		.byte	-40
+ 457 01a9 48       		.byte	72
+ 458 01aa 48       		.byte	72
+ 459 01ab 48       		.byte	72
+ 460 01ac 48       		.byte	72
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 9
+
+
+ 461 01ad 30       		.byte	48
+ 462 01ae 00       		.byte	0
+ 463 01af 00       		.byte	0
+ 464 01b0 D8       		.byte	-40
+ 465 01b1 88       		.byte	-120
+ 466 01b2 48       		.byte	72
+ 467 01b3 50       		.byte	80
+ 468 01b4 50       		.byte	80
+ 469 01b5 30       		.byte	48
+ 470 01b6 00       		.byte	0
+ 471 01b7 00       		.byte	0
+ 472 01b8 D8       		.byte	-40
+ 473 01b9 88       		.byte	-120
+ 474 01ba A8       		.byte	-88
+ 475 01bb A8       		.byte	-88
+ 476 01bc A8       		.byte	-88
+ 477 01bd 50       		.byte	80
+ 478 01be 00       		.byte	0
+ 479 01bf 00       		.byte	0
+ 480 01c0 D8       		.byte	-40
+ 481 01c1 50       		.byte	80
+ 482 01c2 20       		.byte	32
+ 483 01c3 20       		.byte	32
+ 484 01c4 50       		.byte	80
+ 485 01c5 D8       		.byte	-40
+ 486 01c6 00       		.byte	0
+ 487 01c7 00       		.byte	0
+ 488 01c8 D8       		.byte	-40
+ 489 01c9 88       		.byte	-120
+ 490 01ca 50       		.byte	80
+ 491 01cb 20       		.byte	32
+ 492 01cc 20       		.byte	32
+ 493 01cd 70       		.byte	112
+ 494 01ce 00       		.byte	0
+ 495 01cf 00       		.byte	0
+ 496 01d0 78       		.byte	120
+ 497 01d1 48       		.byte	72
+ 498 01d2 10       		.byte	16
+ 499 01d3 20       		.byte	32
+ 500 01d4 48       		.byte	72
+ 501 01d5 78       		.byte	120
+ 502 01d6 00       		.byte	0
+ 503 01d7 00       		.byte	0
+ 504 01d8 30       		.byte	48
+ 505 01d9 20       		.byte	32
+ 506 01da 20       		.byte	32
+ 507 01db 20       		.byte	32
+ 508 01dc 20       		.byte	32
+ 509 01dd 20       		.byte	32
+ 510 01de 30       		.byte	48
+ 511 01df 00       		.byte	0
+ 512 01e0 80       		.byte	-128
+ 513 01e1 40       		.byte	64
+ 514 01e2 40       		.byte	64
+ 515 01e3 20       		.byte	32
+ 516 01e4 20       		.byte	32
+ 517 01e5 20       		.byte	32
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 10
+
+
+ 518 01e6 10       		.byte	16
+ 519 01e7 00       		.byte	0
+ 520 01e8 60       		.byte	96
+ 521 01e9 20       		.byte	32
+ 522 01ea 20       		.byte	32
+ 523 01eb 20       		.byte	32
+ 524 01ec 20       		.byte	32
+ 525 01ed 20       		.byte	32
+ 526 01ee 60       		.byte	96
+ 527 01ef 00       		.byte	0
+ 528 01f0 20       		.byte	32
+ 529 01f1 20       		.byte	32
+ 530 01f2 50       		.byte	80
+ 531 01f3 00       		.byte	0
+ 532 01f4 00       		.byte	0
+ 533 01f5 00       		.byte	0
+ 534 01f6 00       		.byte	0
+ 535 01f7 00       		.byte	0
+ 536 01f8 00       		.byte	0
+ 537 01f9 00       		.byte	0
+ 538 01fa 00       		.byte	0
+ 539 01fb 00       		.byte	0
+ 540 01fc 00       		.byte	0
+ 541 01fd 00       		.byte	0
+ 542 01fe 00       		.byte	0
+ 543 01ff F8       		.byte	-8
+ 544 0200 20       		.byte	32
+ 545 0201 10       		.byte	16
+ 546 0202 00       		.byte	0
+ 547 0203 00       		.byte	0
+ 548 0204 00       		.byte	0
+ 549 0205 00       		.byte	0
+ 550 0206 00       		.byte	0
+ 551 0207 00       		.byte	0
+ 552 0208 00       		.byte	0
+ 553 0209 00       		.byte	0
+ 554 020a 30       		.byte	48
+ 555 020b 10       		.byte	16
+ 556 020c 70       		.byte	112
+ 557 020d 78       		.byte	120
+ 558 020e 00       		.byte	0
+ 559 020f 00       		.byte	0
+ 560 0210 C0       		.byte	-64
+ 561 0211 40       		.byte	64
+ 562 0212 70       		.byte	112
+ 563 0213 48       		.byte	72
+ 564 0214 48       		.byte	72
+ 565 0215 F0       		.byte	-16
+ 566 0216 00       		.byte	0
+ 567 0217 00       		.byte	0
+ 568 0218 00       		.byte	0
+ 569 0219 00       		.byte	0
+ 570 021a 70       		.byte	112
+ 571 021b 40       		.byte	64
+ 572 021c 40       		.byte	64
+ 573 021d 70       		.byte	112
+ 574 021e 00       		.byte	0
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 11
+
+
+ 575 021f 00       		.byte	0
+ 576 0220 18       		.byte	24
+ 577 0221 08       		.byte	8
+ 578 0222 38       		.byte	56
+ 579 0223 48       		.byte	72
+ 580 0224 48       		.byte	72
+ 581 0225 38       		.byte	56
+ 582 0226 00       		.byte	0
+ 583 0227 00       		.byte	0
+ 584 0228 00       		.byte	0
+ 585 0229 00       		.byte	0
+ 586 022a 70       		.byte	112
+ 587 022b 70       		.byte	112
+ 588 022c 40       		.byte	64
+ 589 022d 30       		.byte	48
+ 590 022e 00       		.byte	0
+ 591 022f 00       		.byte	0
+ 592 0230 10       		.byte	16
+ 593 0231 20       		.byte	32
+ 594 0232 70       		.byte	112
+ 595 0233 20       		.byte	32
+ 596 0234 20       		.byte	32
+ 597 0235 70       		.byte	112
+ 598 0236 00       		.byte	0
+ 599 0237 00       		.byte	0
+ 600 0238 00       		.byte	0
+ 601 0239 00       		.byte	0
+ 602 023a 38       		.byte	56
+ 603 023b 48       		.byte	72
+ 604 023c 48       		.byte	72
+ 605 023d 38       		.byte	56
+ 606 023e 08       		.byte	8
+ 607 023f 30       		.byte	48
+ 608 0240 C0       		.byte	-64
+ 609 0241 40       		.byte	64
+ 610 0242 70       		.byte	112
+ 611 0243 48       		.byte	72
+ 612 0244 48       		.byte	72
+ 613 0245 E8       		.byte	-24
+ 614 0246 00       		.byte	0
+ 615 0247 00       		.byte	0
+ 616 0248 20       		.byte	32
+ 617 0249 00       		.byte	0
+ 618 024a 60       		.byte	96
+ 619 024b 20       		.byte	32
+ 620 024c 20       		.byte	32
+ 621 024d 70       		.byte	112
+ 622 024e 00       		.byte	0
+ 623 024f 00       		.byte	0
+ 624 0250 20       		.byte	32
+ 625 0251 00       		.byte	0
+ 626 0252 70       		.byte	112
+ 627 0253 10       		.byte	16
+ 628 0254 10       		.byte	16
+ 629 0255 10       		.byte	16
+ 630 0256 10       		.byte	16
+ 631 0257 70       		.byte	112
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 12
+
+
+ 632 0258 C0       		.byte	-64
+ 633 0259 40       		.byte	64
+ 634 025a 58       		.byte	88
+ 635 025b 70       		.byte	112
+ 636 025c 50       		.byte	80
+ 637 025d D8       		.byte	-40
+ 638 025e 00       		.byte	0
+ 639 025f 00       		.byte	0
+ 640 0260 60       		.byte	96
+ 641 0261 20       		.byte	32
+ 642 0262 20       		.byte	32
+ 643 0263 20       		.byte	32
+ 644 0264 20       		.byte	32
+ 645 0265 70       		.byte	112
+ 646 0266 00       		.byte	0
+ 647 0267 00       		.byte	0
+ 648 0268 00       		.byte	0
+ 649 0269 00       		.byte	0
+ 650 026a D0       		.byte	-48
+ 651 026b A8       		.byte	-88
+ 652 026c A8       		.byte	-88
+ 653 026d A8       		.byte	-88
+ 654 026e 00       		.byte	0
+ 655 026f 00       		.byte	0
+ 656 0270 00       		.byte	0
+ 657 0271 00       		.byte	0
+ 658 0272 F0       		.byte	-16
+ 659 0273 48       		.byte	72
+ 660 0274 48       		.byte	72
+ 661 0275 C8       		.byte	-56
+ 662 0276 00       		.byte	0
+ 663 0277 00       		.byte	0
+ 664 0278 00       		.byte	0
+ 665 0279 00       		.byte	0
+ 666 027a 30       		.byte	48
+ 667 027b 48       		.byte	72
+ 668 027c 48       		.byte	72
+ 669 027d 30       		.byte	48
+ 670 027e 00       		.byte	0
+ 671 027f 00       		.byte	0
+ 672 0280 00       		.byte	0
+ 673 0281 00       		.byte	0
+ 674 0282 F0       		.byte	-16
+ 675 0283 48       		.byte	72
+ 676 0284 48       		.byte	72
+ 677 0285 70       		.byte	112
+ 678 0286 40       		.byte	64
+ 679 0287 E0       		.byte	-32
+ 680 0288 00       		.byte	0
+ 681 0289 00       		.byte	0
+ 682 028a 38       		.byte	56
+ 683 028b 48       		.byte	72
+ 684 028c 48       		.byte	72
+ 685 028d 38       		.byte	56
+ 686 028e 08       		.byte	8
+ 687 028f 18       		.byte	24
+ 688 0290 00       		.byte	0
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 13
+
+
+ 689 0291 00       		.byte	0
+ 690 0292 78       		.byte	120
+ 691 0293 20       		.byte	32
+ 692 0294 20       		.byte	32
+ 693 0295 70       		.byte	112
+ 694 0296 00       		.byte	0
+ 695 0297 00       		.byte	0
+ 696 0298 00       		.byte	0
+ 697 0299 00       		.byte	0
+ 698 029a 30       		.byte	48
+ 699 029b 20       		.byte	32
+ 700 029c 10       		.byte	16
+ 701 029d 60       		.byte	96
+ 702 029e 00       		.byte	0
+ 703 029f 00       		.byte	0
+ 704 02a0 00       		.byte	0
+ 705 02a1 40       		.byte	64
+ 706 02a2 F0       		.byte	-16
+ 707 02a3 40       		.byte	64
+ 708 02a4 48       		.byte	72
+ 709 02a5 30       		.byte	48
+ 710 02a6 00       		.byte	0
+ 711 02a7 00       		.byte	0
+ 712 02a8 00       		.byte	0
+ 713 02a9 00       		.byte	0
+ 714 02aa D8       		.byte	-40
+ 715 02ab 48       		.byte	72
+ 716 02ac 48       		.byte	72
+ 717 02ad 38       		.byte	56
+ 718 02ae 00       		.byte	0
+ 719 02af 00       		.byte	0
+ 720 02b0 00       		.byte	0
+ 721 02b1 00       		.byte	0
+ 722 02b2 C8       		.byte	-56
+ 723 02b3 48       		.byte	72
+ 724 02b4 30       		.byte	48
+ 725 02b5 30       		.byte	48
+ 726 02b6 00       		.byte	0
+ 727 02b7 00       		.byte	0
+ 728 02b8 00       		.byte	0
+ 729 02b9 00       		.byte	0
+ 730 02ba D8       		.byte	-40
+ 731 02bb A8       		.byte	-88
+ 732 02bc A8       		.byte	-88
+ 733 02bd 50       		.byte	80
+ 734 02be 00       		.byte	0
+ 735 02bf 00       		.byte	0
+ 736 02c0 00       		.byte	0
+ 737 02c1 00       		.byte	0
+ 738 02c2 48       		.byte	72
+ 739 02c3 30       		.byte	48
+ 740 02c4 30       		.byte	48
+ 741 02c5 48       		.byte	72
+ 742 02c6 00       		.byte	0
+ 743 02c7 00       		.byte	0
+ 744 02c8 00       		.byte	0
+ 745 02c9 00       		.byte	0
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 14
+
+
+ 746 02ca D8       		.byte	-40
+ 747 02cb 50       		.byte	80
+ 748 02cc 50       		.byte	80
+ 749 02cd 20       		.byte	32
+ 750 02ce 20       		.byte	32
+ 751 02cf 60       		.byte	96
+ 752 02d0 00       		.byte	0
+ 753 02d1 00       		.byte	0
+ 754 02d2 78       		.byte	120
+ 755 02d3 50       		.byte	80
+ 756 02d4 28       		.byte	40
+ 757 02d5 78       		.byte	120
+ 758 02d6 00       		.byte	0
+ 759 02d7 00       		.byte	0
+ 760 02d8 10       		.byte	16
+ 761 02d9 20       		.byte	32
+ 762 02da 20       		.byte	32
+ 763 02db 60       		.byte	96
+ 764 02dc 20       		.byte	32
+ 765 02dd 20       		.byte	32
+ 766 02de 10       		.byte	16
+ 767 02df 00       		.byte	0
+ 768 02e0 20       		.byte	32
+ 769 02e1 20       		.byte	32
+ 770 02e2 20       		.byte	32
+ 771 02e3 20       		.byte	32
+ 772 02e4 20       		.byte	32
+ 773 02e5 20       		.byte	32
+ 774 02e6 20       		.byte	32
+ 775 02e7 00       		.byte	0
+ 776 02e8 40       		.byte	64
+ 777 02e9 20       		.byte	32
+ 778 02ea 20       		.byte	32
+ 779 02eb 30       		.byte	48
+ 780 02ec 20       		.byte	32
+ 781 02ed 20       		.byte	32
+ 782 02ee 40       		.byte	64
+ 783 02ef 00       		.byte	0
+ 784 02f0 00       		.byte	0
+ 785 02f1 00       		.byte	0
+ 786 02f2 00       		.byte	0
+ 787 02f3 28       		.byte	40
+ 788 02f4 50       		.byte	80
+ 789 02f5 00       		.byte	0
+ 790 02f6 00       		.byte	0
+ 791 02f7 00       		.byte	0
+ 792              		.text
+ 793              	.Letext0:
+ 794              		.file 1 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 795              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 796              		.file 3 "Drivers/Drivers/Fonts/fonts.h"
+ 797              		.file 4 "Drivers/Drivers/Fonts/font8.c"
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 font8.c
+C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s:23     .data.Font8:00000000 Font8
+C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s:31     .rodata.Font8_Table:00000000 Font8_Table
+C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s:20     .data.Font8:00000000 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccVGHuad.s:28     .rodata.Font8_Table:00000000 $d
+
+NO UNDEFINED SYMBOLS
