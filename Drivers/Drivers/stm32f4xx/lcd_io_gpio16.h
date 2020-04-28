@@ -5,35 +5,35 @@
 
 //=============================================================================
 /* Lcd controll pins assign (A..K, 0..15) */
-#define LCD_CS            X, 0
-#define LCD_RS            X, 0
-#define LCD_WR            X, 0
-#define LCD_RD            X, 0
+#define LCD_CS            D, 7
+#define LCD_RS            D, 12
+#define LCD_WR            D, 5
+#define LCD_RD            D, 4
 #define LCD_RST           X, 0  /* If not used leave it that way */
 
 /* Lcd controll pins assign (A..K, 0..15) */
-#define LCD_D0            X, 0
-#define LCD_D1            X, 0
-#define LCD_D2            X, 0
-#define LCD_D3            X, 0
-#define LCD_D4            X, 0
-#define LCD_D5            X, 0
-#define LCD_D6            X, 0
-#define LCD_D7            X, 0
-#define LCD_D8            X, 0
-#define LCD_D9            X, 0
-#define LCD_D10           X, 0
-#define LCD_D11           X, 0
-#define LCD_D12           X, 0
-#define LCD_D13           X, 0
-#define LCD_D14           X, 0
-#define LCD_D15           X, 0
+#define LCD_D0            D, 14
+#define LCD_D1            D, 15
+#define LCD_D2            D, 0
+#define LCD_D3            D, 1
+#define LCD_D4            E, 7
+#define LCD_D5            E, 8
+#define LCD_D6            E, 9
+#define LCD_D7            E, 10
+#define LCD_D8            E, 11
+#define LCD_D9            E, 12
+#define LCD_D10           E, 13
+#define LCD_D11           E, 14
+#define LCD_D12           E, 15
+#define LCD_D13           D, 8
+#define LCD_D14           D, 9
+#define LCD_D15           D, 10
 
 /* Backlight control
    - BL: A..K, 0..15 (if not used -> X, 0)
    - BL_ON: 0 = active low level, 1 = active high level */
-#define LCD_BL            X, 0  /* If not used leave it that way */
-#define LCD_BLON          0
+#define LCD_BL            A, 1  /* If not used leave it that way */
+#define LCD_BLON          1
 
 /* wait time for LCD write and read pulse
    - First, give 10, 20 values, then lower them to speed up the program.

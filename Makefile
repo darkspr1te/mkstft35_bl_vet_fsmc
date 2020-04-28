@@ -61,8 +61,8 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
 Drivers/Drivers/stm32_adafruit_lcd.c \
-Drivers/Drivers/lcd/ili9486/ili9486.c \
-Drivers/Drivers/stm32f4xx/lcd_io_fsmc8.c \
+Drivers/Drivers/lcd/ili9488/ili9488.c \
+Drivers/Drivers/stm32f4xx/lcd_io_fsmc16.c \
 Drivers/Drivers/Fonts/font8.c \
 Src/usart.c \
 Src/system_stm32f4xx.c
