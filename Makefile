@@ -74,6 +74,8 @@ Drivers/FATFS/Target/sd_diskio.c \
 Drivers/FATFS/fatfs/src/ff_gen_drv.c \
 Drivers/FATFS/fats/src/ff.c \
 Drivers/FATFS/fatfs/src/diskio.c \
+Drivers/FATFS/fatfs/src/option/syscall.c \
+Drivers/FATFS/fatfssrc/option/ccsbcs.c \
 Src/system_stm32f4xx.c
   
 

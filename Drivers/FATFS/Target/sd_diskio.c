@@ -86,16 +86,24 @@ const Diskio_drvTypeDef  SD_Driver =
 /* USER CODE END beforeFunctionSection */
 
 /* Private functions ---------------------------------------------------------*/
+void deviceSelect(void)
+{
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_RESET);
+}
+void deviceDeselect(void)
+{
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_SET);
+}
 
 static DSTATUS SD_CheckStatus(BYTE lun)
 {
   Stat = STA_NOINIT;
-
+ // 
   if(BSP_SD_GetCardState() == MSD_OK)
   {
     Stat &= ~STA_NOINIT;
   }
-
+//
   return Stat;
 }
 
@@ -118,6 +126,7 @@ Stat = STA_NOINIT;
 #else
   Stat = SD_CheckStatus(lun);
 #endif
+
   return Stat;
 }
 
@@ -128,6 +137,7 @@ Stat = STA_NOINIT;
   */
 DSTATUS SD_status(BYTE lun)
 {
+  
   return SD_CheckStatus(lun);
 }
 

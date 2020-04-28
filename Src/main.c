@@ -57,20 +57,21 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 UART_HandleTypeDef huart6;
 SD_HandleTypeDef hsd;
+SPI_HandleTypeDef hspi1;
+
 uint8_t retSD; /* Return value for SD */
 char SDPath[4]; /* SD logical drive path */
 FATFS SDFatFS; /* File system object for SD logical drive */
 FIL SDFile; /* File object for SD */
 
 FATFS sdFileSystem;		// 0:/
-
-/* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE END PV */
+/* DMA stuff trying to fix sdcard */
+DMA_HandleTypeDef hdma_sdio_tx;
+DMA_HandleTypeDef hdma_sdio_rx;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_DMA_Init(void);
 static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_FSMC_Init(void);
@@ -88,6 +89,7 @@ void mainApp(void);
   *
   * @retval None
   */
+
 int main(void)
 {
 
@@ -102,18 +104,22 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
-  HAL_UART_MspInit(&huart1);
+  //HAL_UART_MspInit(&huart1);
   MX_FSMC_Init();
+  //MX_DMA_Init();
   //init sdcard and read
   MX_SDIO_SD_Init();
+ //for maybe spi mode sdcard
+ // MX_SPI1_Init();
+ 
   MX_FATFS_Init();
   
-    printf("\n\r\n\r\n\rBooting\n\r");
-    printf("Software version: %s\r\n",SOFTWARE_VERSION);
-    printf("Board Build: \"%s\"\r\n",HARDWARE);
+  printf("\n\r\n\r\n\rBooting\n\r");
+  printf("Software version: %s\r\n",SOFTWARE_VERSION);
+  printf("Board Build: \"%s\"\r\n",HARDWARE);
     
-    printf("Loader Variant: %s\n\r",LOADER_VARIANT);
-printf("about to setup sd-card\n\r");
+  printf("Loader Variant: %s\n\r",LOADER_VARIANT);
+  printf("about to setup sd-card\n\r");
 
   unsigned char result;
   //result = f_mount(&sdFileSystem, SD_Path, 1);
@@ -128,8 +134,6 @@ printf("about to setup sd-card\n\r");
   } else {
    
 	  printf("FatFs Init Failed Code: %d\r\n", (int)result);
-    printf("is sd-card present ?\n\r");
-    printf("sd-card error is %d\n\r",result);
     //ErrorBeep(1);
    
   }
@@ -137,10 +141,23 @@ printf("about to setup sd-card\n\r");
   //open file 
   //string fname = "0:mkstft35.bin";
   FRESULT res;
-  char fname[20];
+  //char fname[20];
+  uint8_t fName[] = "testfile.txt\0";
   //fname = "0:/mkstft35.bin"
   //fname = FIRMWARE
- res = f_open(&SDFile, FIRMWARE, FA_OPEN_EXISTING | FA_READ);
+  int sd_pin=0;
+  sd_pin = HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3);
+  if (sd_pin)
+  {
+    printf("sd card pin detect high\n\r");
+  }
+  else
+  {
+    /* code */
+    printf("sd card pin detect low\n\r");
+  }
+  
+ res = f_open(&SDFile,(char *)fName, FA_OPEN_EXISTING | FA_READ);
   if (res == FR_OK)
   {
 	  
@@ -222,7 +239,98 @@ inline void moveVectorTable(uint32_t Offset)
       resetHandler();
  }
 
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void) 
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
 
+  /* DMA interrupt init */
+  /* DMA2_Stream3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
+  /* DMA2_Stream6_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+
+}
+
+/* SPI1 init function */
+void MX_SPI1_Init(void)
+{
+
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+}
+
+void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  if(spiHandle->Instance==SPI1)
+  {
+  
+    /* SPI1 clock enable */
+    __HAL_RCC_SPI1_CLK_ENABLE();
+  
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    /**SPI1 GPIO Configuration    
+    PA5     ------> SPI1_SCK
+    PA6     ------> SPI1_MISO
+    PA7     ------> SPI1_MOSI 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_6;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+ 
+  }
+}
+
+void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
+{
+
+  if(spiHandle->Instance==SPI1)
+  {
+ 
+    /* Peripheral clock disable */
+    __HAL_RCC_SPI1_CLK_DISABLE();
+  
+    /**SPI1 GPIO Configuration    
+    PA5     ------> SPI1_SCK
+    PA6     ------> SPI1_MISO
+    PA7     ------> SPI1_MOSI 
+    */
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7);
+
+    /* SPI1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(SPI1_IRQn);
+  
+  }
+} 
 /**
   * @brief SDIO Initialization Function
   * @param None
@@ -245,6 +353,12 @@ static void MX_SDIO_SD_Init(void)
   hsd.Init.BusWide = SDIO_BUS_WIDE_4B;
   hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
   hsd.Init.ClockDiv = 0;
+  int hal_erro = HAL_SD_Init(&hsd);
+  printf("HAL_SD_Init result %d",hal_erro);
+  hal_erro = HAL_SD_InitCard(&hsd);
+
+  printf("HAL_SD_InitCard result %d",hal_erro);
+ 
   /* USER CODE BEGIN SDIO_Init 2 */
 
   /* USER CODE END SDIO_Init 2 */

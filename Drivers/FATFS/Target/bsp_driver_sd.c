@@ -322,7 +322,12 @@ uint8_t BSP_SD_IsDetected(void)
   /* USER CODE BEGIN 1 */
   /* user code can be inserted here */
   /* USER CODE END 1 */    	
-
+ /* if (HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3))
+  {}
+  else
+  {
+    status = SD_NOT_PRESENT;
+  }*/
   return status;
 }
 
