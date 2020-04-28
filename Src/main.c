@@ -40,7 +40,8 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_uart.h"
-
+#include "fatfs.h"
+#include "mkstft35.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -55,6 +56,14 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 UART_HandleTypeDef huart6;
+SD_HandleTypeDef hsd;
+uint8_t retSD; /* Return value for SD */
+char SDPath[4]; /* SD logical drive path */
+FATFS SDFatFS; /* File system object for SD logical drive */
+FIL SDFile; /* File object for SD */
+
+FATFS sdFileSystem;		// 0:/
+
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 
@@ -68,7 +77,7 @@ static void MX_FSMC_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USART6_UART_Init(void);
-
+static void MX_SDIO_SD_Init(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 void mainApp(void);
@@ -95,7 +104,64 @@ int main(void)
   MX_USART6_UART_Init();
   HAL_UART_MspInit(&huart1);
   MX_FSMC_Init();
-  printf("\r\nTest debug text new build\r\n");
+  //init sdcard and read
+  MX_SDIO_SD_Init();
+  MX_FATFS_Init();
+  
+    printf("\n\r\n\r\n\rBooting\n\r");
+    printf("Software version: %s\r\n",SOFTWARE_VERSION);
+    printf("Board Build: \"%s\"\r\n",HARDWARE);
+    
+    printf("Loader Variant: %s\n\r",LOADER_VARIANT);
+printf("about to setup sd-card\n\r");
+
+  unsigned char result;
+  //result = f_mount(&sdFileSystem, SD_Path, 1);
+  //open device
+  result = f_mount(&SDFatFS, SDPath, 1);
+
+    if (result == FR_OK)
+  {
+  
+	  printf("SD Card Open Success\r\n");
+   
+  } else {
+   
+	  printf("FatFs Init Failed Code: %d\r\n", (int)result);
+    printf("is sd-card present ?\n\r");
+    printf("sd-card error is %d\n\r",result);
+    //ErrorBeep(1);
+   
+  }
+
+  //open file 
+  //string fname = "0:mkstft35.bin";
+  FRESULT res;
+  char fname[20];
+  //fname = "0:/mkstft35.bin"
+  //fname = FIRMWARE
+ res = f_open(&SDFile, FIRMWARE, FA_OPEN_EXISTING | FA_READ);
+  if (res == FR_OK)
+  {
+	  
+	  printf("flash file open ok\n\r");
+
+   // while (1);
+  } else
+	if (res != FR_OK)
+	{
+
+	  printf("flash file open failed code :%d\n\r",res);
+
+	//	return FLASH_RESULT_FILE_ERROR;
+	}
+  else 
+  {
+    printf("unknown flash error %d\n\r",res);
+  }
+  
+  
+  printf("Finished sd-card setup any errors?\n\r");
   mainApp();
   while (1)
   {
@@ -104,6 +170,84 @@ int main(void)
 
   }
 
+
+}
+//move vector table 
+inline void moveVectorTable(uint32_t Offset)
+{
+    // __disable_irq();
+    SCB->VTOR = FLASH_BASE | Offset;
+}
+
+
+//goto application
+ static uint8_t go_to(uint32_t myfunc)
+{
+	uint8_t ret = 0;
+	void(*ptr)(void);
+	if((*(volatile uint32_t *)myfunc & 0x2ffe0000) == 0x20000000)
+	{
+
+		__set_MSP((*(volatile uint32_t *)myfunc));
+		ptr = (void(*)(void))(*(__IO uint32_t*)(myfunc+4));
+
+		ptr();
+	}
+	return ret;      
+}
+//Jump to application
+
+ void Jump_To_App(void)
+ {
+     // f_mount(NULL, SPISD_Path, 1);
+    //  HAL_SPI_MspDeInit(&hspi1);
+     // HAL_TIM_Base_MspDeInit(&htim2);
+  
+      __HAL_RCC_GPIOA_CLK_DISABLE();
+      __HAL_RCC_GPIOB_CLK_DISABLE();
+      __HAL_RCC_GPIOC_CLK_DISABLE();
+      __HAL_RCC_GPIOD_CLK_DISABLE();
+      __HAL_RCC_GPIOE_CLK_DISABLE();
+
+      HAL_DeInit();
+
+      // Disabling SysTick interrupt
+      SysTick->CTRL = 0;
+      moveVectorTable(MAIN_PR_OFFSET);
+      // Setting initial value to stack pointer
+     // __set_MSP(*mcuFirstPageAddr);
+      // booting really
+
+     // Callable resetHandler = (Callable) (*(mcuFirstPageAddr + 1) );
+      resetHandler();
+ }
+
+
+/**
+  * @brief SDIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SDIO_SD_Init(void)
+{
+
+  /* USER CODE BEGIN SDIO_Init 0 */
+
+  /* USER CODE END SDIO_Init 0 */
+
+  /* USER CODE BEGIN SDIO_Init 1 */
+
+  /* USER CODE END SDIO_Init 1 */
+  hsd.Instance = SDIO;
+  hsd.Init.ClockEdge = SDIO_CLOCK_EDGE_RISING;
+  hsd.Init.ClockBypass = SDIO_CLOCK_BYPASS_DISABLE;
+  hsd.Init.ClockPowerSave = SDIO_CLOCK_POWER_SAVE_DISABLE;
+  hsd.Init.BusWide = SDIO_BUS_WIDE_4B;
+  hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
+  hsd.Init.ClockDiv = 0;
+  /* USER CODE BEGIN SDIO_Init 2 */
+
+  /* USER CODE END SDIO_Init 2 */
 
 }
 

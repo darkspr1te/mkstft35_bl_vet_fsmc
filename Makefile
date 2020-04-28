@@ -55,6 +55,9 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
@@ -65,6 +68,12 @@ Drivers/Drivers/lcd/ili9488/ili9488.c \
 Drivers/Drivers/stm32f4xx/lcd_io_fsmc16.c \
 Drivers/Drivers/Fonts/font8.c \
 Src/usart.c \
+Drivers/FATFS/App/fatfs.c \
+Drivers/FATFS/Target/bsp_driver_sd.c \
+Drivers/FATFS/Target/sd_diskio.c \
+Drivers/FATFS/fatfs/src/ff_gen_drv.c \
+Drivers/FATFS/fats/src/ff.c \
+Drivers/FATFS/fatfs/src/diskio.c \
 Src/system_stm32f4xx.c
   
 
@@ -133,6 +142,9 @@ C_INCLUDES =  \
 -IDrivers/CMSIS/Include \
 -IDrivers/App/3d_filled_vector \
 -IDrivers/drivers \
+-IDrivers/FATFS/fatfs/src \
+-IDrivers/FATFS/Target \
+-IDrivers/FATFS/App \
 -IDrivers/Drivers/Fonts
 
 

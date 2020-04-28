@@ -74,8 +74,9 @@ void _exit(int32_t status)
 {
 	while (1) {}		/* Make sure we hang here */
 }
+//use with irq only 
 
-int _write(int32_t file, uint8_t *ptr, int32_t len)
+int _write_old(int32_t file, uint8_t *ptr, int32_t len)
 {
 	/* Implement your write code here, this is used by puts and printf for example */
 	/* return len; */
