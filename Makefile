@@ -76,6 +76,7 @@ Drivers/FATFS/fats/src/ff.c \
 Drivers/FATFS/fatfs/src/diskio.c \
 Drivers/FATFS/fatfs/src/option/syscall.c \
 Drivers/FATFS/fatfssrc/option/ccsbcs.c \
+Src/flash_file.c \
 Src/system_stm32f4xx.c
   
 

@@ -69,7 +69,7 @@ FATFS SDFatFS; /* File system object for SD logical drive */
 FIL SDFile; /* File object for SD */
 
 FATFS sdFileSystem;		// 0:/
-
+const uint32_t *mcuFirstPageAddr = (const uint32_t *) (0x8000000 + MAIN_PR_OFFSET);
 /* DMA stuff trying to fix sdcard */
 DMA_HandleTypeDef hdma_sdio_tx;
 DMA_HandleTypeDef hdma_sdio_rx;
@@ -85,6 +85,13 @@ static void MX_USART3_UART_Init(void);
 static void MX_USART6_UART_Init(void);
 static void MX_SDIO_SD_Init(void);
 /* USER CODE BEGIN PFP */
+
+  FRESULT res;
+
+  uint8_t fName[] = "mkstft35.txt\0";
+  //fname = "0:/mkstft35.bin"
+  //fname = FIRMWARE
+  int sd_pin=0;
 /* Private function prototypes -----------------------------------------------*/
 void mainApp(void);
 
@@ -132,25 +139,15 @@ int main(void)
 
     if (result == FR_OK)
   {
-  
-	  printf("SD Card Open Success\r\n");
-   
-  } else {
+  	  printf("SD Card Open Success\r\n");
+     } else {
    
 	  printf("FatFs Init Failed Code: %d\r\n", (int)result);
     //ErrorBeep(1);
-   
-  }
+    }
 
-  //open file 
-  //string fname = "0:mkstft35.bin";
-  FRESULT res;
-  //char fname[20];
-  uint8_t fName[] = "testfile.txt\0";
-  //fname = "0:/mkstft35.bin"
-  //fname = FIRMWARE
-  int sd_pin=0;
   sd_pin = HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3);
+
   if (sd_pin == 1)
   {
     printf("sd card pin detect high\n\r");
@@ -165,23 +162,26 @@ int main(void)
   if (res == FR_OK)
   {
 	  
-	  printf("flash file open ok\n\r");
-
+	  printf("Firmware File Found,a ttempting to flash\n\r");
+    res == flash(fName);
+    if (res == FR_OK)
+    {
+      printf("Flash success");
+    }
+    else
+    {
+      printf("Flash error code:%d",res);
+    }
    // while (1);
   } else
 	if (res != FR_OK)
 	{
-
-	  printf("flash file open failed code :%d\n\r",res);
-
-	//	return FLASH_RESULT_FILE_ERROR;
+	  printf("Failed to open firmware file %s wirth error :%d\n\r",fName,res);
 	}
   else 
   {
     printf("unknown flash error %d\n\r",res);
   }
-  
-  
   printf("Finished sd-card setup any errors?\n\r");
   mainApp();
   while (1)
@@ -236,7 +236,7 @@ inline void moveVectorTable(uint32_t Offset)
       SysTick->CTRL = 0;
       moveVectorTable(MAIN_PR_OFFSET);
       // Setting initial value to stack pointer
-     // __set_MSP(*mcuFirstPageAddr);
+      __set_MSP(*mcuFirstPageAddr);
       // booting really
 
      // Callable resetHandler = (Callable) (*(mcuFirstPageAddr + 1) );

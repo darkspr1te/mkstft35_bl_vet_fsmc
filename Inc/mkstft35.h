@@ -7,7 +7,6 @@
 #define SOFTWARE_VERSION "0.1"
 #define LOADER_VARIANT "iz3man loader"
 #define HARDWARE "MKSTFT3.5-V1"
-#define RENAME_FILE
 #define FIRMWARE_FILENAME "mkstf35.bin"
 #define LOCATION                "0:/"
 #define OLDFIRMWARE      LOCATION FIRMWARE_FILENAME
@@ -26,7 +25,7 @@
 #define u8 uint8_t
 #define u16 uint16_t
 #define u32 uint32_t
-//const uint32_t *mcuFirstPageAddr = (const uint32_t *) (0x8000000 + MAIN_PR_OFFSET);
+
 #ifdef __cplusplus
 }
 #endif
