@@ -121,7 +121,10 @@ Stat = STA_NOINIT;
   if(BSP_SD_Init() == MSD_OK)
   {
     Stat = SD_CheckStatus(lun);
+    printf("BSP_SD_INIT Ok, lun=%d",lun);
   }
+  else 
+  printf("BSP Init Failed");
 
 #else
   Stat = SD_CheckStatus(lun);
@@ -156,7 +159,7 @@ DSTATUS SD_status(BYTE lun)
 DRESULT SD_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
 {
   DRESULT res = RES_ERROR;
-
+  printf("disk_read  pdrv=%d *buff=%p sector=%d count=%d\n\r",lun,buff,sector,count);
   if(BSP_SD_ReadBlocks((uint32_t*)buff,
                        (uint32_t) (sector),
                        count, SD_TIMEOUT) == MSD_OK)

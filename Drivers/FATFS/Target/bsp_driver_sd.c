@@ -31,6 +31,7 @@
 /* Extern variables ---------------------------------------------------------*/ 
   
 extern SD_HandleTypeDef hsd;
+extern HAL_SD_CardInfoTypeDef SDCardInfo; 
 
 /* USER CODE BEGIN BeforeInitSection */
 /* can be used to modify / undefine following code or add code */
@@ -101,8 +102,9 @@ uint8_t BSP_SD_ReadBlocks(uint32_t *pData, uint32_t ReadAddr, uint32_t NumOfBloc
   if (HAL_SD_ReadBlocks(&hsd, (uint8_t *)pData, ReadAddr, NumOfBlocks, Timeout) != HAL_OK)
   {
     sd_state = MSD_ERROR;
+    printf("BSP_Read_Blocks MSD_Error %d\n\r",sd_state);
   }
-
+  
   return sd_state;  
 }
 

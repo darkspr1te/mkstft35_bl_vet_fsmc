@@ -56,7 +56,11 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
 UART_HandleTypeDef huart6;
+
 SD_HandleTypeDef hsd;
+HAL_SD_CardInfoTypeDef SDCardInfo;
+
+
 SPI_HandleTypeDef hspi1;
 
 uint8_t retSD; /* Return value for SD */
@@ -65,6 +69,7 @@ FATFS SDFatFS; /* File system object for SD logical drive */
 FIL SDFile; /* File object for SD */
 
 FATFS sdFileSystem;		// 0:/
+
 /* DMA stuff trying to fix sdcard */
 DMA_HandleTypeDef hdma_sdio_tx;
 DMA_HandleTypeDef hdma_sdio_rx;
@@ -116,8 +121,7 @@ int main(void)
   
   printf("\n\r\n\r\n\rBooting\n\r");
   printf("Software version: %s\r\n",SOFTWARE_VERSION);
-  printf("Board Build: \"%s\"\r\n",HARDWARE);
-    
+  printf("Board Build: \"%s\"\r\n",HARDWARE);    
   printf("Loader Variant: %s\n\r",LOADER_VARIANT);
   printf("about to setup sd-card\n\r");
 
@@ -147,7 +151,7 @@ int main(void)
   //fname = FIRMWARE
   int sd_pin=0;
   sd_pin = HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3);
-  if (sd_pin)
+  if (sd_pin == 1)
   {
     printf("sd card pin detect high\n\r");
   }
@@ -350,16 +354,31 @@ static void MX_SDIO_SD_Init(void)
   hsd.Init.ClockEdge = SDIO_CLOCK_EDGE_RISING;
   hsd.Init.ClockBypass = SDIO_CLOCK_BYPASS_DISABLE;
   hsd.Init.ClockPowerSave = SDIO_CLOCK_POWER_SAVE_DISABLE;
-  hsd.Init.BusWide = SDIO_BUS_WIDE_4B;
+  hsd.Init.BusWide = SDIO_BUS_WIDE_1B;
   hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd.Init.ClockDiv = 0;
-  int hal_erro = HAL_SD_Init(&hsd);
-  printf("HAL_SD_Init result %d",hal_erro);
-  hal_erro = HAL_SD_InitCard(&hsd);
-
-  printf("HAL_SD_InitCard result %d",hal_erro);
- 
-  /* USER CODE BEGIN SDIO_Init 2 */
+  hsd.Init.ClockDiv = 3;
+  /*
+  int hal_error = HAL_SD_Init(&hsd);
+  if (hal_error == HAL_OK)
+  {
+    printf("HAL_SD_Init ok\n\r");
+  }
+  else
+  if (hal_error == HAL_ERROR)
+  {
+    printf("HAL_SD_Init fail result %d\n\n",hal_error);
+  }
+  hal_error = HAL_SD_InitCard(&hsd);
+ if (hal_error==HAL_OK)
+  {
+    printf("HAL_SD_InitCard ok\n\r");
+  }
+  else
+  {
+    printf("HAL_SD_Init result %d\n\r",hal_error);
+  }
+ */
+   /* USER CODE BEGIN SDIO_Init 2 */
 
   /* USER CODE END SDIO_Init 2 */
 

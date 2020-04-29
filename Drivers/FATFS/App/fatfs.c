@@ -18,10 +18,10 @@
 
 #include "fatfs.h"
 
-uint8_t retSD;    /* Return value for SD */
-char SDPath[4];   /* SD logical drive path */
-FATFS SDFatFS;    /* File system object for SD logical drive */
-FIL SDFile;       /* File object for SD */
+//uint8_t retSD;    /* Return value for SD */
+//char SDPath[4];   /* SD logical drive path */
+//FATFS SDFatFS;    /* File system object for SD logical drive */
+//FIL SDFile;       /* File object for SD */
 
 /* USER CODE BEGIN Variables */
 
@@ -31,7 +31,16 @@ void MX_FATFS_Init(void)
 {
   /*## FatFS: Link the SD driver ###########################*/
   retSD = FATFS_LinkDriver(&SD_Driver, SDPath);
-  printf("FAT FS Link Driver code:%d",retSD);
+  if (retSD == HAL_OK)
+  {
+    printf("FAT FS Link Driver OK\n\r");
+  }
+  else
+  {
+    printf("FAT FS Link Driver failed code:%d\n\r",retSD);
+  }
+  
+  
   /* USER CODE BEGIN Init */
   /* additional user code for init */     
   /* USER CODE END Init */
