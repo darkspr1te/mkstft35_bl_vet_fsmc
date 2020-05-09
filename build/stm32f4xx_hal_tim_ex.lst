@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
   28:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****    
   29:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****                         ##### How to use this driver #####
   30:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   ==============================================================================
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 2
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 2
 
 
   31:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   [..]
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
   85:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
   86:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
   87:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 3
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 3
 
 
   88:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  142:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Start the Hall Sensor Interface and enable interrupts.
  143:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Stop the Hall Sensor Interface and disable interrupts.
  144:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Start the Hall Sensor Interface and enable DMA transfers.
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 4
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 4
 
 
  145:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Stop the Hall Sensor Interface and disable DMA transfers.
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  199:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   htim->Instance->SMCR &= ~TIM_SMCR_SMS;
  200:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   htim->Instance->SMCR |= TIM_SLAVEMODE_RESET;
  201:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 5
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 5
 
 
  202:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Program channel 2 in PWM 2 mode with the desired Commutation_Delay*/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  256:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @retval None
  257:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   */
  258:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** __weak void HAL_TIMEx_HallSensor_MspInit(TIM_HandleTypeDef *htim)
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 6
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 6
 
 
  259:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  313:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   assert_param(IS_TIM_XOR_INSTANCE(htim->Instance));
  314:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  315:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Disable the Input Capture channels 1, 2 and 3
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 7
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 7
 
 
  316:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (in the Hall Sensor Interface the Three possible channels that can be used are TIM_CHANNEL_1, T
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  370:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   __HAL_TIM_DISABLE(htim);
  371:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  372:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Return function status */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 8
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 8
 
 
  373:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   return HAL_OK;
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  427:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @brief  Stops the TIM Hall Sensor Interface in DMA mode.
  428:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @param  htim pointer to a TIM_HandleTypeDef structure that contains
  429:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *                the configuration information for TIM module.
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 9
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 9
 
 
  430:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @retval HAL status
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  484:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
  485:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @retval HAL status
  486:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 10
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 10
 
 
  487:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** HAL_StatusTypeDef HAL_TIMEx_OCN_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  541:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *          This parameter can be one of the following values:
  542:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *            @arg TIM_CHANNEL_1: TIM Channel 1 selected
  543:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *            @arg TIM_CHANNEL_2: TIM Channel 2 selected
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 11
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 11
 
 
  544:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  598:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Return function status */
  599:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   return HAL_OK;
  600:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** } 
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 12
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 12
 
 
  601:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  655:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
  656:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Disable the TIM Break interrupt (only if no more channel is active) */
  657:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   if((READ_REG(htim->Instance->CCER) & (TIM_CCER_CC1NE | TIM_CCER_CC2NE | TIM_CCER_CC3NE)) == RESET
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 13
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 13
 
 
  658:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   {
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  712:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****      
  713:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       /* Set the DMA error callback */
  714:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       htim->hdma[TIM_DMA_ID_CC1]->XferErrorCallback = TIM_DMAError ;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 14
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 14
 
 
  715:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  769:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     }
  770:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     break;
  771:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 15
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 15
 
 
  772:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     default:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  826:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     }
  827:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     break;
  828:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 16
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 16
 
 
  829:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     case TIM_CHANNEL_4:
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  883:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Stop the Complementary One Pulse and disable interrupts.
  884:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****                
  885:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** @endverbatim
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 17
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 17
 
 
  886:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @{
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  940:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Disable the Peripheral */
  941:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   __HAL_TIM_DISABLE(htim);
  942:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 18
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 18
 
 
  943:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Return function status */
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  997:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  998:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Enable the TIM Break interrupt */
  999:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   __HAL_TIM_ENABLE_IT(htim, TIM_IT_BREAK);
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 19
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 19
 
 
 1000:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1054:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     case TIM_CHANNEL_4:
 1055:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     {
 1056:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       /* Disable the TIM Capture/Compare 3 interrupt */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 20
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 20
 
 
 1057:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC4);
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1111:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       return HAL_ERROR;                                    
 1112:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     }
 1113:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     else
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 21
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 21
 
 
 1114:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     {
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1168:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     case TIM_CHANNEL_4:
 1169:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     {
 1170:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****      /* Set the DMA Period elapsed callback */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 22
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 22
 
 
 1171:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       htim->hdma[TIM_DMA_ID_CC4]->XferCpltCallback = TIM_DMADelayPulseCplt;
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1225:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     break;
 1226:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
 1227:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     case TIM_CHANNEL_2:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 23
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 23
 
 
 1228:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     {
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1282:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Stop the Complementary One Pulse.
 1283:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Start the Complementary One Pulse and enable interrupts.
 1284:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     (+) Stop the Complementary One Pulse and disable interrupts.
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 24
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 24
 
 
 1285:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****                
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1339:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Disable the Peripheral */
 1340:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   __HAL_TIM_DISABLE(htim); 
 1341:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****    
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 25
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 25
 
 
 1342:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Return function status */
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1396:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
 1397:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Disable the TIM Capture/Compare 2 interrupt */
 1398:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC2);
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 26
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 26
 
 
 1399:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1453:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *          This parameter can be one of the following values:
 1454:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *            @arg TIM_COMMUTATION_TRGI: Commutation source is the TRGI of the Interface Timer
 1455:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   *            @arg TIM_COMMUTATION_SOFTWARE:  Commutation source is set by software using the COMG
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 27
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 27
 
 
 1456:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @retval HAL status
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1510:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Check the parameters */
 1511:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   assert_param(IS_TIM_ADVANCED_INSTANCE(htim->Instance));
 1512:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   assert_param(IS_TIM_INTERNAL_TRIGGEREVENT_SELECTION(InputTrigger));
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 28
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 28
 
 
 1513:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1567:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
 1568:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   __HAL_LOCK(htim);
 1569:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 29
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 29
 
 
 1570:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   if ((InputTrigger == TIM_TS_ITR0) || (InputTrigger == TIM_TS_ITR1) ||
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1624:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   htim->Instance->SMCR &= ~TIM_SMCR_MSM;
 1625:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Set or Reset the MSM Bit */
 1626:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   htim->Instance->SMCR |= sMasterConfig->MasterSlaveMode;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 30
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 30
 
 
 1627:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1681:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** }
 1682:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
 1683:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** /**
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 31
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 31
 
 
 1684:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @brief  Configures the TIM2, TIM5 and TIM11 Remapping input capabilities.
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1738:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** }
 1739:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
 1740:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** /**
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 32
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 32
 
 
 1741:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   * @}
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1795:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****  *
 1796:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** @verbatim   
 1797:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   ==============================================================================
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 33
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 33
 
 
 1798:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****                 ##### Extension Peripheral State functions #####
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1852:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   */
 1853:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** static void TIM_CCxNChannelCmd(TIM_TypeDef* TIMx, uint32_t Channel, uint32_t ChannelNState)
 1854:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** {
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 34
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 34
 
 
   29              		.loc 1 1854 1 view -0
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
   69 001c 7047     		bx	lr
   70              		.cfi_endproc
   71              	.LFE162:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 35
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 35
 
 
   73              		.section	.text.HAL_TIMEx_HallSensor_MspInit,"ax",%progbits
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  122              		.cfi_offset 14, -4
  123 0006 88B0     		sub	sp, sp, #32
  124              	.LCFI3:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 36
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 36
 
 
  125              		.cfi_def_cfa_offset 48
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  189:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  163              		.loc 1 189 25 view .LVU39
  164 0038 9369     		ldr	r3, [r2, #24]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 37
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 37
 
 
  189:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  202 006a 9368     		ldr	r3, [r2, #8]
  203 006c 43F00403 		orr	r3, r3, #4
  204 0070 9360     		str	r3, [r2, #8]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 38
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 38
 
 
  203:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   OC_Config.OCIdleState = TIM_OCIDLESTATE_RESET;
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  240 0092 23F07003 		bic	r3, r3, #112
  241 0096 5360     		str	r3, [r2, #4]
  216:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 39
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 39
 
 
  242              		.loc 1 216 3 is_stmt 1 view .LVU76
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  274:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Prevent unused argument(s) compilation warning */
  289              		.loc 1 274 1 is_stmt 1 view -0
  290              		.cfi_startproc
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 40
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 40
 
 
  291              		@ args = 0, pretend = 0, frame = 0
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  337 001c 1142     		tst	r1, r2
  338 001e 03D1     		bne	.L13
  238:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 41
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 41
 
 
  339              		.loc 1 238 3 discriminator 2 view .LVU97
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  384              		.cfi_offset 14, -4
  385 0002 0446     		mov	r4, r0
  291:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 42
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 42
 
 
  386              		.loc 1 291 3 is_stmt 1 view .LVU109
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  432 0004 0022     		movs	r2, #0
  433 0006 1146     		mov	r1, r2
  434 0008 0068     		ldr	r0, [r0]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 43
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 43
 
 
  435              	.LVL21:
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  481              	.LCFI9:
  482              		.cfi_def_cfa_offset 8
  483              		.cfi_offset 4, -8
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 44
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 44
 
 
  484              		.cfi_offset 14, -4
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  530              	.LCFI10:
  531              		.cfi_def_cfa_offset 8
  532              		.cfi_offset 4, -8
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 45
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 45
 
 
  533              		.cfi_offset 14, -4
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  577              		.syntax unified
  578              		.thumb
  579              		.thumb_func
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 46
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 46
 
 
  580              		.fpu fpv4-sp-d16
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  621              		.loc 1 401 19 view .LVU164
  622 001e 1646     		mov	r6, r2
  623 0020 0D46     		mov	r5, r1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 47
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 47
 
 
  624 0022 0446     		mov	r4, r0
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  420:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  664              		.loc 1 420 3 view .LVU179
  665 0052 2268     		ldr	r2, [r4]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 48
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 48
 
 
  666 0054 1368     		ldr	r3, [r2]
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  714              		.loc 1 439 3 view .LVU187
  715 0004 0022     		movs	r2, #0
  716 0006 1146     		mov	r1, r2
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 49
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 49
 
 
  717 0008 0068     		ldr	r0, [r0]
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  763              		.loc 1 488 1 is_stmt 1 view -0
  764              		.cfi_startproc
  765              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 50
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 50
 
 
  766              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  812              		.cfi_startproc
  813              		@ args = 0, pretend = 0, frame = 0
  814              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 51
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 51
 
 
  518:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* Check the parameters */
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  858 003e 03D1     		bne	.L40
  529:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  859              		.loc 1 529 3 discriminator 2 view .LVU219
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 52
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 52
 
 
  860 0040 1A68     		ldr	r2, [r3]
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  909 0015 0C       		.byte	(.L43-.L45)/2
  910 0016 0C       		.byte	(.L43-.L45)/2
  911 0017 0C       		.byte	(.L43-.L45)/2
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 53
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 53
 
 
  912 0018 2D       		.byte	(.L44-.L45)/2
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  955              		.loc 1 566 5 view .LVU237
  956 0058 E4E7     		b	.L43
  957              	.L46:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 54
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 54
 
 
  571:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     }
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1006 000e 0C       		.byte	(.L51-.L53)/2
  1007 000f 0C       		.byte	(.L51-.L53)/2
  1008 0010 3A       		.byte	(.L55-.L53)/2
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 55
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 55
 
 
  1009 0011 0C       		.byte	(.L51-.L53)/2
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  663:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  1053              		.loc 1 663 3 discriminator 1 view .LVU256
  1054 004c 196A     		ldr	r1, [r3, #32]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 56
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 56
 
 
  1055 004e 40F24442 		movw	r2, #1092
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  640:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
  1099              		.loc 1 640 5 view .LVU267
  1100 0096 C5E7     		b	.L51
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 57
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 57
 
 
  1101              	.L52:
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  695:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   {
  1147              		.loc 1 695 10 view .LVU278
  1148 0012 012D     		cmp	r5, #1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 58
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 58
 
 
  1149 0014 0DD0     		beq	.L72
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1194              		.loc 1 711 52 view .LVU287
  1195 0044 2B49     		ldr	r1, .L74
  1196              	.LVL57:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 59
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 59
 
 
  711:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****      
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1238 0080 1360     		str	r3, [r2]
  786:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** }
  1239              		.loc 1 786 3 view .LVU301
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 60
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 60
 
 
  786:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** }
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1279              		.loc 1 738 5 view .LVU316
  1280 00aa DBE7     		b	.L65
  1281              	.LVL66:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 61
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 61
 
 
  1282              	.L68:
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1320              		.loc 1 759 52 view .LVU332
  1321 00d2 0849     		ldr	r1, .L74
  1322              	.LVL71:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 62
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 62
 
 
  759:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****      
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1368              		.loc 1 802 1 view -0
  1369              		.cfi_startproc
  1370              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 63
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 63
 
 
  1371              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1416 002c 2368     		ldr	r3, [r4]
  1417 002e 196A     		ldr	r1, [r3, #32]
  1418 0030 41F21112 		movw	r2, #4369
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 64
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 64
 
 
  1419 0034 1142     		tst	r1, r2
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1462 007a D360     		str	r3, [r2, #12]
  820:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
  1463              		.loc 1 820 5 view .LVU364
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 65
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 65
 
 
  1464 007c D2E7     		b	.L77
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1511              		.loc 1 906 3 is_stmt 0 view .LVU373
  1512 0008 FFF7FEFF 		bl	TIM_CCxNChannelCmd
  1513              	.LVL80:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 66
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 66
 
 
  909:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1560 0008 FFF7FEFF 		bl	TIM_CCxNChannelCmd
  1561              	.LVL83:
  938:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 67
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 67
 
 
  1562              		.loc 1 938 3 is_stmt 1 view .LVU384
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1607              		.syntax unified
  1608              		.thumb
  1609              		.thumb_func
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 68
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 68
 
 
  1610              		.fpu fpv4-sp-d16
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1658 002c D360     		str	r3, [r2, #12]
 1002:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  1659              		.loc 1 1002 3 view .LVU402
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 69
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 69
 
 
  1660 002e 0422     		movs	r2, #4
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1703              		.loc 1 992 5 view .LVU413
  1704 0070 D8E7     		b	.L93
  1705              		.cfi_endproc
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 70
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 70
 
 
  1706              	.LFE144:
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1756              		.loc 1 1038 5 view .LVU419
  1757              	.L101:
 1066:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 71
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 71
 
 
  1758              		.loc 1 1066 3 view .LVU420
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1801 0068 08D1     		bne	.L109
 1078:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  1802              		.loc 1 1078 3 discriminator 1 view .LVU432
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 72
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 72
 
 
  1803 006a 196A     		ldr	r1, [r3, #32]
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1849              		.thumb_func
  1850              		.fpu fpv4-sp-d16
  1852              	HAL_TIMEx_PWMN_Start_DMA:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 73
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 73
 
 
  1853              	.LVL92:
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1897 0029 20       		.byte	(.L115-.L117)/2
  1898 002a 20       		.byte	(.L115-.L117)/2
  1899 002b 20       		.byte	(.L115-.L117)/2
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 74
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 74
 
 
  1900 002c 44       		.byte	(.L118-.L117)/2
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1129:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       
  1940              		.loc 1 1129 7 view .LVU466
  1941 0050 3432     		adds	r2, r2, #52
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 75
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 75
 
 
  1942 0052 3146     		mov	r1, r6
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  1984              		.loc 1 1139 52 view .LVU478
  1985 008a 1A49     		ldr	r1, .L124
  1986              	.LVL101:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 76
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 76
 
 
 1139:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****      
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2025 00b2 826A     		ldr	r2, [r0, #40]
 1158:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       
  2026              		.loc 1 1158 53 view .LVU495
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 77
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 77
 
 
  2027 00b4 1049     		ldr	r1, .L124+4
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
 1177:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       
  2066              		.loc 1 1177 7 view .LVU511
  2067 00de 4032     		adds	r2, r2, #64
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 78
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 78
 
 
  2068 00e0 3146     		mov	r1, r6
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2117 000c 07       		.byte	(.L132-.L129)/2
  2118 000d 0C       		.byte	(.L127-.L129)/2
  2119 000e 0C       		.byte	(.L127-.L129)/2
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 79
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 79
 
 
  2120 000f 0C       		.byte	(.L127-.L129)/2
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2164              		.loc 1 1259 3 view .LVU528
  2165 004a 2368     		ldr	r3, [r4]
  2166 004c 196A     		ldr	r1, [r3, #32]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 80
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 80
 
 
  2167 004e 41F21112 		movw	r2, #4369
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2210 0092 D360     		str	r3, [r2, #12]
 1246:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
  2211              		.loc 1 1246 5 view .LVU540
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 81
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 81
 
 
  2212 0094 C6E7     		b	.L127
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2260              		.align	1
  2261              		.global	HAL_TIMEx_OnePulseN_Stop
  2262              		.syntax unified
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 82
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 82
 
 
  2263              		.thumb
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2307              		.loc 1 1340 3 view .LVU560
  2308 002a 2368     		ldr	r3, [r4]
  2309 002c 196A     		ldr	r1, [r3, #32]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 83
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 83
 
 
  2310 002e 41F21112 		movw	r2, #4369
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2357 0008 43F00203 		orr	r3, r3, #2
  2358 000c D360     		str	r3, [r2, #12]
 1366:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 84
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 84
 
 
  2359              		.loc 1 1366 3 view .LVU570
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2406              		.loc 1 1392 3 is_stmt 1 view .LVU579
 1395:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  2407              		.loc 1 1395 3 view .LVU580
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 85
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 85
 
 
  2408 0004 0268     		ldr	r2, [r0]
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2452 0052 03D1     		bne	.L146
 1407:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
  2453              		.loc 1 1407 4 discriminator 2 view .LVU591
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 86
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 86
 
 
  2454 0054 1A68     		ldr	r2, [r3]
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2498              		.loc 1 1466 6 is_stmt 0 discriminator 2 view .LVU603
  2499 0010 29B1     		cbz	r1, .L150
 1466:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       (InputTrigger == TIM_TS_ITR2) || (InputTrigger == TIM_TS_ITR3))
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 87
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 87
 
 
  2500              		.loc 1 1466 37 discriminator 1 view .LVU604
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2539 003e 21F00401 		bic	r1, r1, #4
  2540 0042 6160     		str	r1, [r4, #4]
 1478:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****     
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 88
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 88
 
 
  2541              		.loc 1 1478 3 is_stmt 1 view .LVU620
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2587              		@ link register save eliminated.
 1511:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   assert_param(IS_TIM_INTERNAL_TRIGGEREVENT_SELECTION(InputTrigger));
  2588              		.loc 1 1511 3 view .LVU631
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 89
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 89
 
 
 1512:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2627 002a 9C68     		ldr	r4, [r3, #8]
  2628 002c 2143     		orrs	r1, r1, r4
  2629              	.LVL134:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 90
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 90
 
 
 1521:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   }
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2668              	.LVL136:
 1536:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
  2669              		.loc 1 1536 1 view .LVU664
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 91
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 91
 
 
  2670 005e 5DF8044B 		ldr	r4, [sp], #4
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2716              		.loc 1 1570 3 discriminator 2 view .LVU674
 1570:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****       (InputTrigger == TIM_TS_ITR2) || (InputTrigger == TIM_TS_ITR3))
  2717              		.loc 1 1570 6 is_stmt 0 discriminator 2 view .LVU675
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 92
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 92
 
 
  2718 0010 29B1     		cbz	r1, .L168
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2756              		.loc 1 1581 23 view .LVU691
  2757 003c 6168     		ldr	r1, [r4, #4]
  2758 003e 21F00401 		bic	r1, r1, #4
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 93
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 93
 
 
  2759 0042 6160     		str	r1, [r4, #4]
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2797              		.cfi_restore 4
  2798              		.cfi_def_cfa_offset 0
  2799 006e 7047     		bx	lr
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 94
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 94
 
 
  2800              	.LVL143:
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2846 000a 0122     		movs	r2, #1
  2847 000c 80F83820 		strb	r2, [r0, #56]
 1616:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 95
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 95
 
 
  2848              		.loc 1 1616 3 discriminator 2 view .LVU718
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2885 003a 0B43     		orrs	r3, r3, r1
  2886 003c A360     		str	r3, [r4, #8]
 1628:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 96
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 96
 
 
  2887              		.loc 1 1628 3 is_stmt 1 discriminator 2 view .LVU736
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2932              		.loc 1 1650 3 view .LVU747
 1651:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   assert_param(IS_TIM_OSSI_STATE(sBreakDeadTimeConfig->OffStateIDLEMode));
  2933              		.loc 1 1651 3 view .LVU748
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 97
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 97
 
 
 1652:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   assert_param(IS_TIM_LOCK_LEVEL(sBreakDeadTimeConfig->LockLevel));
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  2971 0024 0A68     		ldr	r2, [r1]
  2972              	.LVL158:
 1669:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   MODIFY_REG(tmpbdtr, TIM_BDTR_BKE, sBreakDeadTimeConfig->BreakState);
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 98
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 98
 
 
  2973              		.loc 1 1669 3 discriminator 2 view .LVU766
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  3013 0048 5364     		str	r3, [r2, #68]
 1678:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
  3014              		.loc 1 1678 3 is_stmt 1 discriminator 2 view .LVU781
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 99
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 99
 
 
 1678:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  3059              		.loc 1 1713 3 discriminator 2 view .LVU793
 1714:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** 
  3060              		.loc 1 1714 3 discriminator 2 view .LVU794
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 100
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 100
 
 
 1731:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c **** #endif
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  3104              		@ frame_needed = 0, uses_anonymous_args = 0
  3105              		@ link register save eliminated.
 1769:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c ****   /* NOTE : This function Should not be modified, when the callback is needed,
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 101
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 101
 
 
  3106              		.loc 1 1769 3 view .LVU808
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  3154              		.thumb_func
  3155              		.fpu fpv4-sp-d16
  3157              	HAL_TIMEx_BreakCallback:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 102
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 102
 
 
  3158              	.LVL184:
@@ -6118,120 +6118,120 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 1
  3208              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
  3209              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
  3210              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 103
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 103
 
 
  3211              		.file 15 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h"
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 104
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 104
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_hal_tim_ex.c
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:18     .text.TIM_CCxNChannelCmd:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:25     .text.TIM_CCxNChannelCmd:00000000 TIM_CCxNChannelCmd
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:74     .text.HAL_TIMEx_HallSensor_MspInit:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:81     .text.HAL_TIMEx_HallSensor_MspInit:00000000 HAL_TIMEx_HallSensor_MspInit
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:96     .text.HAL_TIMEx_HallSensor_Init:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:103    .text.HAL_TIMEx_HallSensor_Init:00000000 HAL_TIMEx_HallSensor_Init
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:279    .text.HAL_TIMEx_HallSensor_MspDeInit:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:286    .text.HAL_TIMEx_HallSensor_MspDeInit:00000000 HAL_TIMEx_HallSensor_MspDeInit
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:301    .text.HAL_TIMEx_HallSensor_DeInit:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:308    .text.HAL_TIMEx_HallSensor_DeInit:00000000 HAL_TIMEx_HallSensor_DeInit
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:365    .text.HAL_TIMEx_HallSensor_Start:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:372    .text.HAL_TIMEx_HallSensor_Start:00000000 HAL_TIMEx_HallSensor_Start
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:409    .text.HAL_TIMEx_HallSensor_Stop:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:416    .text.HAL_TIMEx_HallSensor_Stop:00000000 HAL_TIMEx_HallSensor_Stop
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:465    .text.HAL_TIMEx_HallSensor_Start_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:472    .text.HAL_TIMEx_HallSensor_Start_IT:00000000 HAL_TIMEx_HallSensor_Start_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:514    .text.HAL_TIMEx_HallSensor_Stop_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:521    .text.HAL_TIMEx_HallSensor_Stop_IT:00000000 HAL_TIMEx_HallSensor_Stop_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:575    .text.HAL_TIMEx_HallSensor_Start_DMA:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:582    .text.HAL_TIMEx_HallSensor_Start_DMA:00000000 HAL_TIMEx_HallSensor_Start_DMA
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:686    .text.HAL_TIMEx_HallSensor_Start_DMA:00000068 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:692    .text.HAL_TIMEx_HallSensor_Stop_DMA:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:699    .text.HAL_TIMEx_HallSensor_Stop_DMA:00000000 HAL_TIMEx_HallSensor_Stop_DMA
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:753    .text.HAL_TIMEx_OCN_Start:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:760    .text.HAL_TIMEx_OCN_Start:00000000 HAL_TIMEx_OCN_Start
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:801    .text.HAL_TIMEx_OCN_Stop:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:808    .text.HAL_TIMEx_OCN_Stop:00000000 HAL_TIMEx_OCN_Stop
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:873    .text.HAL_TIMEx_OCN_Start_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:880    .text.HAL_TIMEx_OCN_Start_IT:00000000 HAL_TIMEx_OCN_Start_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:900    .text.HAL_TIMEx_OCN_Start_IT:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:977    .text.HAL_TIMEx_OCN_Stop_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:984    .text.HAL_TIMEx_OCN_Stop_IT:00000000 HAL_TIMEx_OCN_Stop_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1004   .text.HAL_TIMEx_OCN_Stop_IT:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1113   .text.HAL_TIMEx_OCN_Start_DMA:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1120   .text.HAL_TIMEx_OCN_Start_DMA:00000000 HAL_TIMEx_OCN_Start_DMA
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1160   .text.HAL_TIMEx_OCN_Start_DMA:00000024 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1352   .text.HAL_TIMEx_OCN_Start_DMA:000000f4 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1358   .text.HAL_TIMEx_OCN_Stop_DMA:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1365   .text.HAL_TIMEx_OCN_Stop_DMA:00000000 HAL_TIMEx_OCN_Stop_DMA
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1385   .text.HAL_TIMEx_OCN_Stop_DMA:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1485   .text.HAL_TIMEx_PWMN_Start:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1492   .text.HAL_TIMEx_PWMN_Start:00000000 HAL_TIMEx_PWMN_Start
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1533   .text.HAL_TIMEx_PWMN_Stop:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1540   .text.HAL_TIMEx_PWMN_Stop:00000000 HAL_TIMEx_PWMN_Stop
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1605   .text.HAL_TIMEx_PWMN_Start_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1612   .text.HAL_TIMEx_PWMN_Start_IT:00000000 HAL_TIMEx_PWMN_Start_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1632   .text.HAL_TIMEx_PWMN_Start_IT:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1709   .text.HAL_TIMEx_PWMN_Stop_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1716   .text.HAL_TIMEx_PWMN_Stop_IT:00000000 HAL_TIMEx_PWMN_Stop_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1736   .text.HAL_TIMEx_PWMN_Stop_IT:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1845   .text.HAL_TIMEx_PWMN_Start_DMA:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1852   .text.HAL_TIMEx_PWMN_Start_DMA:00000000 HAL_TIMEx_PWMN_Start_DMA
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1892   .text.HAL_TIMEx_PWMN_Start_DMA:00000024 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2084   .text.HAL_TIMEx_PWMN_Start_DMA:000000f4 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2090   .text.HAL_TIMEx_PWMN_Stop_DMA:00000000 $t
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 105
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:18     .text.TIM_CCxNChannelCmd:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:25     .text.TIM_CCxNChannelCmd:00000000 TIM_CCxNChannelCmd
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:74     .text.HAL_TIMEx_HallSensor_MspInit:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:81     .text.HAL_TIMEx_HallSensor_MspInit:00000000 HAL_TIMEx_HallSensor_MspInit
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:96     .text.HAL_TIMEx_HallSensor_Init:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:103    .text.HAL_TIMEx_HallSensor_Init:00000000 HAL_TIMEx_HallSensor_Init
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:279    .text.HAL_TIMEx_HallSensor_MspDeInit:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:286    .text.HAL_TIMEx_HallSensor_MspDeInit:00000000 HAL_TIMEx_HallSensor_MspDeInit
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:301    .text.HAL_TIMEx_HallSensor_DeInit:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:308    .text.HAL_TIMEx_HallSensor_DeInit:00000000 HAL_TIMEx_HallSensor_DeInit
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:365    .text.HAL_TIMEx_HallSensor_Start:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:372    .text.HAL_TIMEx_HallSensor_Start:00000000 HAL_TIMEx_HallSensor_Start
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:409    .text.HAL_TIMEx_HallSensor_Stop:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:416    .text.HAL_TIMEx_HallSensor_Stop:00000000 HAL_TIMEx_HallSensor_Stop
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:465    .text.HAL_TIMEx_HallSensor_Start_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:472    .text.HAL_TIMEx_HallSensor_Start_IT:00000000 HAL_TIMEx_HallSensor_Start_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:514    .text.HAL_TIMEx_HallSensor_Stop_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:521    .text.HAL_TIMEx_HallSensor_Stop_IT:00000000 HAL_TIMEx_HallSensor_Stop_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:575    .text.HAL_TIMEx_HallSensor_Start_DMA:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:582    .text.HAL_TIMEx_HallSensor_Start_DMA:00000000 HAL_TIMEx_HallSensor_Start_DMA
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:686    .text.HAL_TIMEx_HallSensor_Start_DMA:00000068 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:692    .text.HAL_TIMEx_HallSensor_Stop_DMA:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:699    .text.HAL_TIMEx_HallSensor_Stop_DMA:00000000 HAL_TIMEx_HallSensor_Stop_DMA
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:753    .text.HAL_TIMEx_OCN_Start:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:760    .text.HAL_TIMEx_OCN_Start:00000000 HAL_TIMEx_OCN_Start
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:801    .text.HAL_TIMEx_OCN_Stop:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:808    .text.HAL_TIMEx_OCN_Stop:00000000 HAL_TIMEx_OCN_Stop
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:873    .text.HAL_TIMEx_OCN_Start_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:880    .text.HAL_TIMEx_OCN_Start_IT:00000000 HAL_TIMEx_OCN_Start_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:900    .text.HAL_TIMEx_OCN_Start_IT:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:977    .text.HAL_TIMEx_OCN_Stop_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:984    .text.HAL_TIMEx_OCN_Stop_IT:00000000 HAL_TIMEx_OCN_Stop_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1004   .text.HAL_TIMEx_OCN_Stop_IT:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1113   .text.HAL_TIMEx_OCN_Start_DMA:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1120   .text.HAL_TIMEx_OCN_Start_DMA:00000000 HAL_TIMEx_OCN_Start_DMA
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1160   .text.HAL_TIMEx_OCN_Start_DMA:00000024 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1352   .text.HAL_TIMEx_OCN_Start_DMA:000000f4 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1358   .text.HAL_TIMEx_OCN_Stop_DMA:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1365   .text.HAL_TIMEx_OCN_Stop_DMA:00000000 HAL_TIMEx_OCN_Stop_DMA
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1385   .text.HAL_TIMEx_OCN_Stop_DMA:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1485   .text.HAL_TIMEx_PWMN_Start:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1492   .text.HAL_TIMEx_PWMN_Start:00000000 HAL_TIMEx_PWMN_Start
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1533   .text.HAL_TIMEx_PWMN_Stop:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1540   .text.HAL_TIMEx_PWMN_Stop:00000000 HAL_TIMEx_PWMN_Stop
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1605   .text.HAL_TIMEx_PWMN_Start_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1612   .text.HAL_TIMEx_PWMN_Start_IT:00000000 HAL_TIMEx_PWMN_Start_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1632   .text.HAL_TIMEx_PWMN_Start_IT:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1709   .text.HAL_TIMEx_PWMN_Stop_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1716   .text.HAL_TIMEx_PWMN_Stop_IT:00000000 HAL_TIMEx_PWMN_Stop_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1736   .text.HAL_TIMEx_PWMN_Stop_IT:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1845   .text.HAL_TIMEx_PWMN_Start_DMA:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1852   .text.HAL_TIMEx_PWMN_Start_DMA:00000000 HAL_TIMEx_PWMN_Start_DMA
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1892   .text.HAL_TIMEx_PWMN_Start_DMA:00000024 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2084   .text.HAL_TIMEx_PWMN_Start_DMA:000000f4 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2090   .text.HAL_TIMEx_PWMN_Stop_DMA:00000000 $t
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 105
 
 
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2097   .text.HAL_TIMEx_PWMN_Stop_DMA:00000000 HAL_TIMEx_PWMN_Stop_DMA
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2117   .text.HAL_TIMEx_PWMN_Stop_DMA:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2217   .text.HAL_TIMEx_OnePulseN_Start:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2224   .text.HAL_TIMEx_OnePulseN_Start:00000000 HAL_TIMEx_OnePulseN_Start
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2260   .text.HAL_TIMEx_OnePulseN_Stop:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2267   .text.HAL_TIMEx_OnePulseN_Stop:00000000 HAL_TIMEx_OnePulseN_Stop
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2332   .text.HAL_TIMEx_OnePulseN_Start_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2339   .text.HAL_TIMEx_OnePulseN_Start_IT:00000000 HAL_TIMEx_OnePulseN_Start_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2385   .text.HAL_TIMEx_OnePulseN_Stop_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2392   .text.HAL_TIMEx_OnePulseN_Stop_IT:00000000 HAL_TIMEx_OnePulseN_Stop_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2467   .text.HAL_TIMEx_ConfigCommutationEvent:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2474   .text.HAL_TIMEx_ConfigCommutationEvent:00000000 HAL_TIMEx_ConfigCommutationEvent
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2573   .text.HAL_TIMEx_ConfigCommutationEvent_IT:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2580   .text.HAL_TIMEx_ConfigCommutationEvent_IT:00000000 HAL_TIMEx_ConfigCommutationEvent_IT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2686   .text.HAL_TIMEx_ConfigCommutationEvent_DMA:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2693   .text.HAL_TIMEx_ConfigCommutationEvent_DMA:00000000 HAL_TIMEx_ConfigCommutationEvent_DMA
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2810   .text.HAL_TIMEx_ConfigCommutationEvent_DMA:00000074 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3120   .text.TIMEx_DMACommutationCplt:00000000 TIMEx_DMACommutationCplt
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2816   .text.HAL_TIMEx_MasterConfigSynchronization:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2823   .text.HAL_TIMEx_MasterConfigSynchronization:00000000 HAL_TIMEx_MasterConfigSynchronization
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2916   .text.HAL_TIMEx_ConfigBreakDeadTime:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2923   .text.HAL_TIMEx_ConfigBreakDeadTime:00000000 HAL_TIMEx_ConfigBreakDeadTime
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3038   .text.HAL_TIMEx_RemapConfig:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3045   .text.HAL_TIMEx_RemapConfig:00000000 HAL_TIMEx_RemapConfig
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3091   .text.HAL_TIMEx_CommutationCallback:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3098   .text.HAL_TIMEx_CommutationCallback:00000000 HAL_TIMEx_CommutationCallback
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3113   .text.TIMEx_DMACommutationCplt:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3150   .text.HAL_TIMEx_BreakCallback:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3157   .text.HAL_TIMEx_BreakCallback:00000000 HAL_TIMEx_BreakCallback
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3172   .text.HAL_TIMEx_HallSensor_GetState:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:3179   .text.HAL_TIMEx_HallSensor_GetState:00000000 HAL_TIMEx_HallSensor_GetState
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:913    .text.HAL_TIMEx_OCN_Start_IT:00000019 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:913    .text.HAL_TIMEx_OCN_Start_IT:0000001a $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1017   .text.HAL_TIMEx_OCN_Stop_IT:00000019 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1017   .text.HAL_TIMEx_OCN_Stop_IT:0000001a $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1173   .text.HAL_TIMEx_OCN_Start_DMA:00000031 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1173   .text.HAL_TIMEx_OCN_Start_DMA:00000032 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1398   .text.HAL_TIMEx_OCN_Stop_DMA:00000019 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1398   .text.HAL_TIMEx_OCN_Stop_DMA:0000001a $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1645   .text.HAL_TIMEx_PWMN_Start_IT:00000019 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1645   .text.HAL_TIMEx_PWMN_Start_IT:0000001a $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1749   .text.HAL_TIMEx_PWMN_Stop_IT:00000019 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1749   .text.HAL_TIMEx_PWMN_Stop_IT:0000001a $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1905   .text.HAL_TIMEx_PWMN_Start_DMA:00000031 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:1905   .text.HAL_TIMEx_PWMN_Start_DMA:00000032 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2130   .text.HAL_TIMEx_PWMN_Stop_DMA:00000019 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s:2130   .text.HAL_TIMEx_PWMN_Stop_DMA:0000001a $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2097   .text.HAL_TIMEx_PWMN_Stop_DMA:00000000 HAL_TIMEx_PWMN_Stop_DMA
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2117   .text.HAL_TIMEx_PWMN_Stop_DMA:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2217   .text.HAL_TIMEx_OnePulseN_Start:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2224   .text.HAL_TIMEx_OnePulseN_Start:00000000 HAL_TIMEx_OnePulseN_Start
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2260   .text.HAL_TIMEx_OnePulseN_Stop:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2267   .text.HAL_TIMEx_OnePulseN_Stop:00000000 HAL_TIMEx_OnePulseN_Stop
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2332   .text.HAL_TIMEx_OnePulseN_Start_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2339   .text.HAL_TIMEx_OnePulseN_Start_IT:00000000 HAL_TIMEx_OnePulseN_Start_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2385   .text.HAL_TIMEx_OnePulseN_Stop_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2392   .text.HAL_TIMEx_OnePulseN_Stop_IT:00000000 HAL_TIMEx_OnePulseN_Stop_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2467   .text.HAL_TIMEx_ConfigCommutationEvent:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2474   .text.HAL_TIMEx_ConfigCommutationEvent:00000000 HAL_TIMEx_ConfigCommutationEvent
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2573   .text.HAL_TIMEx_ConfigCommutationEvent_IT:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2580   .text.HAL_TIMEx_ConfigCommutationEvent_IT:00000000 HAL_TIMEx_ConfigCommutationEvent_IT
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2686   .text.HAL_TIMEx_ConfigCommutationEvent_DMA:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2693   .text.HAL_TIMEx_ConfigCommutationEvent_DMA:00000000 HAL_TIMEx_ConfigCommutationEvent_DMA
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2810   .text.HAL_TIMEx_ConfigCommutationEvent_DMA:00000074 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3120   .text.TIMEx_DMACommutationCplt:00000000 TIMEx_DMACommutationCplt
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2816   .text.HAL_TIMEx_MasterConfigSynchronization:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2823   .text.HAL_TIMEx_MasterConfigSynchronization:00000000 HAL_TIMEx_MasterConfigSynchronization
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2916   .text.HAL_TIMEx_ConfigBreakDeadTime:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2923   .text.HAL_TIMEx_ConfigBreakDeadTime:00000000 HAL_TIMEx_ConfigBreakDeadTime
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3038   .text.HAL_TIMEx_RemapConfig:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3045   .text.HAL_TIMEx_RemapConfig:00000000 HAL_TIMEx_RemapConfig
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3091   .text.HAL_TIMEx_CommutationCallback:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3098   .text.HAL_TIMEx_CommutationCallback:00000000 HAL_TIMEx_CommutationCallback
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3113   .text.TIMEx_DMACommutationCplt:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3150   .text.HAL_TIMEx_BreakCallback:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3157   .text.HAL_TIMEx_BreakCallback:00000000 HAL_TIMEx_BreakCallback
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3172   .text.HAL_TIMEx_HallSensor_GetState:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:3179   .text.HAL_TIMEx_HallSensor_GetState:00000000 HAL_TIMEx_HallSensor_GetState
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:913    .text.HAL_TIMEx_OCN_Start_IT:00000019 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:913    .text.HAL_TIMEx_OCN_Start_IT:0000001a $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1017   .text.HAL_TIMEx_OCN_Stop_IT:00000019 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1017   .text.HAL_TIMEx_OCN_Stop_IT:0000001a $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1173   .text.HAL_TIMEx_OCN_Start_DMA:00000031 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1173   .text.HAL_TIMEx_OCN_Start_DMA:00000032 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1398   .text.HAL_TIMEx_OCN_Stop_DMA:00000019 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1398   .text.HAL_TIMEx_OCN_Stop_DMA:0000001a $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1645   .text.HAL_TIMEx_PWMN_Start_IT:00000019 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1645   .text.HAL_TIMEx_PWMN_Start_IT:0000001a $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1749   .text.HAL_TIMEx_PWMN_Stop_IT:00000019 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1749   .text.HAL_TIMEx_PWMN_Stop_IT:0000001a $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1905   .text.HAL_TIMEx_PWMN_Start_DMA:00000031 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:1905   .text.HAL_TIMEx_PWMN_Start_DMA:00000032 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2130   .text.HAL_TIMEx_PWMN_Stop_DMA:00000019 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s:2130   .text.HAL_TIMEx_PWMN_Stop_DMA:0000001a $t
 
 UNDEFINED SYMBOLS
 TIM_Base_SetConfig
@@ -6242,6 +6242,6 @@ HAL_DMA_Start_IT
 TIM_DMACaptureCplt
 TIM_DMAError
 TIM_DMADelayPulseCplt
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccFJE7E6.s 			page 106
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cckcKTcT.s 			page 106
 
 

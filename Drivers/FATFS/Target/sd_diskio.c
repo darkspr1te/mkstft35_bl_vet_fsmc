@@ -115,13 +115,13 @@ static DSTATUS SD_CheckStatus(BYTE lun)
 DSTATUS SD_initialize(BYTE lun)
 {
 Stat = STA_NOINIT;  
-
+//printf("SD_INIT");
 #if !defined(DISABLE_SD_INIT)
 
   if(BSP_SD_Init() == MSD_OK)
   {
     Stat = SD_CheckStatus(lun);
-    printf("BSP_SD_INIT Ok, lun=%d",lun);
+    //printf("BSP_SD_INIT Ok, lun=%d",lun);
   }
   else 
   printf("BSP Init Failed");
@@ -159,7 +159,8 @@ DSTATUS SD_status(BYTE lun)
 DRESULT SD_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
 {
   DRESULT res = RES_ERROR;
-  printf("disk_read  pdrv=%d *buff=%p sector=%d count=%d\n\r",lun,buff,sector,count);
+  //printf("disk_read  pdrv=%d *buff=%p sector=%d count=%d\n\r",lun,buff,sector,count);
+  //printf("SD_read()\n\r");
   if(BSP_SD_ReadBlocks((uint32_t*)buff,
                        (uint32_t) (sector),
                        count, SD_TIMEOUT) == MSD_OK)

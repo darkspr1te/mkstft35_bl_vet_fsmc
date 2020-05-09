@@ -39,7 +39,7 @@ void MX_FATFS_Init(void)
   {
     printf("FAT FS Link Driver failed code:%d\n\r",retSD);
   }
-  
+  printf("exit\n\r");
   
   /* USER CODE BEGIN Init */
   /* additional user code for init */     

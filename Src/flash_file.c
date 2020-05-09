@@ -1,52 +1,61 @@
 #include "mkstft35.h"
 #include "ff.h"
 #include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal_flash.h"
+#include "stm32f4xx_hal_flash_ex.h"
 #include "flash_file.h"
-#define FLASH_PAGE_SIZE FLASH_SECTOR_TOTAL
+
 
 extern unsigned int _isr_real;
 extern const uint32_t *mcuFirstPageAddr;
+#define FLASH_STEP 0x08
+#define INCORRECT_SECTOR 0xFF
 
-//uint32_t mcuLastPageAddr = ((uint32_t) &_isr_real) - FLASH_PAGE_SIZE;
+
 
 uint8_t buffer[FLASH_PAGE_SIZE];
 uint32_t bufferLen = 0;
 
-static FIL fil;
+//static FIL fil;
 static FILINFO info;
+
+extern char SDPath[4];
+extern FATFS SDFatFS;
+extern FIL SDFile;
+
 FLASH_EraseInitTypeDef erase_flash;
-//HAL_StatusTypeDef erase(uint32_t from, uint32_t to)
-HAL_StatusTypeDef erase(void)
+HAL_StatusTypeDef erase(uint32_t from, uint32_t to)
 {
 	HAL_StatusTypeDef res = HAL_OK;
 
 
-/*
+
 	for (uint32_t i = from; i <= to; i += FLASH_PAGE_SIZE)
 	{
 		FLASH_EraseInitTypeDef erase;
 
-		erase.TypeErase = FLASH_TYPEERASE_PAGES;
-		erase.Banks = FLASH_BANK_1;
-		erase.PageAddress = i;
-		erase.NbPages = 1;
+		//erase.TypeErase = FLASH_TYPEERASE_PAGES;
+		//erase.Banks = FLASH_BANK_1;
+	//	erase.PageAddress = i;
+	//	erase.NbPages = 1;
 
-		uint32_t error = 0;
-		res = HAL_FLASHEx_Erase(&erase, &error);
+	//	uint32_t error = 0;
+	//	res = HAL_FLASHEx_Erase(&erase, &error);
 #ifdef DEBUG		
-		printf("erase page %#010x\n\r",i);
+		printf("erase page %x\n\r",i);
 #endif
 		if (res != HAL_OK) {
 			return res;
 		}
 	}
-*/
+
 //unit32_t address = 0x0800C000;
 HAL_FLASH_Unlock();
 __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+ //FLASH_Erase_Sector(x, VOLTAGE_RANGE_3);
 for (int x=FLASH_SECTOR_3;x<FLASH_SECTOR_TOTAL;x++)
 {
-    FLASH_Erase_Sector(x, VOLTAGE_RANGE_3);
+    //FLASH_Erase_Sector(x, VOLTAGE_RANGE_3);
 }
 HAL_FLASH_Lock();
 //----------------------------write data  
@@ -74,7 +83,7 @@ FRESULT readNextPage(uint8_t *target, uint32_t *read)
 
 	for (uint16_t i = 0; i<blocksCount; i++)
 	{
-		res = f_read(&fil, target, fileBlock, &readNow);
+		res = f_read(&SDFile, target, fileBlock, &readNow);
 
 		target += readNow;
 		*read += readNow;
@@ -86,17 +95,18 @@ FRESULT readNextPage(uint8_t *target, uint32_t *read)
 }
 
 HAL_StatusTypeDef flashWrite(uint32_t position, uint8_t *data, uint32_t size)
-{
-	#ifdef DEBUG	
-		printf("write page %#010x\n\r",position);
-		#endif
+{	
+    printf("write page %x\n\r",position);
 	HAL_StatusTypeDef res = HAL_OK;
 	for (uint32_t i=0; i<size; i+=2)
 	{
 		
 		res = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, position + i, *(uint16_t*)&data[i]);
 		if (res != HAL_OK)
-			break;
+        {
+            printf("flash_file.c flash write error");
+        	break;
+        }
 	}
 	return res;
 }
@@ -104,6 +114,7 @@ HAL_StatusTypeDef flashWrite(uint32_t position, uint8_t *data, uint32_t size)
 FlashResult flash(const char *fname)
 {
 	FRESULT res = f_stat(fname, &info);
+    printf("About to flash system file size %dk\n\r",(info.fsize/1000) );
 	if (res != FR_OK)
 		return FLASH_FILE_NOT_EXISTS;
 
@@ -111,33 +122,31 @@ FlashResult flash(const char *fname)
 //	if (info.fsize > getMaxFlashImageSize())
 //		return FLASH_FILE_TOO_BIG;
 
-	res = f_open(&fil, fname, FA_OPEN_EXISTING | FA_READ);
-if (res == FR_OK)
-  {
-#ifdef DEBUG		  
-	  printf("flash open ok\n\r");
-#endif
-  }
+	res = f_open(&SDFile, fname, FA_OPEN_EXISTING | FA_READ);
+    if (res == FR_OK)
+    {	  
+	  printf("Firmware Flash file open ok\n\r");
+    }
 	if (res != FR_OK)
 	{
-#ifdef DEBUG	
-	  printf("flash open file failed\n\r");
-#endif
+	
+	  printf("Firmware Flash open file failed\n\r");
 		return FLASH_RESULT_FILE_ERROR;
 	}
-	uint32_t position = (uint32_t) mcuFirstPageAddr;
-
+	//uint32_t position = (uint32_t) mcuFirstPageAddr;
+    uint32_t position = ADDR_FLASH_SECTOR_3;
 	if (HAL_OK != HAL_FLASH_Unlock())
-		return FLASH_RESULT_FLASH_ERROR;
-#ifdef DEBUG			
-	printf("flash unlock\n\r");
-#endif
-	if (HAL_OK != erase())
-    //erase((uint32_t) mcuFirstPageAddr, info.fsize + (uint32_t)mcuFirstPageAddr))
+    {
+        printf("flash unlock error\n\r");
+    	return FLASH_RESULT_FLASH_ERROR;
+    }
+	
+
+	if (HAL_OK !=  flash_erase(ADDR_FLASH_SECTOR_3,ADDR_FLASH_SECTOR_11))
 	{
-#ifdef DEBUG	
+	
 	printf("erase error\n\r");
-#endif
+
 		return FLASH_RESULT_FLASH_ERROR;
 	}
 
@@ -149,12 +158,242 @@ if (res == FR_OK)
 
 		position += bufferLen;
 	} while (bufferLen != 0);
-
-	f_close(&fil);
+    printf("Finished flashing at %x\n\r",position);
+	f_close(&SDFile);
 	HAL_FLASH_Lock();
 #ifdef DEBUG
-	  printf("flash write complete \r\n");
+	//  printf("flash write complete \r\n");
 #endif
 	return FR_OK;
 }
 
+
+
+
+
+///////////////////////////////////
+
+static uint8_t clear_sector(uint32_t);
+static uint32_t get_sector(uint32_t);
+
+uint8_t flash_clear_sector(uint32_t addr) {
+    uint32_t sector = get_sector(addr);
+    if (sector == INCORRECT_SECTOR) return 0;
+    return clear_sector(sector);
+}
+#define FLASH_USER_START_ADDR   ADDR_FLASH_SECTOR_3   /* Start @ of user Flash area */
+#define FLASH_USER_END_ADDR     ADDR_FLASH_SECTOR_10   /* End @ of user Flash area */
+
+#define DATA_32                 ((uint32_t)0x12345678)
+uint32_t FirstSector = 0, NbOfSectors = 0, Address = 0;
+uint32_t SectorError = 0;
+__IO uint32_t data32 = 0 , MemoryProgramStatus = 0;
+
+/*Variable used for Erase procedure*/
+static FLASH_EraseInitTypeDef EraseInitStruct;
+uint8_t flash_erase(uint32_t from_addr, uint32_t to_addr)
+{
+   // printf("1:FLASH_FILE.c flash erase from %x to %x\n\r",First,to_addr);
+  // printf("flash_file.c - about to unlock\n\r");
+  //  HAL_FLASH_Unlock();
+  //  printf("flash_file.c - flash unlocked\n\r");
+  /* Erase the user Flash area
+    (area defined by FLASH_USER_START_ADDR and FLASH_USER_END_ADDR) ***********/
+__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+  //  printf("flash_file.c - flash flags complete\n\r");
+  /* Get the 1st sector to erase */
+   /* Get the 1st sector to erase */
+  //FirstSector = GetSector(FLASH_USER_START_ADDR);
+  FirstSector = GetSector(from_addr);
+  /* Get the number of sector to erase from 1st sector*/
+  NbOfSectors = GetSector(to_addr) - FirstSector + 1;
+   // printf("2:FLASH_FILE.c flash erase from %d to %d\n\r",FirstSector,(FirstSector+NbOfSectors));
+  /* Fill EraseInit structure*/
+  EraseInitStruct.TypeErase = TYPEERASE_SECTORS;
+  EraseInitStruct.VoltageRange = VOLTAGE_RANGE_3;
+  EraseInitStruct.Sector = FirstSector;
+  EraseInitStruct.NbSectors = NbOfSectors;
+  HAL_StatusTypeDef res = HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError);
+ // printf("Flash erase complete, code %d\n\r",res);
+  if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) != HAL_OK)
+ // { 
+ 
+    /* 
+      Error occurred while sector erase. 
+      User can add here some code to deal with this error. 
+      SectorError will contain the faulty sector and then to know the code error on this sector,
+      user can call function 'HAL_FLASH_GetError()'
+    */
+      /*
+        FLASH_ErrorTypeDef errorcode = HAL_FLASH_GetError();
+      */
+  //   printf("An error occured in flash erase");
+  //  Error_Handler();
+ // HAL_FLASH_Lock();
+    return 99;
+ // }
+return res;
+}
+uint8_t flash_clear(uint32_t from_addr, uint32_t to_addr) {
+    uint8_t res;
+    uint32_t first_sector = get_sector(from_addr);
+    uint32_t last_sector = get_sector(to_addr);
+   // printf("Flash erase from %x to %x\n\r",from_addr,to_addr);
+   printf("We should not be here\r\n");
+   return 0;
+    if (first_sector == INCORRECT_SECTOR || last_sector == INCORRECT_SECTOR) return 0;
+
+    while (first_sector != last_sector) {
+        res = clear_sector(first_sector);
+         printf("sector :%x\n\r",first_sector);
+        if (res == 0) return 0;
+        first_sector += FLASH_STEP;
+    }
+
+    return clear_sector(last_sector);
+}
+
+uint32_t flash_program_by_word(uint32_t addr, const uint32_t *data, uint32_t size) {
+    HAL_StatusTypeDef res;
+    HAL_FLASH_Unlock();
+    //printf("flash_file.c program word %x\n\r",addr);
+    for (uint32_t i = 0; i < size; ++i) {
+        res = HAL_OK; 
+   
+        res = HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, addr + i, *(uint16_t*)&data[i]);
+      //  FLASH_Program_Word(addr, data[i]);
+        if (res != HAL_OK) {
+            HAL_FLASH_Lock();
+            printf("flash_file.c - HAL write error");
+            return 0;
+        }
+        addr += 4;
+    }
+
+   // HAL_FLASH_Lock();
+    return 0;
+}
+
+uint32_t flash_program_by_byte(uint32_t addr, const uint8_t *data, uint32_t size) {
+    HAL_StatusTypeDef res;
+    HAL_FLASH_Unlock();
+printf("flash_file.c program byte");
+    for (uint32_t i = 0; i < size; ++i) {
+        res = HAL_OK;
+        res = HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE, addr + i, *(uint16_t*)&data[i]);
+        //FLASH_Program_Byte(addr, data[i]);
+        if (res != HAL_OK) {
+            HAL_FLASH_Lock();
+            return 0;
+        }
+        ++addr;
+    }
+
+    HAL_FLASH_Lock();
+    return addr;
+}
+
+static uint8_t clear_sector(uint32_t sector) {
+    //unlock the FLASH control register access
+  
+    HAL_FLASH_Unlock();
+    //Clear all FLASH pending flags
+ //   __HAL_FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR |
+ //                   FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+    //VoltageRange_3 - operation will be done by word (32-bit)
+    HAL_StatusTypeDef res = HAL_OK;
+    FLASH_Erase_Sector(sector, VOLTAGE_RANGE_3);
+
+    //lock the FLASH control register access
+    HAL_FLASH_Lock();
+
+    return (res == HAL_OK) ? 1 : 0;
+}
+
+static uint32_t get_sector(uint32_t addr) {
+    if (!IS_FLASH_ADDRESS(addr)) return INCORRECT_SECTOR;
+
+    if((addr >= FLASH_SECTOR_0_ADDR) && (addr < FLASH_SECTOR_1_ADDR))
+        return FLASH_SECTOR_0;
+    if((addr >= FLASH_SECTOR_1_ADDR) && (addr < FLASH_SECTOR_2_ADDR))
+        return FLASH_SECTOR_1;
+    if((addr >= FLASH_SECTOR_2_ADDR) && (addr < FLASH_SECTOR_3_ADDR))
+        return FLASH_SECTOR_2;
+    if((addr >= FLASH_SECTOR_3_ADDR) && (addr < FLASH_SECTOR_4_ADDR))
+        return FLASH_SECTOR_3;
+    if((addr >= FLASH_SECTOR_4_ADDR) && (addr < FLASH_SECTOR_5_ADDR))
+        return FLASH_SECTOR_4;
+    if((addr >= FLASH_SECTOR_5_ADDR) && (addr < FLASH_SECTOR_6_ADDR))
+        return FLASH_SECTOR_5;
+    if((addr >= FLASH_SECTOR_6_ADDR) && (addr < FLASH_SECTOR_7_ADDR))
+        return FLASH_SECTOR_6;
+    if((addr >= FLASH_SECTOR_7_ADDR) && (addr < FLASH_SECTOR_8_ADDR))
+        return FLASH_SECTOR_7;
+    if((addr >= FLASH_SECTOR_8_ADDR) && (addr < FLASH_SECTOR_9_ADDR))
+        return FLASH_SECTOR_8;
+    if((addr >= FLASH_SECTOR_9_ADDR) && (addr < FLASH_SECTOR_10_ADDR))
+        return FLASH_SECTOR_9;
+    if((addr >= FLASH_SECTOR_10_ADDR) && (addr < FLASH_SECTOR_11_ADDR))
+        return FLASH_SECTOR_10;
+
+    return FLASH_SECTOR_11;
+}
+
+
+static uint32_t GetSector(uint32_t Address)
+{
+  uint32_t sector = 0;
+  
+  if((Address < ADDR_FLASH_SECTOR_1) && (Address >= ADDR_FLASH_SECTOR_0))
+  {
+    sector = FLASH_SECTOR_0;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_2) && (Address >= ADDR_FLASH_SECTOR_1))
+  {
+    sector = FLASH_SECTOR_1;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_3) && (Address >= ADDR_FLASH_SECTOR_2))
+  {
+    sector = FLASH_SECTOR_2;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_4) && (Address >= ADDR_FLASH_SECTOR_3))
+  {
+    sector = FLASH_SECTOR_3;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_5) && (Address >= ADDR_FLASH_SECTOR_4))
+  {
+    sector = FLASH_SECTOR_4;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_6) && (Address >= ADDR_FLASH_SECTOR_5))
+  {
+    sector = FLASH_SECTOR_5;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_7) && (Address >= ADDR_FLASH_SECTOR_6))
+  {
+    sector = FLASH_SECTOR_6;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_8) && (Address >= ADDR_FLASH_SECTOR_7))
+  {
+    sector = FLASH_SECTOR_7;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_9) && (Address >= ADDR_FLASH_SECTOR_8))
+  {
+    sector = FLASH_SECTOR_8;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_10) && (Address >= ADDR_FLASH_SECTOR_9))
+  {
+    sector = FLASH_SECTOR_9;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_11) && (Address >= ADDR_FLASH_SECTOR_10))
+  {
+    sector = FLASH_SECTOR_10;  
+  }
+  else if((Address < ADDR_FLASH_SECTOR_12) && (Address >= ADDR_FLASH_SECTOR_11))
+  {
+    sector = FLASH_SECTOR_11;  
+  }
+   // printf("Sector Address %d\n\r",sector);
+
+  return sector;
+}

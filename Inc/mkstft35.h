@@ -25,6 +25,11 @@
 #define u8 uint8_t
 #define u16 uint16_t
 #define u32 uint32_t
+#define _SECTOR_SIZE 0x3fff
+#define FLASH_PAGE_SIZE 0x3fff
+#define BOOT_SECT 0xC000
+#define FLASH_SIZE (_SECTOR_SIZE*FLASH_SECTOR_TOTAL)
+
 
 #ifdef __cplusplus
 }

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 1
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -17,29 +17,30 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 1
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.text.MX_USART1_UART_Init_OLD,"ax",%progbits
+  17              		.section	.text.UART_Init,"ax",%progbits
   18              		.align	1
-  19              		.global	MX_USART1_UART_Init_OLD
+  19              		.global	UART_Init
   20              		.arch armv7e-m
   21              		.syntax unified
   22              		.thumb
   23              		.thumb_func
   24              		.fpu fpv4-sp-d16
-  26              	MX_USART1_UART_Init_OLD:
+  26              	UART_Init:
   27              	.LFB126:
   28              		.file 1 "Src/usart.c"
    1:Src/usart.c   **** 
    2:Src/usart.c   **** #include "usart.h"
    3:Src/usart.c   **** 
-   4:Src/usart.c   **** 
+   4:Src/usart.c   **** UART_HandleTypeDef huart1;
    5:Src/usart.c   **** 
-   6:Src/usart.c   **** UART_HandleTypeDef huart1;
+   6:Src/usart.c   **** /*# 5- Configure the UART interface in Src/main.c ############################*/
    7:Src/usart.c   **** 
-   8:Src/usart.c   **** 
-   9:Src/usart.c   **** 
-  10:Src/usart.c   **** void MX_USART1_UART_Init_OLD(void)
-  11:Src/usart.c   **** {
-  29              		.loc 1 11 1 view -0
+   8:Src/usart.c   **** /**
+   9:Src/usart.c   ****  * @brief UART interface configuration
+  10:Src/usart.c   ****  */
+  11:Src/usart.c   **** void UART_Init(void)
+  12:Src/usart.c   **** {
+  29              		.loc 1 12 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
   32              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -48,7 +49,6 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 1
   35              		.cfi_def_cfa_offset 8
   36              		.cfi_offset 3, -8
   37              		.cfi_offset 14, -4
-  12:Src/usart.c   **** 
   13:Src/usart.c   ****   huart1.Instance = USART1;
   38              		.loc 1 13 3 view .LVU1
   39              		.loc 1 13 19 is_stmt 0 view .LVU2
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 1
   14:Src/usart.c   ****   huart1.Init.BaudRate = 115200;
   43              		.loc 1 14 3 is_stmt 1 view .LVU3
   44              		.loc 1 14 24 is_stmt 0 view .LVU4
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 2
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 2
 
 
   45 0008 4FF4E133 		mov	r3, #115200
@@ -89,25 +89,25 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 1
   64              		.loc 1 20 3 is_stmt 1 view .LVU15
   65              		.loc 1 20 28 is_stmt 0 view .LVU16
   66 001c C361     		str	r3, [r0, #28]
-  21:Src/usart.c   ****   if (HAL_UART_Init(&huart1) != HAL_OK)
-  67              		.loc 1 21 3 is_stmt 1 view .LVU17
-  68              		.loc 1 21 7 is_stmt 0 view .LVU18
+  21:Src/usart.c   **** 
+  22:Src/usart.c   ****   if (HAL_UART_Init(&huart1) != HAL_OK)
+  67              		.loc 1 22 3 is_stmt 1 view .LVU17
+  68              		.loc 1 22 7 is_stmt 0 view .LVU18
   69 001e FFF7FEFF 		bl	HAL_UART_Init
   70              	.LVL0:
-  71              		.loc 1 21 6 view .LVU19
+  71              		.loc 1 22 6 view .LVU19
   72 0022 00B9     		cbnz	r0, .L4
   73              	.L1:
-  22:Src/usart.c   ****   {
-  23:Src/usart.c   ****     Error_Handler();
-  24:Src/usart.c   ****   }
-  25:Src/usart.c   **** 
+  23:Src/usart.c   ****   {
+  24:Src/usart.c   ****     Error_Handler();
+  25:Src/usart.c   ****   }
   26:Src/usart.c   **** }
   74              		.loc 1 26 1 view .LVU20
   75 0024 08BD     		pop	{r3, pc}
   76              	.L4:
-  23:Src/usart.c   ****   }
-  77              		.loc 1 23 5 is_stmt 1 view .LVU21
-  78 0026 1721     		movs	r1, #23
+  24:Src/usart.c   ****   }
+  77              		.loc 1 24 5 is_stmt 1 view .LVU21
+  78 0026 1821     		movs	r1, #24
   79 0028 0348     		ldr	r0, .L5+8
   80 002a FFF7FEFF 		bl	_Error_Handler
   81              	.LVL1:
@@ -118,123 +118,344 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 1
   86              	.L5:
   87 0030 00000000 		.word	huart1
   88 0034 00100140 		.word	1073811456
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 3
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 3
 
 
   89 0038 00000000 		.word	.LC0
   90              		.cfi_endproc
   91              	.LFE126:
-  93              		.section	.text.__io_putchar,"ax",%progbits
+  93              		.section	.text.HAL_UART_MspInit_old,"ax",%progbits
   94              		.align	1
-  95              		.global	__io_putchar
+  95              		.global	HAL_UART_MspInit_old
   96              		.syntax unified
   97              		.thumb
   98              		.thumb_func
   99              		.fpu fpv4-sp-d16
- 101              	__io_putchar:
+ 101              	HAL_UART_MspInit_old:
  102              	.LVL2:
  103              	.LFB127:
   27:Src/usart.c   **** 
-  28:Src/usart.c   **** 
+  28:Src/usart.c   **** /*# 6- Configure the UART GPIOs  in Src/stm32l4xx_hal_msp.c ##################*/
   29:Src/usart.c   **** 
-  30:Src/usart.c   **** /* USER CODE BEGIN 1 */
-  31:Src/usart.c   **** #ifdef __GNUC__
-  32:Src/usart.c   ****   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-  33:Src/usart.c   ****      set to 'Yes') calls __io_putchar() */
-  34:Src/usart.c   ****   #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-  35:Src/usart.c   **** #else
-  36:Src/usart.c   ****   #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-  37:Src/usart.c   **** #endif /* __GNUC__ */
-  38:Src/usart.c   **** /**
-  39:Src/usart.c   ****   * @brief  Retargets the C library printf function to the USART.
-  40:Src/usart.c   ****   * @param  None
-  41:Src/usart.c   ****   * @retval None
-  42:Src/usart.c   ****   */
-  43:Src/usart.c   **** PUTCHAR_PROTOTYPE
-  44:Src/usart.c   **** {
- 104              		.loc 1 44 1 is_stmt 1 view -0
+  30:Src/usart.c   **** /**
+  31:Src/usart.c   ****  * @brief UART MSP Initialization
+  32:Src/usart.c   ****  * @param huart: UART handle pointer
+  33:Src/usart.c   ****  */
+  34:Src/usart.c   **** void HAL_UART_MspInit_old(UART_HandleTypeDef* huart)
+  35:Src/usart.c   **** {
+ 104              		.loc 1 35 1 is_stmt 1 view -0
  105              		.cfi_startproc
- 106              		@ args = 0, pretend = 0, frame = 8
+ 106              		@ args = 0, pretend = 0, frame = 32
  107              		@ frame_needed = 0, uses_anonymous_args = 0
- 108              		.loc 1 44 1 is_stmt 0 view .LVU24
- 109 0000 00B5     		push	{lr}
- 110              	.LCFI1:
- 111              		.cfi_def_cfa_offset 4
- 112              		.cfi_offset 14, -4
- 113 0002 83B0     		sub	sp, sp, #12
- 114              	.LCFI2:
- 115              		.cfi_def_cfa_offset 16
- 116 0004 0190     		str	r0, [sp, #4]
-  45:Src/usart.c   ****   /* Place your implementation of fputc here */
-  46:Src/usart.c   ****   /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
-  47:Src/usart.c   ****   HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
- 117              		.loc 1 47 3 is_stmt 1 view .LVU25
- 118 0006 4FF6FF73 		movw	r3, #65535
- 119 000a 0122     		movs	r2, #1
- 120 000c 01A9     		add	r1, sp, #4
- 121 000e 0348     		ldr	r0, .L9
- 122              	.LVL3:
- 123              		.loc 1 47 3 is_stmt 0 view .LVU26
- 124 0010 FFF7FEFF 		bl	HAL_UART_Transmit
- 125              	.LVL4:
-  48:Src/usart.c   **** 
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 4
+  36:Src/usart.c   ****   GPIO_InitTypeDef GPIO_InitStruct;
+ 108              		.loc 1 36 3 view .LVU24
+  37:Src/usart.c   **** 
+  38:Src/usart.c   ****   if (huart->Instance == USART1)
+ 109              		.loc 1 38 3 view .LVU25
+ 110              		.loc 1 38 12 is_stmt 0 view .LVU26
+ 111 0000 0268     		ldr	r2, [r0]
+ 112              		.loc 1 38 6 view .LVU27
+ 113 0002 174B     		ldr	r3, .L14
+ 114 0004 9A42     		cmp	r2, r3
+ 115 0006 00D0     		beq	.L13
+ 116 0008 7047     		bx	lr
+ 117              	.L13:
+  35:Src/usart.c   ****   GPIO_InitTypeDef GPIO_InitStruct;
+ 118              		.loc 1 35 1 view .LVU28
+ 119 000a 00B5     		push	{lr}
+ 120              	.LCFI1:
+ 121              		.cfi_def_cfa_offset 4
+ 122              		.cfi_offset 14, -4
+ 123 000c 89B0     		sub	sp, sp, #36
+ 124              	.LCFI2:
+ 125              		.cfi_def_cfa_offset 40
+  39:Src/usart.c   ****   {
+  40:Src/usart.c   ****     /* Peripheral clock enable */
+  41:Src/usart.c   ****     __HAL_RCC_USART1_CLK_ENABLE();
+ 126              		.loc 1 41 5 is_stmt 1 view .LVU29
+ 127              	.LBB2:
+ 128              		.loc 1 41 5 view .LVU30
+ 129 000e 0021     		movs	r1, #0
+ 130 0010 0191     		str	r1, [sp, #4]
+ 131              		.loc 1 41 5 view .LVU31
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 4
 
 
-  49:Src/usart.c   ****   return ch;
- 126              		.loc 1 49 3 is_stmt 1 view .LVU27
-  50:Src/usart.c   **** }
- 127              		.loc 1 50 1 is_stmt 0 view .LVU28
- 128 0014 0198     		ldr	r0, [sp, #4]
- 129 0016 03B0     		add	sp, sp, #12
- 130              	.LCFI3:
- 131              		.cfi_def_cfa_offset 4
- 132              		@ sp needed
- 133 0018 5DF804FB 		ldr	pc, [sp], #4
- 134              	.L10:
- 135              		.align	2
- 136              	.L9:
- 137 001c 00000000 		.word	huart1
- 138              		.cfi_endproc
- 139              	.LFE127:
- 141              		.comm	huart1,64,4
- 142              		.section	.rodata.MX_USART1_UART_Init_OLD.str1.4,"aMS",%progbits,1
- 143              		.align	2
- 144              	.LC0:
- 145 0000 5372632F 		.ascii	"Src/usart.c\000"
- 145      75736172 
- 145      742E6300 
- 146              		.text
- 147              	.Letext0:
- 148              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 149              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 150              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
- 151              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 152              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
- 153              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
- 154              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 155              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
- 156              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
- 157              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 158              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 159              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
- 160              		.file 14 "Inc/usart.h"
- 161              		.file 15 "Inc/main.h"
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s 			page 5
+ 132 0012 03F59433 		add	r3, r3, #75776
+ 133 0016 5A6C     		ldr	r2, [r3, #68]
+ 134 0018 42F01002 		orr	r2, r2, #16
+ 135 001c 5A64     		str	r2, [r3, #68]
+ 136              		.loc 1 41 5 view .LVU32
+ 137 001e 5A6C     		ldr	r2, [r3, #68]
+ 138 0020 02F01002 		and	r2, r2, #16
+ 139 0024 0192     		str	r2, [sp, #4]
+ 140              		.loc 1 41 5 view .LVU33
+ 141 0026 019A     		ldr	r2, [sp, #4]
+ 142              	.LBE2:
+  42:Src/usart.c   **** 
+  43:Src/usart.c   ****     /**
+  44:Src/usart.c   ****      * USART1 GPIO Configuration
+  45:Src/usart.c   ****      * PB6     ------> USART1_TX
+  46:Src/usart.c   ****      * PB7     ------> USART1_RX
+  47:Src/usart.c   ****      */
+  48:Src/usart.c   ****     /* Peripheral clock enable */
+  49:Src/usart.c   ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 143              		.loc 1 49 5 view .LVU34
+ 144              	.LBB3:
+ 145              		.loc 1 49 5 view .LVU35
+ 146 0028 0291     		str	r1, [sp, #8]
+ 147              		.loc 1 49 5 view .LVU36
+ 148 002a 1A6B     		ldr	r2, [r3, #48]
+ 149 002c 42F00202 		orr	r2, r2, #2
+ 150 0030 1A63     		str	r2, [r3, #48]
+ 151              		.loc 1 49 5 view .LVU37
+ 152 0032 1B6B     		ldr	r3, [r3, #48]
+ 153 0034 03F00203 		and	r3, r3, #2
+ 154 0038 0293     		str	r3, [sp, #8]
+ 155              		.loc 1 49 5 view .LVU38
+ 156 003a 029B     		ldr	r3, [sp, #8]
+ 157              	.LBE3:
+  50:Src/usart.c   **** 
+  51:Src/usart.c   ****     GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;
+ 158              		.loc 1 51 5 view .LVU39
+ 159              		.loc 1 51 25 is_stmt 0 view .LVU40
+ 160 003c C023     		movs	r3, #192
+ 161 003e 0393     		str	r3, [sp, #12]
+  52:Src/usart.c   ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 162              		.loc 1 52 5 is_stmt 1 view .LVU41
+ 163              		.loc 1 52 26 is_stmt 0 view .LVU42
+ 164 0040 0223     		movs	r3, #2
+ 165 0042 0493     		str	r3, [sp, #16]
+  53:Src/usart.c   ****     GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 166              		.loc 1 53 5 is_stmt 1 view .LVU43
+ 167              		.loc 1 53 26 is_stmt 0 view .LVU44
+ 168 0044 0123     		movs	r3, #1
+ 169 0046 0593     		str	r3, [sp, #20]
+  54:Src/usart.c   ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 170              		.loc 1 54 5 is_stmt 1 view .LVU45
+ 171              		.loc 1 54 27 is_stmt 0 view .LVU46
+ 172 0048 0323     		movs	r3, #3
+ 173 004a 0693     		str	r3, [sp, #24]
+  55:Src/usart.c   ****     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+ 174              		.loc 1 55 5 is_stmt 1 view .LVU47
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 5
+
+
+ 175              		.loc 1 55 31 is_stmt 0 view .LVU48
+ 176 004c 0723     		movs	r3, #7
+ 177 004e 0793     		str	r3, [sp, #28]
+  56:Src/usart.c   ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 178              		.loc 1 56 5 is_stmt 1 view .LVU49
+ 179 0050 03A9     		add	r1, sp, #12
+ 180 0052 0448     		ldr	r0, .L14+4
+ 181              	.LVL3:
+ 182              		.loc 1 56 5 is_stmt 0 view .LVU50
+ 183 0054 FFF7FEFF 		bl	HAL_GPIO_Init
+ 184              	.LVL4:
+  57:Src/usart.c   ****   }
+  58:Src/usart.c   **** }
+ 185              		.loc 1 58 1 view .LVU51
+ 186 0058 09B0     		add	sp, sp, #36
+ 187              	.LCFI3:
+ 188              		.cfi_def_cfa_offset 4
+ 189              		@ sp needed
+ 190 005a 5DF804FB 		ldr	pc, [sp], #4
+ 191              	.L15:
+ 192 005e 00BF     		.align	2
+ 193              	.L14:
+ 194 0060 00100140 		.word	1073811456
+ 195 0064 00040240 		.word	1073873920
+ 196              		.cfi_endproc
+ 197              	.LFE127:
+ 199              		.section	.text._write,"ax",%progbits
+ 200              		.align	1
+ 201              		.global	_write
+ 202              		.syntax unified
+ 203              		.thumb
+ 204              		.thumb_func
+ 205              		.fpu fpv4-sp-d16
+ 207              	_write:
+ 208              	.LVL5:
+ 209              	.LFB128:
+  59:Src/usart.c   **** 
+  60:Src/usart.c   **** 
+  61:Src/usart.c   **** /*# 7- Retarget printf to UART (std library and toolchain dependent) #########*/
+  62:Src/usart.c   **** 
+  63:Src/usart.c   **** #if defined(__GNUC__)
+  64:Src/usart.c   **** int _write(int fd, char * ptr, int len)
+  65:Src/usart.c   **** {
+ 210              		.loc 1 65 1 is_stmt 1 view -0
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 0
+ 213              		@ frame_needed = 0, uses_anonymous_args = 0
+ 214              		.loc 1 65 1 is_stmt 0 view .LVU53
+ 215 0000 10B5     		push	{r4, lr}
+ 216              	.LCFI4:
+ 217              		.cfi_def_cfa_offset 8
+ 218              		.cfi_offset 4, -8
+ 219              		.cfi_offset 14, -4
+ 220 0002 1446     		mov	r4, r2
+  66:Src/usart.c   ****   HAL_UART_Transmit(&huart1, (uint8_t *) ptr, len, HAL_MAX_DELAY);
+ 221              		.loc 1 66 3 is_stmt 1 view .LVU54
+ 222 0004 4FF0FF33 		mov	r3, #-1
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 6
+
+
+ 223 0008 92B2     		uxth	r2, r2
+ 224              	.LVL6:
+ 225              		.loc 1 66 3 is_stmt 0 view .LVU55
+ 226 000a 0248     		ldr	r0, .L18
+ 227              	.LVL7:
+ 228              		.loc 1 66 3 view .LVU56
+ 229 000c FFF7FEFF 		bl	HAL_UART_Transmit
+ 230              	.LVL8:
+  67:Src/usart.c   ****   return len;
+ 231              		.loc 1 67 3 is_stmt 1 view .LVU57
+  68:Src/usart.c   **** }
+ 232              		.loc 1 68 1 is_stmt 0 view .LVU58
+ 233 0010 2046     		mov	r0, r4
+ 234 0012 10BD     		pop	{r4, pc}
+ 235              	.LVL9:
+ 236              	.L19:
+ 237              		.loc 1 68 1 view .LVU59
+ 238              		.align	2
+ 239              	.L18:
+ 240 0014 00000000 		.word	huart1
+ 241              		.cfi_endproc
+ 242              	.LFE128:
+ 244              		.section	.text.__io_putchar,"ax",%progbits
+ 245              		.align	1
+ 246              		.global	__io_putchar
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.fpu fpv4-sp-d16
+ 252              	__io_putchar:
+ 253              	.LVL10:
+ 254              	.LFB129:
+  69:Src/usart.c   **** #elif defined (__ICCARM__)
+  70:Src/usart.c   **** #include "LowLevelIOInterface.h"
+  71:Src/usart.c   **** size_t __write(int handle, const unsigned char * buffer, size_t size)
+  72:Src/usart.c   **** {
+  73:Src/usart.c   ****   HAL_UART_Transmit(&huart1, (uint8_t *) buffer, size, HAL_MAX_DELAY);
+  74:Src/usart.c   ****   return size;
+  75:Src/usart.c   **** }
+  76:Src/usart.c   **** #elif defined (__CC_ARM)
+  77:Src/usart.c   **** int fputc(int ch, FILE *f)
+  78:Src/usart.c   **** {
+  79:Src/usart.c   ****     HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+  80:Src/usart.c   ****     return ch;
+  81:Src/usart.c   **** }
+  82:Src/usart.c   **** #endif
+  83:Src/usart.c   **** 
+  84:Src/usart.c   **** // OR:
+  85:Src/usart.c   **** 
+  86:Src/usart.c   **** // Add syscalls.c with GCC
+  87:Src/usart.c   **** 
+  88:Src/usart.c   **** #ifdef __GNUC__
+  89:Src/usart.c   **** #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+  90:Src/usart.c   **** #else
+  91:Src/usart.c   **** #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+  92:Src/usart.c   **** #endif /* __GNUC__ */
+  93:Src/usart.c   **** 
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 7
+
+
+  94:Src/usart.c   **** /**
+  95:Src/usart.c   ****   * @brief  Retargets the C library printf function to the USART.
+  96:Src/usart.c   ****   * @param  None
+  97:Src/usart.c   ****   * @retval None
+  98:Src/usart.c   ****   */
+  99:Src/usart.c   **** PUTCHAR_PROTOTYPE
+ 100:Src/usart.c   **** {
+ 255              		.loc 1 100 1 is_stmt 1 view -0
+ 256              		.cfi_startproc
+ 257              		@ args = 0, pretend = 0, frame = 8
+ 258              		@ frame_needed = 0, uses_anonymous_args = 0
+ 259              		.loc 1 100 1 is_stmt 0 view .LVU61
+ 260 0000 00B5     		push	{lr}
+ 261              	.LCFI5:
+ 262              		.cfi_def_cfa_offset 4
+ 263              		.cfi_offset 14, -4
+ 264 0002 83B0     		sub	sp, sp, #12
+ 265              	.LCFI6:
+ 266              		.cfi_def_cfa_offset 16
+ 267 0004 0190     		str	r0, [sp, #4]
+ 101:Src/usart.c   ****   HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+ 268              		.loc 1 101 3 is_stmt 1 view .LVU62
+ 269 0006 4FF0FF33 		mov	r3, #-1
+ 270 000a 0122     		movs	r2, #1
+ 271 000c 01A9     		add	r1, sp, #4
+ 272 000e 0348     		ldr	r0, .L22
+ 273              	.LVL11:
+ 274              		.loc 1 101 3 is_stmt 0 view .LVU63
+ 275 0010 FFF7FEFF 		bl	HAL_UART_Transmit
+ 276              	.LVL12:
+ 102:Src/usart.c   ****   return ch;
+ 277              		.loc 1 102 3 is_stmt 1 view .LVU64
+ 103:Src/usart.c   **** }...
+ 278              		.loc 1 103 1 is_stmt 0 view .LVU65
+ 279 0014 0198     		ldr	r0, [sp, #4]
+ 280 0016 03B0     		add	sp, sp, #12
+ 281              	.LCFI7:
+ 282              		.cfi_def_cfa_offset 4
+ 283              		@ sp needed
+ 284 0018 5DF804FB 		ldr	pc, [sp], #4
+ 285              	.L23:
+ 286              		.align	2
+ 287              	.L22:
+ 288 001c 00000000 		.word	huart1
+ 289              		.cfi_endproc
+ 290              	.LFE129:
+ 292              		.comm	huart1,64,4
+ 293              		.section	.rodata.UART_Init.str1.4,"aMS",%progbits,1
+ 294              		.align	2
+ 295              	.LC0:
+ 296 0000 5372632F 		.ascii	"Src/usart.c\000"
+ 296      75736172 
+ 296      742E6300 
+ 297              		.text
+ 298              	.Letext0:
+ 299              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 300              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 8
+
+
+ 301              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 302              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 303              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 304              		.file 7 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\lib\\gcc\\arm-none-eab
+ 305              		.file 8 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 306              		.file 9 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
+ 307              		.file 10 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
+ 308              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 309              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 310              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 311              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 312              		.file 15 "Inc/usart.h"
+ 313              		.file 16 "Inc/main.h"
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 usart.c
-C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s:18     .text.MX_USART1_UART_Init_OLD:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s:26     .text.MX_USART1_UART_Init_OLD:00000000 MX_USART1_UART_Init_OLD
-C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s:87     .text.MX_USART1_UART_Init_OLD:00000030 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:18     .text.UART_Init:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:26     .text.UART_Init:00000000 UART_Init
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:87     .text.UART_Init:00000030 $d
                             *COM*:00000040 huart1
-C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s:94     .text.__io_putchar:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s:101    .text.__io_putchar:00000000 __io_putchar
-C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s:137    .text.__io_putchar:0000001c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccB8sxHj.s:143    .rodata.MX_USART1_UART_Init_OLD.str1.4:00000000 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:94     .text.HAL_UART_MspInit_old:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:101    .text.HAL_UART_MspInit_old:00000000 HAL_UART_MspInit_old
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:194    .text.HAL_UART_MspInit_old:00000060 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:200    .text._write:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:207    .text._write:00000000 _write
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:240    .text._write:00000014 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:245    .text.__io_putchar:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:252    .text.__io_putchar:00000000 __io_putchar
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:288    .text.__io_putchar:0000001c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccGmds7J.s:294    .rodata.UART_Init.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_UART_Init
 _Error_Handler
+HAL_GPIO_Init
 HAL_UART_Transmit

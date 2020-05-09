@@ -37,11 +37,18 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+/*--*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_uart.h"
 #include "fatfs.h"
 #include "mkstft35.h"
+#include "firmware.h"
+#include "stm32_adafruit_lcd.h"
+#include "mainApp.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -62,18 +69,19 @@ HAL_SD_CardInfoTypeDef SDCardInfo;
 
 
 SPI_HandleTypeDef hspi1;
-
+char txt[30];
 uint8_t retSD; /* Return value for SD */
 char SDPath[4]; /* SD logical drive path */
 FATFS SDFatFS; /* File system object for SD logical drive */
 FIL SDFile; /* File object for SD */
 
 FATFS sdFileSystem;		// 0:/
-const uint32_t *mcuFirstPageAddr = (const uint32_t *) (0x8000000 + MAIN_PR_OFFSET);
+const uint32_t *mcuFirstPageAddr = (const uint32_t *) (0x8000000 + BOOT_SECT);
 /* DMA stuff trying to fix sdcard */
 DMA_HandleTypeDef hdma_sdio_tx;
 DMA_HandleTypeDef hdma_sdio_rx;
-
+//
+typedef void (*pFunction)(void);
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_DMA_Init(void);
@@ -84,15 +92,15 @@ static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USART6_UART_Init(void);
 static void MX_SDIO_SD_Init(void);
+static void JumpToApplication(void);
 /* USER CODE BEGIN PFP */
 
   FRESULT res;
 
-  uint8_t fName[] = "mkstft35.txt\0";
-  //fname = "0:/mkstft35.bin"
-  //fname = FIRMWARE
+  uint8_t fName[] = "mkstft35.bin\0";
+
   int sd_pin=0;
-/* Private function prototypes -----------------------------------------------*/
+
 void mainApp(void);
 
 
@@ -112,10 +120,34 @@ int main(void)
 
 
   MX_GPIO_Init();
+
  // MX_RTC_Init();
   MX_USART1_UART_Init();
-  MX_USART3_UART_Init();
-  MX_USART6_UART_Init();
+  char SD_CD = HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3);
+  
+  //current debug code, check for sd or jump to app
+  if (!SD_CD)
+    {
+    printf("SD CARD detected %d\n\r",SD_CD);
+    }
+  else 
+  {
+    printf("SD CARD not detected %d\n\r",SD_CD);
+    MX_FSMC_Init();
+    int error_lcd = BSP_LCD_Init();
+    BSP_LCD_Clear(LCD_COLOR_RED);
+    JumpToApplication();
+  
+  //alt jumps that dont work
+  //Jump_To_App();
+  //Bootloader_JumpToApplication();
+  //mainApp();
+   //firmware_run();
+}
+
+
+  // MX_USART3_UART_Init();
+  // MX_USART6_UART_Init();
   //HAL_UART_MspInit(&huart1);
   MX_FSMC_Init();
   //MX_DMA_Init();
@@ -125,7 +157,11 @@ int main(void)
  // MX_SPI1_Init();
  
   MX_FATFS_Init();
-  
+  int error_lcd = BSP_LCD_Init();
+  BSP_LCD_Clear(LCD_COLOR_BLUE);
+  snprintf(txt, 30, "test lcd text   ");
+  BSP_LCD_SetTextColor(LCD_COLOR_MAGENTA);
+  BSP_LCD_DisplayStringAt(0, SCR_HT - CHARSIZEY, (uint8_t *)txt, LEFT_MODE);
   printf("\n\r\n\r\n\rBooting\n\r");
   printf("Software version: %s\r\n",SOFTWARE_VERSION);
   printf("Board Build: \"%s\"\r\n",HARDWARE);    
@@ -133,19 +169,20 @@ int main(void)
   printf("about to setup sd-card\n\r");
 
   unsigned char result;
-  //result = f_mount(&sdFileSystem, SD_Path, 1);
+  
   //open device
   result = f_mount(&SDFatFS, SDPath, 1);
+  //result=FR_OK;
 
     if (result == FR_OK)
   {
   	  printf("SD Card Open Success\r\n");
      } else {
    
-	  printf("FatFs Init Failed Code: %d\r\n", (int)result);
-    //ErrorBeep(1);
-    }
+	  printf("MAIN: FatFs Init Failed Code: %d\r\n", (int)result);
 
+    }
+/*
   sd_pin = HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3);
 
   if (sd_pin == 1)
@@ -154,36 +191,49 @@ int main(void)
   }
   else
   {
-    /* code */
+
     printf("sd card pin detect low\n\r");
   }
-  
- res = f_open(&SDFile,(char *)fName, FA_OPEN_EXISTING | FA_READ);
+  */
+ res = FR_OK;
+ //res = f_open(&SDFile,(char *)fName, FA_OPEN_EXISTING | FA_READ);
   if (res == FR_OK)
   {
 	  
-	  printf("Firmware File Found,a ttempting to flash\n\r");
+	 // printf("Firmware File Found,jumping to flash routine\n\r");
     res == flash(fName);
+    HAL_FLASH_Lock();
+   
     if (res == FR_OK)
     {
-      printf("Flash success");
+      printf("Flash success\n\r");
     }
     else
     {
-      printf("Flash error code:%d",res);
+      printf("MAIN: Flash error code:%d\n\r",res);
     }
    // while (1);
-  } else
+  } 
+  else
 	if (res != FR_OK)
 	{
-	  printf("Failed to open firmware file %s wirth error :%d\n\r",fName,res);
+	  printf("MAIN: Failed to open firmware file %s wirth error :%d\n\r",fName,res);
 	}
   else 
   {
     printf("unknown flash error %d\n\r",res);
   }
-  printf("Finished sd-card setup any errors?\n\r");
-  mainApp();
+  
+  firmware_deinit();
+  
+  //firmware_run();
+  //alt 
+  //Jump_To_App();
+  //Bootloader_JumpToApplication();
+  printf("\n\rjump to bl new routine\n\r");
+  JumpToApplication();
+ // go_to(0x0800C000);
+  //mainApp();
   while (1)
   {
 
@@ -200,6 +250,28 @@ inline void moveVectorTable(uint32_t Offset)
     SCB->VTOR = FLASH_BASE | Offset;
 }
 
+#define APPLICATION_START_ADDRESS   0x0800C000U
+static void JumpToApplication(void)
+{
+    if (((*(__IO uint32_t*)APPLICATION_START_ADDRESS) & 0x2FFE0000 ) == 0x20000000)
+    {
+        /* First, disable all IRQs */
+        __disable_irq();
+
+        /* Get the main application start address */
+        uint32_t jump_address = *(__IO uint32_t *)(APPLICATION_START_ADDRESS + 4);
+
+        /* Set the main stack pointer to to the application start address */
+        __set_MSP(*(__IO uint32_t *)APPLICATION_START_ADDRESS);
+
+        // Create function pointer for the main application
+        void (*pmain_app)(void) = (void (*)(void))(jump_address);
+
+        // Now jump to the main application
+        pmain_app();
+    }
+    
+}
 
 //goto application
  static uint8_t go_to(uint32_t myfunc)
@@ -216,30 +288,70 @@ inline void moveVectorTable(uint32_t Offset)
 	}
 	return ret;      
 }
+void NVIC_SetVectorTable(uint32_t NVIC_VectTab, uint32_t Offset)
+{ 
+  /* Check the parameters */
+  assert_param(IS_NVIC_VECTTAB(NVIC_VectTab));
+  assert_param(IS_NVIC_OFFSET(Offset));  
+   
+  SCB->VTOR = NVIC_VectTab | (Offset & (uint32_t)0x1FFFFF80);
+}
+
+#define APP_ADDRESS (uint32_t)0x0800C000
+#define APP_VECT (uint32_t)0xC000
+//from mks sources
+#define NVIC_VectTab_FLASH           ((uint32_t)0x08000000)
 //Jump to application
+void Bootloader_JumpToApplication(void)
+{
+    uint32_t  JumpAddress = *(__IO uint32_t*)(APP_ADDRESS + 4);
+    pFunction Jump        = (pFunction)JumpAddress;
+
+    HAL_RCC_DeInit();
+    HAL_DeInit();
+
+    SysTick->CTRL = 0;
+    SysTick->LOAD = 0;
+    SysTick->VAL  = 0;
+  uint32_t address =  *(uint32_t *)(APP_ADDRESS);
+   uint32_t val = * (uint32_t *) address;
+   NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0xC000);
+   printf("about to jump");
+//#if(SET_VECTOR_TABLE)
+    //SCB->VTOR = APP_ADDRESS;
+  //  SCB->VTOR = APP_VECT ;
+//#endif
+
+    //__set_MSP(*(__IO uint32_t*)APP_ADDRESS);
+    __set_MSP(val);
+    __asm volatile ("cpsid i");
+    Jump();
+}
 
  void Jump_To_App(void)
  {
      // f_mount(NULL, SPISD_Path, 1);
     //  HAL_SPI_MspDeInit(&hspi1);
      // HAL_TIM_Base_MspDeInit(&htim2);
-  
+      printf("Vect at %x",MAIN_PR_OFFSET);
+      printf("jump @ %x",mcuFirstPageAddr);
+      HAL_Delay(500);
       __HAL_RCC_GPIOA_CLK_DISABLE();
       __HAL_RCC_GPIOB_CLK_DISABLE();
       __HAL_RCC_GPIOC_CLK_DISABLE();
       __HAL_RCC_GPIOD_CLK_DISABLE();
       __HAL_RCC_GPIOE_CLK_DISABLE();
-
-      HAL_DeInit();
+    HAL_SD_MspDeInit(&hsd);
+     
 
       // Disabling SysTick interrupt
       SysTick->CTRL = 0;
       moveVectorTable(MAIN_PR_OFFSET);
-      // Setting initial value to stack pointer
-      __set_MSP(*mcuFirstPageAddr);
+       __set_MSP(*mcuFirstPageAddr);
       // booting really
-
-     // Callable resetHandler = (Callable) (*(mcuFirstPageAddr + 1) );
+      pFunction resetHandler = (pFunction) *(uint32_t *) (mcuFirstPageAddr + 4);
+      //Callable resetHandler = (Callable) (*(mcuFirstPageAddr + 1) );
+     
       resetHandler();
  }
 
@@ -566,9 +678,30 @@ static void MX_GPIO_Init(void)
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET); 
+HAL_GPIO_WritePin(GPIOA,GPIO_PIN_1,GPIO_PIN_SET); 
+
+ GPIO_InitStruct.Pin = GPIO_PIN_3;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+  /* USER CODE BEGIN SDIO_MspInit 1 */
+  
 }
 
+
+static void MX_GPIO_Deinit(void)
+{
+
+  /* GPIO Ports Clock Enable */
+   __HAL_RCC_GPIOA_CLK_DISABLE();
+  __HAL_RCC_GPIOB_CLK_DISABLE();
+  __HAL_RCC_GPIOC_CLK_DISABLE();
+  __HAL_RCC_GPIOH_CLK_DISABLE();
+  __HAL_RCC_GPIOE_CLK_DISABLE();
+  __HAL_RCC_GPIOD_CLK_DISABLE();
+ 
+}
 /* FSMC initialization function */
 static void MX_FSMC_Init(void)
 {

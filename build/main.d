@@ -25,10 +25,20 @@ build/main.o: Src/main.c Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h \
+ Drivers/FATFS/App/fatfs.h Drivers/FATFS/fatfs/src/ff.h \
+ Drivers/FATFS/fatfs/src/integer.h Drivers/FATFS/Target/ffconf.h \
+ Drivers/FATFS/Target/bsp_driver_sd.h \
+ Drivers/FATFS/fatfs/src/ff_gen_drv.h Drivers/FATFS/fatfs/src/diskio.h \
+ Drivers/FATFS/fatfs/src/ff.h Drivers/FATFS/Target/sd_diskio.h \
+ Inc/mkstft35.h Inc/firmware.h Drivers/drivers/stm32_adafruit_lcd.h \
+ Drivers/drivers/lcd.h Drivers/drivers/Fonts/fonts.h Inc/mainApp.h
 
 Inc/main.h:
 
@@ -90,6 +100,12 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h:
 
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h:
 
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
+
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
@@ -97,3 +113,33 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h:
+
+Drivers/FATFS/App/fatfs.h:
+
+Drivers/FATFS/fatfs/src/ff.h:
+
+Drivers/FATFS/fatfs/src/integer.h:
+
+Drivers/FATFS/Target/ffconf.h:
+
+Drivers/FATFS/Target/bsp_driver_sd.h:
+
+Drivers/FATFS/fatfs/src/ff_gen_drv.h:
+
+Drivers/FATFS/fatfs/src/diskio.h:
+
+Drivers/FATFS/fatfs/src/ff.h:
+
+Drivers/FATFS/Target/sd_diskio.h:
+
+Inc/mkstft35.h:
+
+Inc/firmware.h:
+
+Drivers/drivers/stm32_adafruit_lcd.h:
+
+Drivers/drivers/lcd.h:
+
+Drivers/drivers/Fonts/fonts.h:
+
+Inc/mainApp.h:
