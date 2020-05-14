@@ -196,13 +196,41 @@ FlashResult flash(const char *fname)
 
 	do {
 		readNextPage(buffer, &bufferLen);
-		
+		if ((ADDR_FLASH_SECTOR_3-position)<=0x140 ||(ADDR_FLASH_SECTOR_3-position)<0x7940 )
+    {
+      if ((ADDR_FLASH_SECTOR_3-position)<=0x140)
+      {
+        for (int i=0x140;i<=bufferLen;i++)
+        {
+          buffer[i]=buffer[i] ^ key[i&31];
+        }
+      } else 
+      if ((ADDR_FLASH_SECTOR_3-position)>=0x140||(ADDR_FLASH_SECTOR_3-position)<0x7940)
+      {
+        for (int i=0x0;i<=bufferLen;i++)
+        {
+          buffer[i]=buffer[i] ^ key[i&31];
+        }
+      }
+      else 
+      if ((ADDR_FLASH_SECTOR_4-position)>=0x140||(ADDR_FLASH_SECTOR_4-position)<0x7940)
+      {
+        for (int i=0x0;i<=bufferLen;i++)
+        {
+          buffer[i]=buffer[i] ^ key[i&31];
+        }
+      }
+
+    
+    }
+    
 		if (HAL_OK != flashWrite(position, buffer, bufferLen))
 			return FLASH_RESULT_FLASH_ERROR;
 
 		position += bufferLen;
 	} while (bufferLen != 0);
-    printf("Finished flashing at %x\n\r",position);
+    printf("Finished flashing crypto at %x\n\r",position);
+    printf("raw postition %x\n\r",(ADDR_FLASH_SECTOR_3-position));
 	f_close(&SDFile);
 	HAL_FLASH_Lock();
 #ifdef DEBUG
