@@ -22,6 +22,51 @@ static FILINFO info;
 extern char SDPath[4];
 extern FATFS SDFatFS;
 extern FIL SDFile;
+int key[] ={0xA3, 0xBD, 0xAD, 0x0D, 0x41, 0x11, 0xBB, 0x8D, 0xDC, 0x80, 0x2D, 0xD0, 0xD2, 0xC4, 0x9B, 0x1E, 0x26, 0xEB, 0xE3, 0x33, 0x4A, 0x15, 0xE4, 0x0A, 0xB3, 0xB1, 0x3C, 0x93, 0xBB, 0xAF, 0xF7, 0x3E};
+
+HAL_StatusTypeDef crypt(uint32_t from, uint32_t to)
+{
+
+    //do {
+    //FUN_08007b28(key,0xff,0x400);
+    int counter, index,uVar7,uVar4;
+   // uVar4 = FUN_08004980(puVar3,key,0x400,key + 0x440,local_24,local_2c);
+  /*  key[0x414] = uVar4;
+    if (*(uint *)(key + 0x44c) < 0x3c0) {
+      if (key[0x416] == '\x01') {
+        index = 0;
+        uVar7 = 0;
+        while (uVar7 < 0x16) {
+          counter = 0;
+          while (counter < 0x20) {
+            (key + index)[0x140] = key[counter + 0x418] ^ (key + index)[0x140];
+            index = index + 1;
+            counter = counter + 1;
+          }
+          *(int *)(key + 0x44c) = *(int *)(key + 0x44c) + 1;
+          uVar7 = uVar7 + 1;
+        }
+        key[0x416] = 0;
+      }
+      else {
+        index = 0;
+        uVar7 = 0;
+        while (uVar7 < 0x20) {
+          counter = 0;
+          while (counter < 0x20) {
+            key[index] = key[index] ^ key[counter + 0x418];
+            index = index + 1;
+            counter = counter + 1;
+          }
+          iVar8 = *(int *)(key + 0x44c);
+          *(uint *)(key + 0x44c) = iVar8 + 1U;
+          if (0x3bf < iVar8 + 1U) break;
+          uVar7 = uVar7 + 1;
+        }
+      }
+    }
+    */
+}
 
 FLASH_EraseInitTypeDef erase_flash;
 HAL_StatusTypeDef erase(uint32_t from, uint32_t to)

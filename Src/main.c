@@ -226,12 +226,12 @@ int main(void)
   
   firmware_deinit();
   
-  //firmware_run();
+  firmware_run();
   //alt 
-  //Jump_To_App();
+ // Jump_To_App();
   //Bootloader_JumpToApplication();
   printf("\n\rjump to bl new routine\n\r");
-  JumpToApplication();
+  //JumpToApplication();
  // go_to(0x0800C000);
   //mainApp();
   while (1)

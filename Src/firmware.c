@@ -136,7 +136,7 @@ uint8_t firmware_integrity(void) {
 
 void firmware_run(void) {
     
-    printf("\n\rfirmware_run\n\r");
+    printf("\n\rworking with un-encrypted mks firmware_run\n\r");
     uint32_t appStack = (uint32_t) *((uint32_t *) APP_ADDR);
 
     pFunction appEntry = (pFunction) *(uint32_t *) (APP_ADDR + 4);
