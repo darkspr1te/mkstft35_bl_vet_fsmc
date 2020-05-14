@@ -136,13 +136,8 @@ int main(void)
     MX_FSMC_Init();
     int error_lcd = BSP_LCD_Init();
     BSP_LCD_Clear(LCD_COLOR_RED);
-    JumpToApplication();
-  
-  //alt jumps that dont work
-  //Jump_To_App();
-  //Bootloader_JumpToApplication();
-  //mainApp();
-   //firmware_run();
+    firmware_deinit();
+    firmware_run();
 }
 
 
@@ -177,30 +172,17 @@ int main(void)
     if (result == FR_OK)
   {
   	  printf("SD Card Open Success\r\n");
-     } else {
-   
-	  printf("MAIN: FatFs Init Failed Code: %d\r\n", (int)result);
-
-    }
-/*
-  sd_pin = HAL_GPIO_ReadPin(GPIOD,GPIO_PIN_3);
-
-  if (sd_pin == 1)
-  {
-    printf("sd card pin detect high\n\r");
+  } 
+  else {
+    printf("MAIN: FatFs Init Failed Code: %d\r\n", (int)result);
+    firmware_deinit();
+    firmware_run();
   }
-  else
-  {
 
-    printf("sd card pin detect low\n\r");
-  }
-  */
  res = FR_OK;
- //res = f_open(&SDFile,(char *)fName, FA_OPEN_EXISTING | FA_READ);
+
   if (res == FR_OK)
   {
-	  
-	 // printf("Firmware File Found,jumping to flash routine\n\r");
     res == flash(fName);
     HAL_FLASH_Lock();
    
