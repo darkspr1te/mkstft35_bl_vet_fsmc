@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
   28:Src/stm32f4xx_it.c ****   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   29:Src/stm32f4xx_it.c ****   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   30:Src/stm32f4xx_it.c ****   *
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 2
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 2
 
 
   31:Src/stm32f4xx_it.c ****   ******************************************************************************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
   49              	.LFB127:
   67:Src/stm32f4xx_it.c **** 
   68:Src/stm32f4xx_it.c **** /**
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 3
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 3
 
 
   69:Src/stm32f4xx_it.c **** * @brief This function handles Hard fault interrupt.
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
   85:Src/stm32f4xx_it.c ****   stacked_r3 = ((unsigned long) hardfault_args[3]);
   88              		.loc 1 85 3 is_stmt 1 view .LVU18
   89              		.loc 1 85 14 is_stmt 0 view .LVU19
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 4
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 4
 
 
   90 0010 C768     		ldr	r7, [r0, #12]
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  133              	.LVL14:
   97:Src/stm32f4xx_it.c ****   printf ("R12 = %x\r\n", stacked_r12);
  134              		.loc 1 97 3 view .LVU34
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 5
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 5
 
 
  135 0042 3146     		mov	r1, r6
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  181 008e 1648     		ldr	r0, .L5+72
  182 0090 FFF7FEFF 		bl	printf
  183              	.LVL23:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 6
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 6
 
 
  106:Src/stm32f4xx_it.c ****   printf ("SCB_SHCSR = %x\r\n", SCB->SHCSR);
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  232              		.cfi_startproc
  233              		@ args = 0, pretend = 0, frame = 0
  234              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 7
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 7
 
 
  235              		@ link register save eliminated.
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  266              	.LFE128:
  268              		.section	.text.MemManage_Handler,"ax",%progbits
  269              		.align	1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 8
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 8
 
 
  270              		.global	MemManage_Handler
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  302              		.cfi_startproc
  303              		@ Volatile: function does not return.
  304              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 9
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 9
 
 
  305              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  335              	.LFE131:
  337              		.section	.text.SVC_Handler,"ax",%progbits
  338              		.align	1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 10
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 10
 
 
  339              		.global	SVC_Handler
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  212:Src/stm32f4xx_it.c **** 
  213:Src/stm32f4xx_it.c ****   /* USER CODE END DebugMonitor_IRQn 0 */
  214:Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DebugMonitor_IRQn 1 */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 11
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 11
 
 
  215:Src/stm32f4xx_it.c **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  408              		.cfi_startproc
  409              		@ args = 0, pretend = 0, frame = 0
  410              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 12
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 12
 
 
  411 0000 08B5     		push	{r3, lr}
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  261:Src/stm32f4xx_it.c ****   HAL_TIM_IRQHandler(&htim6);
  443              		.loc 1 261 3 view .LVU69
  444 0002 0248     		ldr	r0, .L21
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 13
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 13
 
 
  445 0004 FFF7FEFF 		bl	HAL_TIM_IRQHandler
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  486              	.LFE137:
  488              		.section	.text.DMA2_Stream3_IRQHandler,"ax",%progbits
  489              		.align	1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 14
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 14
 
 
  490              		.global	DMA2_Stream3_IRQHandler
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  294:Src/stm32f4xx_it.c ****   */
  295:Src/stm32f4xx_it.c **** void DMA2_Stream6_IRQHandler(void)
  296:Src/stm32f4xx_it.c **** {
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 15
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 15
 
 
  530              		.loc 1 296 1 is_stmt 1 view -0
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  567              	.LC4:
  568 0054 5233203D 		.ascii	"R3 = %x\015\012\000"
  568      2025780D 
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 16
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 16
 
 
  568      0A00
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  596              		.file 2 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
  597              		.file 3 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\include
  598              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 17
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 17
 
 
  599              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
@@ -975,47 +975,47 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 1
  610              		.file 16 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
  611              		.file 17 "c:\\program files (x86)\\gnu tools arm embedded\\8 2019-q3-update\\arm-none-eabi\\includ
  612              		.file 18 "<built-in>"
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s 			page 18
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s 			page 18
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_it.c
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:18     .text.NMI_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:26     .text.NMI_Handler:00000000 NMI_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:40     .text.hard_fault_handler_c:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:47     .text.hard_fault_handler_c:00000000 hard_fault_handler_c
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:197    .text.hard_fault_handler_c:000000a0 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:222    .text.HardFault_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:229    .text.HardFault_Handler:00000000 HardFault_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:254    .text.HardFault_Handler:00000022 _MSP
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:256    .text.HardFault_Handler:00000026 _HALT
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:269    .text.MemManage_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:276    .text.MemManage_Handler:00000000 MemManage_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:292    .text.BusFault_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:299    .text.BusFault_Handler:00000000 BusFault_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:315    .text.UsageFault_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:322    .text.UsageFault_Handler:00000000 UsageFault_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:338    .text.SVC_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:345    .text.SVC_Handler:00000000 SVC_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:358    .text.DebugMon_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:365    .text.DebugMon_Handler:00000000 DebugMon_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:378    .text.PendSV_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:385    .text.PendSV_Handler:00000000 PendSV_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:398    .text.SysTick_Handler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:405    .text.SysTick_Handler:00000000 SysTick_Handler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:425    .text.TIM6_DAC_IRQHandler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:432    .text.TIM6_DAC_IRQHandler:00000000 TIM6_DAC_IRQHandler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:452    .text.TIM6_DAC_IRQHandler:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:457    .text.SDIO_IRQHandler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:464    .text.SDIO_IRQHandler:00000000 SDIO_IRQHandler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:484    .text.SDIO_IRQHandler:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:489    .text.DMA2_Stream3_IRQHandler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:496    .text.DMA2_Stream3_IRQHandler:00000000 DMA2_Stream3_IRQHandler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:516    .text.DMA2_Stream3_IRQHandler:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:521    .text.DMA2_Stream6_IRQHandler:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:528    .text.DMA2_Stream6_IRQHandler:00000000 DMA2_Stream6_IRQHandler
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:548    .text.DMA2_Stream6_IRQHandler:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\ccyfPrLi.s:553    .rodata.hard_fault_handler_c.str1.4:00000000 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:18     .text.NMI_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:26     .text.NMI_Handler:00000000 NMI_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:40     .text.hard_fault_handler_c:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:47     .text.hard_fault_handler_c:00000000 hard_fault_handler_c
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:197    .text.hard_fault_handler_c:000000a0 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:222    .text.HardFault_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:229    .text.HardFault_Handler:00000000 HardFault_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:254    .text.HardFault_Handler:00000022 _MSP
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:256    .text.HardFault_Handler:00000026 _HALT
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:269    .text.MemManage_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:276    .text.MemManage_Handler:00000000 MemManage_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:292    .text.BusFault_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:299    .text.BusFault_Handler:00000000 BusFault_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:315    .text.UsageFault_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:322    .text.UsageFault_Handler:00000000 UsageFault_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:338    .text.SVC_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:345    .text.SVC_Handler:00000000 SVC_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:358    .text.DebugMon_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:365    .text.DebugMon_Handler:00000000 DebugMon_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:378    .text.PendSV_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:385    .text.PendSV_Handler:00000000 PendSV_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:398    .text.SysTick_Handler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:405    .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:425    .text.TIM6_DAC_IRQHandler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:432    .text.TIM6_DAC_IRQHandler:00000000 TIM6_DAC_IRQHandler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:452    .text.TIM6_DAC_IRQHandler:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:457    .text.SDIO_IRQHandler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:464    .text.SDIO_IRQHandler:00000000 SDIO_IRQHandler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:484    .text.SDIO_IRQHandler:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:489    .text.DMA2_Stream3_IRQHandler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:496    .text.DMA2_Stream3_IRQHandler:00000000 DMA2_Stream3_IRQHandler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:516    .text.DMA2_Stream3_IRQHandler:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:521    .text.DMA2_Stream6_IRQHandler:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:528    .text.DMA2_Stream6_IRQHandler:00000000 DMA2_Stream6_IRQHandler
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:548    .text.DMA2_Stream6_IRQHandler:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccouNuUs.s:553    .rodata.hard_fault_handler_c.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 puts

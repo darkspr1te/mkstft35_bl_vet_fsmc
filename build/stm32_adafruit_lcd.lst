@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
   28:Drivers/Drivers/stm32_adafruit_lcd.c ****   * Redistribution and use in source and binary forms, with or without modification,
   29:Drivers/Drivers/stm32_adafruit_lcd.c ****   * are permitted provided that the following conditions are met:
   30:Drivers/Drivers/stm32_adafruit_lcd.c ****   *   1. Redistributions of source code must retain the above copyright notice,
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 2
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 2
 
 
   31:Drivers/Drivers/stm32_adafruit_lcd.c ****   *      this list of conditions and the following disclaimer.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
   85:Drivers/Drivers/stm32_adafruit_lcd.c **** /* Includes ------------------------------------------------------------------*/
   86:Drivers/Drivers/stm32_adafruit_lcd.c **** #include "lcd.h"
   87:Drivers/Drivers/stm32_adafruit_lcd.c **** #include "stm32_adafruit_lcd.h"
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 3
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 3
 
 
   88:Drivers/Drivers/stm32_adafruit_lcd.c **** #include "Fonts/fonts.h"
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  142:Drivers/Drivers/stm32_adafruit_lcd.c **** /**
  143:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @brief  Gets the LCD X size.
  144:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @param  None    
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 4
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 4
 
 
  145:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @retval Used LCD X size
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  199:Drivers/Drivers/stm32_adafruit_lcd.c ****   DrawProp.BackColor = Color;
  200:Drivers/Drivers/stm32_adafruit_lcd.c **** }
  201:Drivers/Drivers/stm32_adafruit_lcd.c **** 
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 5
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 5
 
 
  202:Drivers/Drivers/stm32_adafruit_lcd.c **** /**
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  256:Drivers/Drivers/stm32_adafruit_lcd.c **** { 
  257:Drivers/Drivers/stm32_adafruit_lcd.c ****   uint32_t color_backup = DrawProp.TextColor; 
  258:Drivers/Drivers/stm32_adafruit_lcd.c ****   DrawProp.TextColor = DrawProp.BackColor;;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 6
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 6
 
 
  259:Drivers/Drivers/stm32_adafruit_lcd.c ****     
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  313:Drivers/Drivers/stm32_adafruit_lcd.c ****     {
  314:Drivers/Drivers/stm32_adafruit_lcd.c ****       refcolumn = Xpos;
  315:Drivers/Drivers/stm32_adafruit_lcd.c ****       break;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 7
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 7
 
 
  316:Drivers/Drivers/stm32_adafruit_lcd.c ****     }
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  370:Drivers/Drivers/stm32_adafruit_lcd.c ****     lcd_drv->WritePixel(Xpos, Ypos, RGB_Code);
  371:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
  372:Drivers/Drivers/stm32_adafruit_lcd.c **** }
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 8
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 8
 
 
  373:Drivers/Drivers/stm32_adafruit_lcd.c ****   
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  427:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @param  y2: Point 2 Y position
  428:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @retval None
  429:Drivers/Drivers/stm32_adafruit_lcd.c ****   */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 9
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 9
 
 
  430:Drivers/Drivers/stm32_adafruit_lcd.c **** void BSP_LCD_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  484:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_DrawPixel(x, y, DrawProp.TextColor);  /* Draw the current pixel */
  485:Drivers/Drivers/stm32_adafruit_lcd.c ****     num += numadd;                            /* Increase the numerator by the top of the fraction 
  486:Drivers/Drivers/stm32_adafruit_lcd.c ****     if (num >= den)                           /* Check if numerator >= denominator */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 10
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 10
 
 
  487:Drivers/Drivers/stm32_adafruit_lcd.c ****     {
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  541:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_DrawPixel((Xpos + CurY), (Ypos + CurX), DrawProp.TextColor);
  542:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_DrawPixel((Xpos - CurY), (Ypos + CurX), DrawProp.TextColor);   
  543:Drivers/Drivers/stm32_adafruit_lcd.c **** 
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 11
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 11
 
 
  544:Drivers/Drivers/stm32_adafruit_lcd.c ****     if (D < 0)
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  598:Drivers/Drivers/stm32_adafruit_lcd.c ****   
  599:Drivers/Drivers/stm32_adafruit_lcd.c ****   K = (float)(rad2/rad1);
  600:Drivers/Drivers/stm32_adafruit_lcd.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 12
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 12
 
 
  601:Drivers/Drivers/stm32_adafruit_lcd.c ****   do {      
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  655:Drivers/Drivers/stm32_adafruit_lcd.c ****   lcd_drv->FillRect(Xpos, Ypos, Width, Height, DrawProp.TextColor);
  656:Drivers/Drivers/stm32_adafruit_lcd.c ****   #else
  657:Drivers/Drivers/stm32_adafruit_lcd.c ****   BSP_LCD_SetTextColor(DrawProp.TextColor);
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 13
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 13
 
 
  658:Drivers/Drivers/stm32_adafruit_lcd.c ****   do
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  712:Drivers/Drivers/stm32_adafruit_lcd.c **** }
  713:Drivers/Drivers/stm32_adafruit_lcd.c **** 
  714:Drivers/Drivers/stm32_adafruit_lcd.c **** /**
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 14
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 14
 
 
  715:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @brief  Draws a full poly-line (between many points).
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  769:Drivers/Drivers/stm32_adafruit_lcd.c ****     
  770:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_FillTriangle(X, Y, X2, Y2, X_center, Y_center);
  771:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_FillTriangle(X, Y, X_center, Y_center, X2, Y2);
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 15
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 15
 
 
  772:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_FillTriangle(X_center, Y_center, X2, Y2, X, Y);
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  826:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @param  None
  827:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @retval None
  828:Drivers/Drivers/stm32_adafruit_lcd.c ****   */
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 16
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 16
 
 
  829:Drivers/Drivers/stm32_adafruit_lcd.c **** void BSP_LCD_DisplayOff(void)
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  883:Drivers/Drivers/stm32_adafruit_lcd.c ****       line =  pchar[0];
  884:Drivers/Drivers/stm32_adafruit_lcd.c ****     }    
  885:Drivers/Drivers/stm32_adafruit_lcd.c ****     
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 17
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 17
 
 
  886:Drivers/Drivers/stm32_adafruit_lcd.c ****     for (counterw = 0; counterw < width; counterw++)
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  940:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_DrawHLine(a, y1, b - a + 1);
  941:Drivers/Drivers/stm32_adafruit_lcd.c ****     return;
  942:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 18
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 18
 
 
  943:Drivers/Drivers/stm32_adafruit_lcd.c **** 
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  997:Drivers/Drivers/stm32_adafruit_lcd.c **** /**
  998:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @brief  Sets display window.
  999:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @param  LayerIndex: layer index
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 19
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 19
 
 
 1000:Drivers/Drivers/stm32_adafruit_lcd.c ****   * @param  Xpos: LCD X position
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
   71              		@ args = 0, pretend = 0, frame = 0
   72              		@ frame_needed = 0, uses_anonymous_args = 0
   73 0000 08B5     		push	{r3, lr}
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 20
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 20
 
 
   74              	.LCFI1:
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  116              		.align	1
  117              		.global	BSP_LCD_GetXSize
  118              		.syntax unified
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 21
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 21
 
 
  119              		.thumb
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  159:Drivers/Drivers/stm32_adafruit_lcd.c **** }
  170              		.loc 1 159 3 view .LVU27
  159:Drivers/Drivers/stm32_adafruit_lcd.c **** }
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 22
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 22
 
 
  171              		.loc 1 159 17 is_stmt 0 view .LVU28
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  178:Drivers/Drivers/stm32_adafruit_lcd.c ****   return DrawProp.BackColor;
  224              		.loc 1 178 1 is_stmt 1 view -0
  225              		.cfi_startproc
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 23
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 23
 
 
  226              		@ args = 0, pretend = 0, frame = 0
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  278              	BSP_LCD_SetBackColor:
  279              	.LVL8:
  280              	.LFB6:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 24
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 24
 
 
  198:Drivers/Drivers/stm32_adafruit_lcd.c ****   DrawProp.BackColor = Color;
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  330              		.global	BSP_LCD_GetFont
  331              		.syntax unified
  332              		.thumb
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 25
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 25
 
 
  333              		.thumb_func
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  383              		.loc 1 230 10 is_stmt 0 view .LVU55
  384 0006 084B     		ldr	r3, .L38
  385 0008 1B68     		ldr	r3, [r3]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 26
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 26
 
 
  386 000a 9C6B     		ldr	r4, [r3, #56]
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  368:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
  436              		.loc 1 368 13 is_stmt 0 view .LVU62
  437 0002 034B     		ldr	r3, .L43
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 27
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 27
 
 
  438 0004 1B68     		ldr	r3, [r3]
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  486              		.loc 1 385 13 is_stmt 0 view .LVU70
  487 0008 0B4B     		ldr	r3, .L51
  488 000a 1B68     		ldr	r3, [r3]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 28
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 28
 
 
  489 000c 1C6A     		ldr	r4, [r3, #32]
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  532 0036 00BF     		.align	2
  533              	.L51:
  534 0038 00000000 		.word	lcd_drv
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 29
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 29
 
 
  535 003c 00000000 		.word	DrawProp
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  411:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
  583              		.loc 1 411 5 view .LVU90
  584 0016 0948     		ldr	r0, .L59+4
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 30
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 30
 
 
  585              	.LVL30:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  431:Drivers/Drivers/stm32_adafruit_lcd.c ****   int16_t deltax = 0, deltay = 0, x = 0, y = 0, xinc1 = 0, xinc2 = 0, 
  634              		.loc 1 431 1 is_stmt 1 view -0
  635              		.cfi_startproc
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 31
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 31
 
 
  636              		@ args = 0, pretend = 0, frame = 16
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  439:Drivers/Drivers/stm32_adafruit_lcd.c ****   
  679              		.loc 1 439 5 is_stmt 0 view .LVU110
  680 002c 0FB2     		sxth	r7, r1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 32
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 32
 
 
  681              	.LVL41:
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  718              		.loc 1 470 5 view .LVU127
  470:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
  719              		.loc 1 470 5 is_stmt 0 view .LVU128
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 33
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 33
 
 
  720 004a 029B     		ldr	r3, [sp, #8]
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  760              	.LVL55:
  478:Drivers/Drivers/stm32_adafruit_lcd.c ****     numpixels = deltay;         /* There are more y-values than x-values */
  761              		.loc 1 478 5 is_stmt 1 view .LVU143
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 34
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 34
 
 
  479:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  801              		.loc 1 482 53 discriminator 2 view .LVU158
  802 0090 09F10109 		add	r9, r9, #1
  803              	.LVL65:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 35
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 35
 
 
  482:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  844              		.loc 1 489 9 view .LVU172
  845 00c4 2DB2     		sxth	r5, r5
  846              	.LVL73:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 36
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 36
 
 
  490:Drivers/Drivers/stm32_adafruit_lcd.c ****     }
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  894              		.cfi_offset 3, -24
  895              		.cfi_offset 4, -20
  896              		.cfi_offset 5, -16
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 37
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 37
 
 
  897              		.cfi_offset 6, -12
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  943              		.syntax unified
  944              		.thumb
  945              		.thumb_func
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 38
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 38
 
 
  946              		.fpu fpv4-sp-d16
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  988              		.loc 1 530 8 is_stmt 0 view .LVU203
  989 0012 4FF00008 		mov	r8, #0
  533:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 39
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 39
 
 
  990              		.loc 1 533 9 view .LVU204
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  537:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_DrawPixel((Xpos - CurY), (Ypos - CurX), DrawProp.TextColor);
  1035              		.loc 1 537 5 view .LVU214
  1036 0060 05EB0903 		add	r3, r5, r9
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 40
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 40
 
 
  1037 0064 9FB2     		uxth	r7, r3
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1084              		.loc 1 544 8 is_stmt 0 view .LVU221
  1085 00ba BAF1000F 		cmp	r10, #0
  1086 00be ABDB     		blt	.L84
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 41
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 41
 
 
  550:Drivers/Drivers/stm32_adafruit_lcd.c ****       CurY--;
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1133              		.loc 1 565 3 view .LVU231
  567:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
  1134              		.loc 1 567 3 view .LVU232
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 42
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 42
 
 
  567:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1177              	.LVL105:
  574:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
  1178              		.loc 1 574 8 view .LVU245
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 43
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 43
 
 
  1179 0034 74B1     		cbz	r4, .L95
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1219 0056 7047     		bx	lr
  1220              		.cfi_endproc
  1221              	.LFE20:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 44
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 44
 
 
  1223              		.section	.text.BSP_LCD_DrawEllipse,"ax",%progbits
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1271              		.loc 1 594 3 is_stmt 1 view .LVU266
  596:Drivers/Drivers/stm32_adafruit_lcd.c ****   rad2 = YRadius;
  1272              		.loc 1 596 3 view .LVU267
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 45
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 45
 
 
  596:Drivers/Drivers/stm32_adafruit_lcd.c ****   rad2 = YRadius;
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1312 003e 00E0     		b	.L98
  1313              	.LVL124:
  1314              	.L102:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 46
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 46
 
 
  612:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  604:Drivers/Drivers/stm32_adafruit_lcd.c ****     BSP_LCD_DrawPixel((Xpos-(uint16_t)(x/K)), (Ypos-y), DrawProp.TextColor);      
  1359              		.loc 1 604 5 view .LVU293
  1360 0094 019A     		ldr	r2, [sp, #4]
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 47
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 47
 
 
  1361 0096 551B     		subs	r5, r2, r5
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1401 00ce B0E7     		b	.L97
  1402              	.LVL134:
  1403              	.L104:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 48
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 48
 
 
  615:Drivers/Drivers/stm32_adafruit_lcd.c **** 
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1454              		.loc 1 626 3 is_stmt 1 view .LVU313
  1455              	.LVL138:
  627:Drivers/Drivers/stm32_adafruit_lcd.c ****   
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 49
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 49
 
 
  1456              		.loc 1 627 3 view .LVU314
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1496 0034 0446     		mov	r4, r0
  1497              	.LVL145:
  641:Drivers/Drivers/stm32_adafruit_lcd.c **** }
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 50
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 50
 
 
  1498              		.loc 1 641 3 is_stmt 0 view .LVU329
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  848:Drivers/Drivers/stm32_adafruit_lcd.c ****   uint8_t offset = 0;
  1550              		.loc 1 848 3 view .LVU334
  849:Drivers/Drivers/stm32_adafruit_lcd.c ****   uint8_t *pchar = NULL;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 51
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 51
 
 
  1551              		.loc 1 849 3 view .LVU335
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1587 0030 5981     		strh	r1, [r3, #10]	@ movhi
  860:Drivers/Drivers/stm32_adafruit_lcd.c ****   *(uint16_t *) (bitmap + 20) = (uint16_t)((width)>>16);
  1588              		.loc 1 860 3 is_stmt 1 view .LVU354
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 52
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 52
 
 
  860:Drivers/Drivers/stm32_adafruit_lcd.c ****   *(uint16_t *) (bitmap + 20) = (uint16_t)((width)>>16);
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1625 0062 2A49     		ldr	r1, .L126
  1626 0064 4968     		ldr	r1, [r1, #4]
  898:Drivers/Drivers/stm32_adafruit_lcd.c ****         bitmap[index+1] = (uint8_t)(DrawProp.BackColor >> 8);
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 53
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 53
 
 
  1627              		.loc 1 898 23 view .LVU373
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1665 0090 0139     		subs	r1, r1, #1
  891:Drivers/Drivers/stm32_adafruit_lcd.c ****       {
  1666              		.loc 1 891 20 view .LVU390
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 54
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 54
 
 
  1667 0092 4FF0010E 		mov	lr, #1
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  871:Drivers/Drivers/stm32_adafruit_lcd.c ****     {
  1706              		.loc 1 871 24 is_stmt 0 view .LVU406
  1707 00c6 4D46     		mov	r5, r9
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 55
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 55
 
 
  1708 00c8 A9F11100 		sub	r0, r9, #17
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1745              		.loc 1 881 24 is_stmt 0 view .LVU423
  1746 00ee 09F1FF31 		add	r1, r9, #-1
  1747              	.LVL167:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 56
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 56
 
 
  881:Drivers/Drivers/stm32_adafruit_lcd.c ****     {
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1793              		.fpu fpv4-sp-d16
  1795              	BSP_LCD_DisplayChar:
  1796              	.LVL173:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 57
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 57
 
 
  1797              	.LFB11:
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1839              	.LFE11:
  1841              		.section	.text.BSP_LCD_DisplayStringAt,"ax",%progbits
  1842              		.align	1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 58
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 58
 
 
  1843              		.global	BSP_LCD_DisplayStringAt
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1887              		.loc 1 300 18 is_stmt 1 discriminator 2 view .LVU456
  300:Drivers/Drivers/stm32_adafruit_lcd.c ****   
  1888              		.loc 1 300 23 is_stmt 0 discriminator 2 view .LVU457
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 59
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 59
 
 
  1889 0016 0137     		adds	r7, r7, #1
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1929              		.loc 1 309 17 view .LVU471
  1930 0044 0544     		add	r5, r5, r0
  1931 0046 ADB2     		uxth	r5, r5
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 60
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 60
 
 
  1932              	.LVL188:
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  1972              		.loc 1 337 5 is_stmt 1 view .LVU485
  338:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
  1973              		.loc 1 338 5 view .LVU486
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 61
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 61
 
 
  338:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2017              		.section	.text.BSP_LCD_DisplayStringAtLine,"ax",%progbits
  2018              		.align	1
  2019              		.global	BSP_LCD_DisplayStringAtLine
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 62
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 62
 
 
  2020              		.syntax unified
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2068              		.fpu fpv4-sp-d16
  2070              	BSP_LCD_FillRect:
  2071              	.LVL204:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 63
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 63
 
 
  2072              	.LFB23:
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2122              	.LFB10:
  256:Drivers/Drivers/stm32_adafruit_lcd.c ****   uint32_t color_backup = DrawProp.TextColor; 
  2123              		.loc 1 256 1 is_stmt 1 view -0
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 64
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 64
 
 
  2124              		.cfi_startproc
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  263:Drivers/Drivers/stm32_adafruit_lcd.c ****   BSP_LCD_SetTextColor(DrawProp.TextColor);
  2165              		.loc 1 263 3 is_stmt 1 view .LVU527
  263:Drivers/Drivers/stm32_adafruit_lcd.c ****   BSP_LCD_SetTextColor(DrawProp.TextColor);
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 65
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 65
 
 
  2166              		.loc 1 263 22 is_stmt 0 view .LVU528
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2217 000c 0192     		str	r2, [sp, #4]
  675:Drivers/Drivers/stm32_adafruit_lcd.c ****   uint32_t  CurX;    /* Current X Value */
  2218              		.loc 1 675 3 is_stmt 1 view .LVU534
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 66
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 66
 
 
  676:Drivers/Drivers/stm32_adafruit_lcd.c ****   uint32_t  CurY;    /* Current Y Value */ 
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2259 0046 89B2     		uxth	r1, r1
  2260 0048 5846     		mov	r0, fp
  2261 004a FFF7FEFF 		bl	BSP_LCD_DrawHLine
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 67
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 67
 
 
  2262              	.LVL218:
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2306 008e C7D1     		bne	.L164
  2307              	.L157:
  694:Drivers/Drivers/stm32_adafruit_lcd.c ****     {
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 68
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 68
 
 
  2308              		.loc 1 694 5 is_stmt 1 view .LVU559
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2349              	.L167:
  2350 00b4 00000000 		.word	DrawProp
  2351              		.cfi_endproc
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 69
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 69
 
 
  2352              	.LFE24:
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  793:Drivers/Drivers/stm32_adafruit_lcd.c ****   rad2 = YRadius;
  2401              		.loc 1 793 3 view .LVU580
  793:Drivers/Drivers/stm32_adafruit_lcd.c ****   rad2 = YRadius;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 70
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 70
 
 
  2402              		.loc 1 793 8 is_stmt 0 view .LVU581
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2442              	.LVL241:
  2443              	.L175:
  809:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 71
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 71
 
 
  2444              		.loc 1 809 21 discriminator 1 view .LVU596
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  806:Drivers/Drivers/stm32_adafruit_lcd.c ****       if (-y == x && e2 <= y) e2 = 0;
  2488              		.loc 1 806 7 is_stmt 1 view .LVU607
  806:Drivers/Drivers/stm32_adafruit_lcd.c ****       if (-y == x && e2 <= y) e2 = 0;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 72
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 72
 
 
  2489              		.loc 1 806 19 is_stmt 0 view .LVU608
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2534              	BSP_LCD_DisplayOn:
  2535              	.LFB27:
  820:Drivers/Drivers/stm32_adafruit_lcd.c ****   lcd_drv->DisplayOn();
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 73
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 73
 
 
  2536              		.loc 1 820 1 is_stmt 1 view -0
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2585 0006 DB68     		ldr	r3, [r3, #12]
  831:Drivers/Drivers/stm32_adafruit_lcd.c **** }
  2586              		.loc 1 831 3 view .LVU628
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 74
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 74
 
 
  2587 0008 9847     		blx	r3
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  922:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
  2638              		.loc 1 922 3 view .LVU634
  922:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 75
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 75
 
 
  2639              		.loc 1 922 6 is_stmt 0 view .LVU635
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2681              		.loc 1 929 6 view .LVU647
  2682 0046 0193     		str	r3, [sp, #4]
  2683              	.LVL261:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 76
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 76
 
 
  2684              	.L189:
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  950:Drivers/Drivers/stm32_adafruit_lcd.c ****   int32_t
  2724              		.loc 1 950 13 view .LVU662
  2725 0072 A8EB0203 		sub	r3, r8, r2
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 77
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 77
 
 
  950:Drivers/Drivers/stm32_adafruit_lcd.c ****   int32_t
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2764 009a 019B     		ldr	r3, [sp, #4]
  2765 009c BB42     		cmp	r3, r7
  2766 009e 0EDA     		bge	.L191
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 78
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 78
 
 
  936:Drivers/Drivers/stm32_adafruit_lcd.c ****     else if(x2 > b) b = x2;
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2808 00be 019A     		ldr	r2, [sp, #4]
  2809 00c0 BA42     		cmp	r2, r7
  2810 00c2 02DD     		ble	.L204
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 79
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 79
 
 
  937:Drivers/Drivers/stm32_adafruit_lcd.c ****     if(x3 < a)      a = x3;
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  975:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
  2850              		.loc 1 975 5 is_stmt 0 discriminator 3 view .LVU707
  2851 00de A4B2     		uxth	r4, r4
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 80
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 80
 
 
  975:Drivers/Drivers/stm32_adafruit_lcd.c ****   }
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2890              		.loc 1 968 8 is_stmt 0 view .LVU723
  2891 0106 039B     		ldr	r3, [sp, #12]
  2892 0108 9A44     		add	r10, r10, r3
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 81
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 81
 
 
  2893              	.LVL293:
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2932 012a 029B     		ldr	r3, [sp, #8]
  2933 012c E31A     		subs	r3, r4, r3
  981:Drivers/Drivers/stm32_adafruit_lcd.c ****   for(; y <= y3; y++)
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 82
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 82
 
 
  2934              		.loc 1 981 6 view .LVU739
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  2974              		.loc 1 984 9 view .LVU753
  2975 0158 12B2     		sxth	r2, r2
  2976              	.LVL308:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 83
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 83
 
 
  985:Drivers/Drivers/stm32_adafruit_lcd.c ****     sa += dx23;
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  721:Drivers/Drivers/stm32_adafruit_lcd.c ****   int16_t X = 0, Y = 0, X2 = 0, Y2 = 0, X_center = 0, Y_center = 0, X_first = 0, Y_first = 0, pixel
  3020              		.loc 1 721 1 is_stmt 1 view -0
  3021              		.cfi_startproc
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 84
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 84
 
 
  3022              		@ args = 0, pretend = 0, frame = 24
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3064 001c 1F46     		mov	r7, r3
  725:Drivers/Drivers/stm32_adafruit_lcd.c ****   IMAGE_TOP= IMAGE_BOTTOM = Points->Y;
  3065              		.loc 1 725 28 view .LVU780
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 85
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 85
 
 
  3066 001e 9446     		mov	ip, r2
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  737:Drivers/Drivers/stm32_adafruit_lcd.c ****     }
  3105              		.loc 1 737 7 is_stmt 1 view .LVU796
  737:Drivers/Drivers/stm32_adafruit_lcd.c ****     }
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 86
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 86
 
 
  3106              		.loc 1 737 19 is_stmt 0 view .LVU797
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3144 005c 7310     		asrs	r3, r6, #1
  3145              	.LVL331:
  756:Drivers/Drivers/stm32_adafruit_lcd.c ****   Y_center = (IMAGE_BOTTOM + IMAGE_TOP)/2;
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 87
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 87
 
 
  3146              		.loc 1 756 40 view .LVU814
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3183              		.loc 1 767 8 view .LVU831
  3184 007c 0493     		str	r3, [sp, #16]
  3185              	.LVL339:
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 88
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 88
 
 
  768:Drivers/Drivers/stm32_adafruit_lcd.c ****     
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  762:Drivers/Drivers/stm32_adafruit_lcd.c ****   {
  3231              		.loc 1 762 8 is_stmt 0 view .LVU841
  3232 00ce 013D     		subs	r5, r5, #1
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 89
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 89
 
 
  3233              	.LVL346:
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3279 0122 09B0     		add	sp, sp, #36
  3280              	.LCFI49:
  3281              		.cfi_def_cfa_offset 36
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 90
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 90
 
 
  3282              		@ sp needed
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3328              		.cfi_endproc
  3329              	.LFE32:
  3331              		.section	.text.BSP_LCD_ReadPixel,"ax",%progbits
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 91
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 91
 
 
  3332              		.align	1
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3377              		.cfi_endproc
  3378              	.LFE33:
  3380              		.section	.text.BSP_LCD_DrawRGB16Image,"ax",%progbits
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 92
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 92
 
 
  3381              		.align	1
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3432              		.global	BSP_LCD_ReadRGB16Image
  3433              		.syntax unified
  3434              		.thumb
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 93
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 93
 
 
  3435              		.thumb_func
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3487      00000000 
  3487      00000000 
  3487      00000000 
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 94
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 94
 
 
  3487      00000000 
@@ -5589,119 +5589,119 @@ ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 1
  3492              		.file 4 "Drivers/Drivers/lcd.h"
  3493              		.file 5 "Drivers/Drivers/Fonts/fonts.h"
  3494              		.file 6 "Drivers/Drivers/stm32_adafruit_lcd.h"
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 95
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 95
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32_adafruit_lcd.c
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:18     .text.SetDisplayWindow:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:25     .text.SetDisplayWindow:00000000 SetDisplayWindow
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:55     .text.SetDisplayWindow:00000010 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:60     .text.BSP_LCD_Init:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:67     .text.BSP_LCD_Init:00000000 BSP_LCD_Init
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:109    .text.BSP_LCD_Init:0000001c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:18     .text.SetDisplayWindow:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:25     .text.SetDisplayWindow:00000000 SetDisplayWindow
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:55     .text.SetDisplayWindow:00000010 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:60     .text.BSP_LCD_Init:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:67     .text.BSP_LCD_Init:00000000 BSP_LCD_Init
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:109    .text.BSP_LCD_Init:0000001c $d
                             *COM*:0000000c DrawProp
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:116    .text.BSP_LCD_GetXSize:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:123    .text.BSP_LCD_GetXSize:00000000 BSP_LCD_GetXSize
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:147    .text.BSP_LCD_GetXSize:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:152    .text.BSP_LCD_GetYSize:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:159    .text.BSP_LCD_GetYSize:00000000 BSP_LCD_GetYSize
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:183    .text.BSP_LCD_GetYSize:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:188    .text.BSP_LCD_GetTextColor:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:195    .text.BSP_LCD_GetTextColor:00000000 BSP_LCD_GetTextColor
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:210    .text.BSP_LCD_GetTextColor:00000008 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:215    .text.BSP_LCD_GetBackColor:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:222    .text.BSP_LCD_GetBackColor:00000000 BSP_LCD_GetBackColor
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:237    .text.BSP_LCD_GetBackColor:00000008 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:242    .text.BSP_LCD_SetTextColor:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:249    .text.BSP_LCD_SetTextColor:00000000 BSP_LCD_SetTextColor
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:266    .text.BSP_LCD_SetTextColor:00000008 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:271    .text.BSP_LCD_SetBackColor:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:278    .text.BSP_LCD_SetBackColor:00000000 BSP_LCD_SetBackColor
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:295    .text.BSP_LCD_SetBackColor:00000008 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:300    .text.BSP_LCD_SetFont:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:307    .text.BSP_LCD_SetFont:00000000 BSP_LCD_SetFont
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:324    .text.BSP_LCD_SetFont:00000008 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:329    .text.BSP_LCD_GetFont:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:336    .text.BSP_LCD_GetFont:00000000 BSP_LCD_GetFont
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:351    .text.BSP_LCD_GetFont:00000008 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:356    .text.BSP_LCD_Clear:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:363    .text.BSP_LCD_Clear:00000000 BSP_LCD_Clear
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:410    .text.BSP_LCD_Clear:00000028 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:415    .text.BSP_LCD_DrawPixel:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:422    .text.BSP_LCD_DrawPixel:00000000 BSP_LCD_DrawPixel
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:451    .text.BSP_LCD_DrawPixel:00000010 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:456    .text.BSP_LCD_DrawHLine:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:463    .text.BSP_LCD_DrawHLine:00000000 BSP_LCD_DrawHLine
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:534    .text.BSP_LCD_DrawHLine:00000038 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:540    .text.BSP_LCD_DrawVLine:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:547    .text.BSP_LCD_DrawVLine:00000000 BSP_LCD_DrawVLine
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:618    .text.BSP_LCD_DrawVLine:00000038 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:624    .text.BSP_LCD_DrawLine:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:631    .text.BSP_LCD_DrawLine:00000000 BSP_LCD_DrawLine
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:871    .text.BSP_LCD_DrawLine:000000d4 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:876    .text.BSP_LCD_DrawRect:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:883    .text.BSP_LCD_DrawRect:00000000 BSP_LCD_DrawRect
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:941    .text.BSP_LCD_DrawCircle:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:948    .text.BSP_LCD_DrawCircle:00000000 BSP_LCD_DrawCircle
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1114   .text.BSP_LCD_DrawCircle:000000dc $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1119   .text.BSP_LCD_DrawPolygon:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1126   .text.BSP_LCD_DrawPolygon:00000000 BSP_LCD_DrawPolygon
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1224   .text.BSP_LCD_DrawEllipse:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1231   .text.BSP_LCD_DrawEllipse:00000000 BSP_LCD_DrawEllipse
-ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s 			page 96
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:116    .text.BSP_LCD_GetXSize:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:123    .text.BSP_LCD_GetXSize:00000000 BSP_LCD_GetXSize
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:147    .text.BSP_LCD_GetXSize:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:152    .text.BSP_LCD_GetYSize:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:159    .text.BSP_LCD_GetYSize:00000000 BSP_LCD_GetYSize
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:183    .text.BSP_LCD_GetYSize:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:188    .text.BSP_LCD_GetTextColor:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:195    .text.BSP_LCD_GetTextColor:00000000 BSP_LCD_GetTextColor
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:210    .text.BSP_LCD_GetTextColor:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:215    .text.BSP_LCD_GetBackColor:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:222    .text.BSP_LCD_GetBackColor:00000000 BSP_LCD_GetBackColor
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:237    .text.BSP_LCD_GetBackColor:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:242    .text.BSP_LCD_SetTextColor:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:249    .text.BSP_LCD_SetTextColor:00000000 BSP_LCD_SetTextColor
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:266    .text.BSP_LCD_SetTextColor:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:271    .text.BSP_LCD_SetBackColor:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:278    .text.BSP_LCD_SetBackColor:00000000 BSP_LCD_SetBackColor
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:295    .text.BSP_LCD_SetBackColor:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:300    .text.BSP_LCD_SetFont:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:307    .text.BSP_LCD_SetFont:00000000 BSP_LCD_SetFont
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:324    .text.BSP_LCD_SetFont:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:329    .text.BSP_LCD_GetFont:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:336    .text.BSP_LCD_GetFont:00000000 BSP_LCD_GetFont
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:351    .text.BSP_LCD_GetFont:00000008 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:356    .text.BSP_LCD_Clear:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:363    .text.BSP_LCD_Clear:00000000 BSP_LCD_Clear
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:410    .text.BSP_LCD_Clear:00000028 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:415    .text.BSP_LCD_DrawPixel:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:422    .text.BSP_LCD_DrawPixel:00000000 BSP_LCD_DrawPixel
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:451    .text.BSP_LCD_DrawPixel:00000010 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:456    .text.BSP_LCD_DrawHLine:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:463    .text.BSP_LCD_DrawHLine:00000000 BSP_LCD_DrawHLine
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:534    .text.BSP_LCD_DrawHLine:00000038 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:540    .text.BSP_LCD_DrawVLine:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:547    .text.BSP_LCD_DrawVLine:00000000 BSP_LCD_DrawVLine
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:618    .text.BSP_LCD_DrawVLine:00000038 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:624    .text.BSP_LCD_DrawLine:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:631    .text.BSP_LCD_DrawLine:00000000 BSP_LCD_DrawLine
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:871    .text.BSP_LCD_DrawLine:000000d4 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:876    .text.BSP_LCD_DrawRect:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:883    .text.BSP_LCD_DrawRect:00000000 BSP_LCD_DrawRect
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:941    .text.BSP_LCD_DrawCircle:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:948    .text.BSP_LCD_DrawCircle:00000000 BSP_LCD_DrawCircle
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1114   .text.BSP_LCD_DrawCircle:000000dc $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1119   .text.BSP_LCD_DrawPolygon:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1126   .text.BSP_LCD_DrawPolygon:00000000 BSP_LCD_DrawPolygon
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1224   .text.BSP_LCD_DrawEllipse:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1231   .text.BSP_LCD_DrawEllipse:00000000 BSP_LCD_DrawEllipse
+ARM GAS  C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s 			page 96
 
 
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1422   .text.BSP_LCD_DrawEllipse:000000dc $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1427   .text.BSP_LCD_DrawBitmap:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1434   .text.BSP_LCD_DrawBitmap:00000000 BSP_LCD_DrawBitmap
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1512   .text.BSP_LCD_DrawBitmap:00000048 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1517   .text.DrawChar:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1523   .text.DrawChar:00000000 DrawChar
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1782   .text.DrawChar:0000010c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1788   .text.BSP_LCD_DisplayChar:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1795   .text.BSP_LCD_DisplayChar:00000000 BSP_LCD_DisplayChar
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1837   .text.BSP_LCD_DisplayChar:00000024 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1842   .text.BSP_LCD_DisplayStringAt:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:1849   .text.BSP_LCD_DisplayStringAt:00000000 BSP_LCD_DisplayStringAt
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2013   .text.BSP_LCD_DisplayStringAt:000000a0 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2018   .text.BSP_LCD_DisplayStringAtLine:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2025   .text.BSP_LCD_DisplayStringAtLine:00000000 BSP_LCD_DisplayStringAtLine
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2063   .text.BSP_LCD_FillRect:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2070   .text.BSP_LCD_FillRect:00000000 BSP_LCD_FillRect
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2107   .text.BSP_LCD_FillRect:00000018 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2113   .text.BSP_LCD_ClearStringLine:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2120   .text.BSP_LCD_ClearStringLine:00000000 BSP_LCD_ClearStringLine
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2179   .text.BSP_LCD_ClearStringLine:00000030 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2184   .text.BSP_LCD_FillCircle:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2191   .text.BSP_LCD_FillCircle:00000000 BSP_LCD_FillCircle
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2350   .text.BSP_LCD_FillCircle:000000b4 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2355   .text.BSP_LCD_FillEllipse:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2362   .text.BSP_LCD_FillEllipse:00000000 BSP_LCD_FillEllipse
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2527   .text.BSP_LCD_DisplayOn:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2534   .text.BSP_LCD_DisplayOn:00000000 BSP_LCD_DisplayOn
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2558   .text.BSP_LCD_DisplayOn:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2563   .text.BSP_LCD_DisplayOff:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2570   .text.BSP_LCD_DisplayOff:00000000 BSP_LCD_DisplayOff
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2594   .text.BSP_LCD_DisplayOff:0000000c $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2599   .text.BSP_LCD_FillTriangle:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:2606   .text.BSP_LCD_FillTriangle:00000000 BSP_LCD_FillTriangle
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3010   .text.BSP_LCD_FillPolygon:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3017   .text.BSP_LCD_FillPolygon:00000000 BSP_LCD_FillPolygon
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3288   .text.BSP_LCD_ReadID:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3295   .text.BSP_LCD_ReadID:00000000 BSP_LCD_ReadID
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3327   .text.BSP_LCD_ReadID:00000014 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3332   .text.BSP_LCD_ReadPixel:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3339   .text.BSP_LCD_ReadPixel:00000000 BSP_LCD_ReadPixel
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3376   .text.BSP_LCD_ReadPixel:00000014 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3381   .text.BSP_LCD_DrawRGB16Image:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3388   .text.BSP_LCD_DrawRGB16Image:00000000 BSP_LCD_DrawRGB16Image
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3426   .text.BSP_LCD_DrawRGB16Image:00000014 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3431   .text.BSP_LCD_ReadRGB16Image:00000000 $t
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3438   .text.BSP_LCD_ReadRGB16Image:00000000 BSP_LCD_ReadRGB16Image
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3476   .text.BSP_LCD_ReadRGB16Image:00000014 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3482   .bss.bitmap:00000000 $d
-C:\Users\DARKSP~1\AppData\Local\Temp\cc0oFyam.s:3486   .bss.bitmap:00000000 bitmap
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1422   .text.BSP_LCD_DrawEllipse:000000dc $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1427   .text.BSP_LCD_DrawBitmap:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1434   .text.BSP_LCD_DrawBitmap:00000000 BSP_LCD_DrawBitmap
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1512   .text.BSP_LCD_DrawBitmap:00000048 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1517   .text.DrawChar:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1523   .text.DrawChar:00000000 DrawChar
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1782   .text.DrawChar:0000010c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1788   .text.BSP_LCD_DisplayChar:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1795   .text.BSP_LCD_DisplayChar:00000000 BSP_LCD_DisplayChar
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1837   .text.BSP_LCD_DisplayChar:00000024 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1842   .text.BSP_LCD_DisplayStringAt:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:1849   .text.BSP_LCD_DisplayStringAt:00000000 BSP_LCD_DisplayStringAt
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2013   .text.BSP_LCD_DisplayStringAt:000000a0 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2018   .text.BSP_LCD_DisplayStringAtLine:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2025   .text.BSP_LCD_DisplayStringAtLine:00000000 BSP_LCD_DisplayStringAtLine
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2063   .text.BSP_LCD_FillRect:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2070   .text.BSP_LCD_FillRect:00000000 BSP_LCD_FillRect
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2107   .text.BSP_LCD_FillRect:00000018 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2113   .text.BSP_LCD_ClearStringLine:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2120   .text.BSP_LCD_ClearStringLine:00000000 BSP_LCD_ClearStringLine
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2179   .text.BSP_LCD_ClearStringLine:00000030 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2184   .text.BSP_LCD_FillCircle:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2191   .text.BSP_LCD_FillCircle:00000000 BSP_LCD_FillCircle
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2350   .text.BSP_LCD_FillCircle:000000b4 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2355   .text.BSP_LCD_FillEllipse:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2362   .text.BSP_LCD_FillEllipse:00000000 BSP_LCD_FillEllipse
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2527   .text.BSP_LCD_DisplayOn:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2534   .text.BSP_LCD_DisplayOn:00000000 BSP_LCD_DisplayOn
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2558   .text.BSP_LCD_DisplayOn:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2563   .text.BSP_LCD_DisplayOff:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2570   .text.BSP_LCD_DisplayOff:00000000 BSP_LCD_DisplayOff
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2594   .text.BSP_LCD_DisplayOff:0000000c $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2599   .text.BSP_LCD_FillTriangle:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:2606   .text.BSP_LCD_FillTriangle:00000000 BSP_LCD_FillTriangle
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3010   .text.BSP_LCD_FillPolygon:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3017   .text.BSP_LCD_FillPolygon:00000000 BSP_LCD_FillPolygon
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3288   .text.BSP_LCD_ReadID:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3295   .text.BSP_LCD_ReadID:00000000 BSP_LCD_ReadID
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3327   .text.BSP_LCD_ReadID:00000014 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3332   .text.BSP_LCD_ReadPixel:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3339   .text.BSP_LCD_ReadPixel:00000000 BSP_LCD_ReadPixel
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3376   .text.BSP_LCD_ReadPixel:00000014 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3381   .text.BSP_LCD_DrawRGB16Image:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3388   .text.BSP_LCD_DrawRGB16Image:00000000 BSP_LCD_DrawRGB16Image
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3426   .text.BSP_LCD_DrawRGB16Image:00000014 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3431   .text.BSP_LCD_ReadRGB16Image:00000000 $t
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3438   .text.BSP_LCD_ReadRGB16Image:00000000 BSP_LCD_ReadRGB16Image
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3476   .text.BSP_LCD_ReadRGB16Image:00000014 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3482   .bss.bitmap:00000000 $d
+C:\Users\DARKSP~1\AppData\Local\Temp\ccLHTHVj.s:3486   .bss.bitmap:00000000 bitmap
 
 UNDEFINED SYMBOLS
 lcd_drv

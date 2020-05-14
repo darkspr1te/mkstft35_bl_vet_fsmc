@@ -140,45 +140,21 @@ void firmware_run(void) {
     uint32_t appStack = (uint32_t) *((uint32_t *) APP_ADDR);
 
     pFunction appEntry = (pFunction) *(uint32_t *) (APP_ADDR + 4);
+  #ifdef DEBUG
     printf("Stack Address %x \n\r",APP_ADDR);
     printf("Jump Address %x\n\r",(APP_ADDR+4));
     printf("Stack Address Value %x \n\r",appStack);
     printf("Jump Address Value %x\n\r",appEntry);
+ #endif
     HAL_Delay(300);
-  /* 
- HAL_Init();
-  SystemClock_Config();
-MX_GPIO_Init();
-  MX_USART1_UART_Init();
-  MX_FSMC_Init();
-  MX_SDIO_SD_Init();
-  MX_FATFS_Init();
-  int error_lcd = BSP_LCD_Init();
-  BSP_LCD_Clear(LCD_COLOR_BLUE);
-*/
- //try 1 
-  // HAL_SRAM_MspDeInit(&hsram1);
-   HAL_SD_MspDeInit(&hsd);
-   HAL_RCC_DeInit();
+    HAL_SD_MspDeInit(&hsd);
+    HAL_RCC_DeInit();
     HAL_DeInit();
-    //try 2 HAL_SD_DeInit(&hsd);
-/*
-    __HAL_RCC_GPIOA_CLK_DISABLE();
-    __HAL_RCC_GPIOB_CLK_DISABLE();
-    __HAL_RCC_GPIOC_CLK_DISABLE();
-    __HAL_RCC_GPIOD_CLK_DISABLE();
-    __HAL_RCC_GPIOE_CLK_DISABLE();
-    __HAL_RCC_SDIO_CLK_DISABLE();
-    __HAL_RCC_GPIOC_CLK_DISABLE();
-    __HAL_RCC_GPIOD_CLK_DISABLE();
-     __HAL_RCC_SYSCFG_CLK_DISABLE();
-  __HAL_RCC_PWR_CLK_DISABLE();*/
+  
     SCB->VTOR = APP_ADDR& 0x1FFFFF80;;
     SysTick->CTRL = 0;
     __set_MSP(appStack);
-    //printf("Stack Address %x Value:%x\n\r",APP_ADDR,appStack);
-   // printf("Stack Address %x Value %x\n\r",(APP_ADDR+4),appEntry);
-
+ 
     appEntry();
 }
 
@@ -191,42 +167,26 @@ static uint8_t upload_file(const char* name) {
     uint32_t addr = HEADER_ADDR;
     
     memset(&file, 0, sizeof(file));
-    //res = f_mount(&file, name, 1);
+
     res = f_mount(&SDFatFS, SDPath, 1);
     printf("FLASH mount file, filename %s and error code %d\n\r",name,res);
     printf("about to loadfile\n\r");
-    //res = f_open(&file, name, FA_OPEN_EXISTING | FA_READ);
-   res = f_open(&SDFile, name, FA_OPEN_EXISTING | FA_READ);
-    //printf("load file complete\n\r");
+    res = f_open(&SDFile, name, FA_OPEN_EXISTING | FA_READ);
     if (res>=1)
-    {
+        {
         printf("Flash opened code:%d\n\r",res);
     }
     else 
     {
       printf("load file complete\n\r");  
     }
-    //if (res) return res;
 
-   // flash_res = flash_clear(HEADER_ADDR, FLASH_LAST_ADDR);
-  // printf("About to erase flash\n\r");
-    //flash_res = flash_erase(FLASH_SECTOR_3_ADDR, FLASH_LAST_ADDR);
     HAL_FLASH_Unlock();
     flash_res = flash_erase(ADDR_FLASH_SECTOR_3,ADDR_FLASH_SECTOR_10);
     printf("erase flash complete code:%d\n\r",flash_res);
-   // if (flash_res == 0) return 0;
-   // HAL_FLASH_Unlock();
     addr = ADDR_FLASH_SECTOR_3;
-  //  memset(&file, 0, sizeof(file));
-   // res = f_mount(&file, name, 1);
-  //  res = f_open(&file, name, FA_OPEN_EXISTING | FA_READ);
-
-
-
-  
-
-  while (addr < ADDR_FLASH_SECTOR_10)
-  {
+   while (addr < ADDR_FLASH_SECTOR_10)
+   {
       res = f_read(&SDFile, buffer, sizeof(buffer), &bytes_read);
       if (res != FR_OK)
       {
@@ -245,36 +205,6 @@ static uint8_t upload_file(const char* name) {
 
   } 
 
-/*
-    while (1) {
-        printf("firmware.c -read bin file %d\n\r",res);
-        res = f_read(&SDFile, buffer, sizeof(buffer), &bytes_read);
-        printf("firmware.c -bin file read buffer %d bytes read %d\n\r",res,bytes_read);
-        if (res != 0)
-        {
-            printf("firmware.c -read bin file error %d\n\r",res);
-        }
-        
-       // if (res) return 0;
-        if (bytes_read < sizeof(buffer)) 
-        {
-            printf("buffer error\n\r");
-            break;
-        }
-        //printf("firmware.c -write bin file\n\r");
-        addr = flash_program_by_word(addr, (uint32_t *) buffer, bytes_read / 4);
-        printf("firmware.c - flashing address word %x\n\r",addr);
-        if (addr == 0) return 0;
-    }
-
-    
-
-    if (bytes_read > 0) {
-        addr = flash_program_by_byte(addr, buffer, bytes_read);
-        printf("firmware.c flashing address byte %x\n\r",addr);
-        if (addr == 0) return 0;
-    }
-*/
     res = f_close(&file);
     printf("Flashing upload finished %d\n\r",res);
     if (res) return 0;

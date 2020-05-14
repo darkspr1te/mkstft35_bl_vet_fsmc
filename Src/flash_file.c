@@ -64,8 +64,7 @@ HAL_StatusTypeDef crypt(uint32_t from, uint32_t to)
           uVar7 = uVar7 + 1;
         }
       }
-    }
-    */
+    }*/
 }
 
 FLASH_EraseInitTypeDef erase_flash;
