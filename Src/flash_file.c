@@ -140,8 +140,10 @@ FRESULT readNextPage(uint8_t *target, uint32_t *read)
 
 HAL_StatusTypeDef flashWrite(uint32_t position, uint8_t *data, uint32_t size)
 {	
-    printf("write page %x\n\r",position);
-	HAL_StatusTypeDef res = HAL_OK;
+
+  //for debug   printf("write page %x\n\r",position);
+	
+  HAL_StatusTypeDef res = HAL_OK;
 	for (uint32_t i=0; i<size; i+=2)
 	{
 		
@@ -158,7 +160,7 @@ HAL_StatusTypeDef flashWrite(uint32_t position, uint8_t *data, uint32_t size)
 FlashResult flash(const char *fname)
 {
 	FRESULT res = f_stat(fname, &info);
-    printf("About to flash system file size %dk\n\r",(info.fsize/1000) );
+ //   printf("About to flash system file size %dk\n\r",(info.fsize/1000) );
 	if (res != FR_OK)
 		return FLASH_FILE_NOT_EXISTS;
 
@@ -169,7 +171,7 @@ FlashResult flash(const char *fname)
 	res = f_open(&SDFile, fname, FA_OPEN_EXISTING | FA_READ);
     if (res == FR_OK)
     {	  
-	  printf("Firmware Flash file open ok\n\r");
+	//  printf("Firmware Flash file open ok\n\r");
     }
 	if (res != FR_OK)
 	{
@@ -196,41 +198,60 @@ FlashResult flash(const char *fname)
 
 	do {
 		readNextPage(buffer, &bufferLen);
+
+#ifdef DECRYPT
 		if ((ADDR_FLASH_SECTOR_3-position)<=0x140 ||(ADDR_FLASH_SECTOR_3-position)<0x7940 )
     {
       if ((ADDR_FLASH_SECTOR_3-position)<=0x140)
       {
-        for (int i=0x140;i<=bufferLen;i++)
+        printf("Using Stage one decrypt raw position %x\n\r",position);
+        for (int i=0x140;i<bufferLen;i++)
         {
           buffer[i]=buffer[i] ^ key[i&31];
         }
       } else 
       if ((ADDR_FLASH_SECTOR_3-position)>=0x140||(ADDR_FLASH_SECTOR_3-position)<0x7940)
       {
-        for (int i=0x0;i<=bufferLen;i++)
+        printf("Using Stage two decrypt raw position %x\n\r", position);
+        for (int i=0x0;i<bufferLen;i++)
         {
           buffer[i]=buffer[i] ^ key[i&31];
         }
       }
       else 
-      if ((ADDR_FLASH_SECTOR_4-position)>=0x140||(ADDR_FLASH_SECTOR_4-position)<0x7940)
+      if ((ADDR_FLASH_SECTOR_3-position)>=0x3fff||(ADDR_FLASH_SECTOR_3-position)<0x7940)
       {
-        for (int i=0x0;i<=bufferLen;i++)
+        printf("Using Stage three decrypt raw position %x\n\r", position);
+        for (int i=0x0;i<bufferLen;i++)
         {
           buffer[i]=buffer[i] ^ key[i&31];
         }
       }
+      
 
-    
+    }
+    else
+    {
+      //printf("no decrypt\n\r");
+      if ((ADDR_FLASH_SECTOR_3-position)<0x7940)
+      {
+        printf("Using Stage four decrypt raw position %x\n\r", position);
+        for (int i=0x0;i<bufferLen;i++)
+        {
+          buffer[i]=buffer[i] ^ key[i&31];
+        }
+      }
     }
     
+#endif
 		if (HAL_OK != flashWrite(position, buffer, bufferLen))
 			return FLASH_RESULT_FLASH_ERROR;
 
 		position += bufferLen;
 	} while (bufferLen != 0);
-    printf("Finished flashing crypto at %x\n\r",position);
-    printf("raw postition %x\n\r",(ADDR_FLASH_SECTOR_3-position));
+
+  printf("Finished flashing crypto at %x\n\r",position);
+  printf("raw postition %x\n\r",(position-ADDR_FLASH_SECTOR_3));
 	f_close(&SDFile);
 	HAL_FLASH_Lock();
 #ifdef DEBUG

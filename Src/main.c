@@ -175,8 +175,8 @@ int main(void)
   } 
   else {
     printf("MAIN: FatFs Init Failed Code: %d\r\n", (int)result);
-    firmware_deinit();
-    firmware_run();
+  //  firmware_deinit();
+  //  firmware_run();
   }
 
  res = FR_OK;
@@ -205,20 +205,15 @@ int main(void)
   {
     printf("unknown flash error %d\n\r",res);
   }
-  
+  printf("\n\rBoot application\n\r");
   firmware_deinit();
   
   firmware_run();
-  //alt 
- // Jump_To_App();
-  //Bootloader_JumpToApplication();
-  printf("\n\rjump to bl new routine\n\r");
-  //JumpToApplication();
- // go_to(0x0800C000);
-  //mainApp();
+
+
   while (1)
   {
-
+//we should not get here 
     printf("\r\nLcd Init Error\r\n");
 
   }
