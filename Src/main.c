@@ -98,6 +98,7 @@ static void JumpToApplication(void);
   FRESULT res;
 
   uint8_t fName[] = "mkstft35.bin\0";
+  uint8_t fName_nocrypt[] = "mkstft35-u.bin\0";
 
   int sd_pin=0;
 
@@ -175,20 +176,45 @@ int main(void)
   } 
   else {
     printf("MAIN: FatFs Init Failed Code: %d\r\n", (int)result);
-  //  firmware_deinit();
-  //  firmware_run();
+    firmware_deinit();
+    firmware_run();
   }
 
- res = FR_OK;
-
-  if (res == FR_OK)
+  //result = f_open(&SDFile,FIRMWARE_FILENAME_CRYPT, FA_OPEN_EXISTING | FA_READ);
+  if (f_open(&SDFile,FIRMWARE_FILENAME_CRYPT, FA_OPEN_EXISTING | FA_READ) == FR_OK)
   {
-    res == flash(fName);
+    f_close(&SDFile);
+    res == flash(FIRMWARE_FILENAME_CRYPT);
+    HAL_FLASH_Lock();
+    if (res == FR_OK)
+    {
+      printf("Flash crypted bin success\n\r");
+    }
+    else
+    {
+      printf("MAIN: Flash error code:%d\n\r",res);
+    }
+  }
+  else
+	if (res != FR_OK)
+	{
+	  printf("MAIN: Failed to open firmware file %s wirth error :%d\n\r",fName,res);
+	}
+  else 
+  {
+    printf("unknown flash error %d\n\r",res);
+  }
+  
+  //result = f_open(&SDFile,FIRMWARE_FILENAME_NOCRYPT, FA_OPEN_EXISTING | FA_READ);
+  if (f_open(&SDFile,FIRMWARE_FILENAME_NOCRYPT, FA_OPEN_EXISTING | FA_READ) == FR_OK)
+  {
+    f_close(&SDFile);
+    res == flash(FIRMWARE_FILENAME_NOCRYPT);
     HAL_FLASH_Lock();
    
     if (res == FR_OK)
     {
-      printf("Flash success\n\r");
+      printf("Flash no-crypt bin success\n\r");
     }
     else
     {
@@ -205,6 +231,9 @@ int main(void)
   {
     printf("unknown flash error %d\n\r",res);
   }
+
+
+
   printf("\n\rBoot application\n\r");
   firmware_deinit();
   

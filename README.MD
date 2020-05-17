@@ -2,9 +2,10 @@
 
 ## Working with un-encrypted mks firmware.
 
-place mkstft35.bin from buildroot/SDCARD on to root of sdcard 
+place mkstft35.bin from buildroot/SDCARD on to root of sdcard for MKS encryoted binary
+place mkstft35-u.bin for non encrypted binary 
 
-flash bootloader-wroking.bin to your screen and insert sdcard , reset then remove sdcard when system boots. 
+flash bootloader-working.bin to your screen and insert sdcard , reset then remove sdcard when system boots. 
 
 
 

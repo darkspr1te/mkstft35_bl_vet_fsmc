@@ -130,7 +130,8 @@ C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F407xx \
 -DUSE_HAL_DRIVER \
--DSTM32F407xx
+-DSTM32F407xx \
+ 
 
 
 # AS includes

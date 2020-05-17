@@ -24,48 +24,6 @@ extern FATFS SDFatFS;
 extern FIL SDFile;
 int key[] ={0xA3, 0xBD, 0xAD, 0x0D, 0x41, 0x11, 0xBB, 0x8D, 0xDC, 0x80, 0x2D, 0xD0, 0xD2, 0xC4, 0x9B, 0x1E, 0x26, 0xEB, 0xE3, 0x33, 0x4A, 0x15, 0xE4, 0x0A, 0xB3, 0xB1, 0x3C, 0x93, 0xBB, 0xAF, 0xF7, 0x3E};
 
-HAL_StatusTypeDef crypt(uint32_t from, uint32_t to)
-{
-
-    //do {
-    //FUN_08007b28(key,0xff,0x400);
-    int counter, index,uVar7,uVar4;
-   // uVar4 = FUN_08004980(puVar3,key,0x400,key + 0x440,local_24,local_2c);
-  /*  key[0x414] = uVar4;
-    if (*(uint *)(key + 0x44c) < 0x3c0) {
-      if (key[0x416] == '\x01') {
-        index = 0;
-        uVar7 = 0;
-        while (uVar7 < 0x16) {
-          counter = 0;
-          while (counter < 0x20) {
-            (key + index)[0x140] = key[counter + 0x418] ^ (key + index)[0x140];
-            index = index + 1;
-            counter = counter + 1;
-          }
-          *(int *)(key + 0x44c) = *(int *)(key + 0x44c) + 1;
-          uVar7 = uVar7 + 1;
-        }
-        key[0x416] = 0;
-      }
-      else {
-        index = 0;
-        uVar7 = 0;
-        while (uVar7 < 0x20) {
-          counter = 0;
-          while (counter < 0x20) {
-            key[index] = key[index] ^ key[counter + 0x418];
-            index = index + 1;
-            counter = counter + 1;
-          }
-          iVar8 = *(int *)(key + 0x44c);
-          *(uint *)(key + 0x44c) = iVar8 + 1U;
-          if (0x3bf < iVar8 + 1U) break;
-          uVar7 = uVar7 + 1;
-        }
-      }
-    }*/
-}
 
 FLASH_EraseInitTypeDef erase_flash;
 HAL_StatusTypeDef erase(uint32_t from, uint32_t to)
@@ -78,13 +36,7 @@ HAL_StatusTypeDef erase(uint32_t from, uint32_t to)
 	{
 		FLASH_EraseInitTypeDef erase;
 
-		//erase.TypeErase = FLASH_TYPEERASE_PAGES;
-		//erase.Banks = FLASH_BANK_1;
-	//	erase.PageAddress = i;
-	//	erase.NbPages = 1;
-
-	//	uint32_t error = 0;
-	//	res = HAL_FLASHEx_Erase(&erase, &error);
+		
 #ifdef DEBUG		
 		printf("erase page %x\n\r",i);
 #endif
@@ -102,17 +54,7 @@ for (int x=FLASH_SECTOR_3;x<FLASH_SECTOR_TOTAL;x++)
     //FLASH_Erase_Sector(x, VOLTAGE_RANGE_3);
 }
 HAL_FLASH_Lock();
-//----------------------------write data  
-/*
-    uint8_t data = 'A';
-    if (HAL_FLASH_Program(TYPEPROGRAM_BYTE, start_address, data) != HAL_OK) 
-    {
-        HAL_FLASH_Lock();
-        return;
-    }
-    HAL_FLASH_Lock();
-	return res;
-    */
+
    return res;
 }
 
@@ -198,8 +140,68 @@ FlashResult flash(const char *fname)
 
 	do {
 		readNextPage(buffer, &bufferLen);
+    
+		if (HAL_OK != flashWrite(position, buffer, bufferLen))
+			return FLASH_RESULT_FLASH_ERROR;
 
-#ifdef DECRYPT
+		position += bufferLen;
+	} while (bufferLen != 0);
+
+ // printf("Finished flashing crypto at %x\n\r",position);
+ // printf("raw postition %x\n\r",(position-ADDR_FLASH_SECTOR_3));
+	f_close(&SDFile);
+	HAL_FLASH_Lock();
+#ifdef DEBUG
+	//  printf("flash write complete \r\n");
+#endif
+	return FR_OK;
+}
+
+
+
+FlashResult flash_crypt(const char *fname)
+{
+	FRESULT res = f_stat(fname, &info);
+ //   printf("About to flash system file size %dk\n\r",(info.fsize/1000) );
+	if (res != FR_OK)
+		return FLASH_FILE_NOT_EXISTS;
+
+	// Checking file size
+//	if (info.fsize > getMaxFlashImageSize())
+//		return FLASH_FILE_TOO_BIG;
+
+	res = f_open(&SDFile, fname, FA_OPEN_EXISTING | FA_READ);
+    if (res == FR_OK)
+    {	  
+	//  printf("Firmware Flash file open ok\n\r");
+    }
+	if (res != FR_OK)
+	{
+	
+	  printf("Firmware Flash open file failed\n\r");
+		return FLASH_RESULT_FILE_ERROR;
+	}
+	//uint32_t position = (uint32_t) mcuFirstPageAddr;
+    uint32_t position = ADDR_FLASH_SECTOR_3;
+	if (HAL_OK != HAL_FLASH_Unlock())
+    {
+        printf("flash unlock error\n\r");
+    	return FLASH_RESULT_FLASH_ERROR;
+    }
+	
+
+	if (HAL_OK !=  flash_erase(ADDR_FLASH_SECTOR_3,ADDR_FLASH_SECTOR_11))
+	{
+	
+	printf("erase error\n\r");
+
+		return FLASH_RESULT_FLASH_ERROR;
+	}
+
+	do {
+		readNextPage(buffer, &bufferLen);
+
+
 		if ((ADDR_FLASH_SECTOR_3-position)<=0x140 ||(ADDR_FLASH_SECTOR_3-position)<0x7940 )
     {
       if ((ADDR_FLASH_SECTOR_3-position)<=0x140)
@@ -243,7 +245,7 @@ FlashResult flash(const char *fname)
       }
     }
     
-#endif
+
 		if (HAL_OK != flashWrite(position, buffer, bufferLen))
 			return FLASH_RESULT_FLASH_ERROR;
 
@@ -259,9 +261,6 @@ FlashResult flash(const char *fname)
 #endif
 	return FR_OK;
 }
-
-
-
 
 
 ///////////////////////////////////
@@ -286,47 +285,25 @@ __IO uint32_t data32 = 0 , MemoryProgramStatus = 0;
 static FLASH_EraseInitTypeDef EraseInitStruct;
 uint8_t flash_erase(uint32_t from_addr, uint32_t to_addr)
 {
-   // printf("1:FLASH_FILE.c flash erase from %x to %x\n\r",First,to_addr);
-  // printf("flash_file.c - about to unlock\n\r");
-  //  HAL_FLASH_Unlock();
-  //  printf("flash_file.c - flash unlocked\n\r");
-  /* Erase the user Flash area
-    (area defined by FLASH_USER_START_ADDR and FLASH_USER_END_ADDR) ***********/
+
 __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
-  //  printf("flash_file.c - flash flags complete\n\r");
-  /* Get the 1st sector to erase */
-   /* Get the 1st sector to erase */
-  //FirstSector = GetSector(FLASH_USER_START_ADDR);
+
   FirstSector = GetSector(from_addr);
   /* Get the number of sector to erase from 1st sector*/
   NbOfSectors = GetSector(to_addr) - FirstSector + 1;
-   // printf("2:FLASH_FILE.c flash erase from %d to %d\n\r",FirstSector,(FirstSector+NbOfSectors));
-  /* Fill EraseInit structure*/
+
   EraseInitStruct.TypeErase = TYPEERASE_SECTORS;
   EraseInitStruct.VoltageRange = VOLTAGE_RANGE_3;
   EraseInitStruct.Sector = FirstSector;
   EraseInitStruct.NbSectors = NbOfSectors;
   HAL_StatusTypeDef res = HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError);
- // printf("Flash erase complete, code %d\n\r",res);
+
   if (HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) != HAL_OK)
- // { 
- 
-    /* 
-      Error occurred while sector erase. 
-      User can add here some code to deal with this error. 
-      SectorError will contain the faulty sector and then to know the code error on this sector,
-      user can call function 'HAL_FLASH_GetError()'
-    */
-      /*
-        FLASH_ErrorTypeDef errorcode = HAL_FLASH_GetError();
-      */
-  //   printf("An error occured in flash erase");
-  //  Error_Handler();
- // HAL_FLASH_Lock();
     return 99;
- // }
+ 
 return res;
 }
+
 uint8_t flash_clear(uint32_t from_addr, uint32_t to_addr) {
     uint8_t res;
     uint32_t first_sector = get_sector(from_addr);
