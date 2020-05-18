@@ -4,11 +4,12 @@
  extern "C" {
 #endif
 
-#define SOFTWARE_VERSION "0.1"
+#define SOFTWARE_VERSION "0.2"
 #define LOADER_VARIANT "iz3man loader"
 #define HARDWARE "MKSTFT3.5-V1"
-#define FIRMWARE_FILENAME_NOCRYPT "mkstf35-u.bin\0"
-#define FIRMWARE_FILENAME_CRYPT  "mkstf35.bin\0"
+//#define FIRMWARE_FILENAME_NOCRYPT "mkstf35-u.bin\0"
+//#define FIRMWARE_FILENAME_CRYPT  "mkstf35.bin\0"
+
 #define LOCATION                "0:/"
 #define OLDFIRMWARE      LOCATION FIRMWARE_FILENAME
 #define OLD                     "old"

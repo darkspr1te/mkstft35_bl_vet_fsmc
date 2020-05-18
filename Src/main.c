@@ -99,7 +99,8 @@ static void JumpToApplication(void);
 
   uint8_t fName[] = "mkstft35.bin\0";
   uint8_t fName_nocrypt[] = "mkstft35-u.bin\0";
-
+uint8_t FIRMWARE_FILENAME[] = "mkstft35.bin\0";
+uint8_t FIRMWARE_FILENAME_NOCRYPT[] = "mkstft35-u.bin\0";
   int sd_pin=0;
 
 void mainApp(void);
@@ -141,23 +142,27 @@ int main(void)
     firmware_run();
 }
 
-
+//left here to enable full init for future ideas
   // MX_USART3_UART_Init();
   // MX_USART6_UART_Init();
   //HAL_UART_MspInit(&huart1);
-  MX_FSMC_Init();
-  //MX_DMA_Init();
-  //init sdcard and read
-  MX_SDIO_SD_Init();
+//needs to be later in main.c to follow other devices that use dma 
+//MX_DMA_Init();
  //for maybe spi mode sdcard
  // MX_SPI1_Init();
+
+  MX_FSMC_Init();
+  
+  //init sdcard and read
+  MX_SDIO_SD_Init();
+
  
   MX_FATFS_Init();
   int error_lcd = BSP_LCD_Init();
   BSP_LCD_Clear(LCD_COLOR_BLUE);
-  snprintf(txt, 30, "test lcd text   ");
+  snprintf(txt, 30, "test lcd text");
   BSP_LCD_SetTextColor(LCD_COLOR_MAGENTA);
-  BSP_LCD_DisplayStringAt(0, SCR_HT - CHARSIZEY, (uint8_t *)txt, LEFT_MODE);
+  BSP_LCD_DisplayStringAt(1, SCR_HT - CHARSIZEY, (uint8_t *)txt, LEFT_MODE);
   printf("\n\r\n\r\n\rBooting\n\r");
   printf("Software version: %s\r\n",SOFTWARE_VERSION);
   printf("Board Build: \"%s\"\r\n",HARDWARE);    
@@ -181,10 +186,10 @@ int main(void)
   }
 
   //result = f_open(&SDFile,FIRMWARE_FILENAME_CRYPT, FA_OPEN_EXISTING | FA_READ);
-  if (f_open(&SDFile,FIRMWARE_FILENAME_CRYPT, FA_OPEN_EXISTING | FA_READ) == FR_OK)
+  if (f_open(&SDFile, fName, FA_OPEN_EXISTING | FA_READ) == FR_OK)
   {
     f_close(&SDFile);
-    res == flash(FIRMWARE_FILENAME_CRYPT);
+    res == flash( fName);
     HAL_FLASH_Lock();
     if (res == FR_OK)
     {
@@ -206,10 +211,10 @@ int main(void)
   }
   
   //result = f_open(&SDFile,FIRMWARE_FILENAME_NOCRYPT, FA_OPEN_EXISTING | FA_READ);
-  if (f_open(&SDFile,FIRMWARE_FILENAME_NOCRYPT, FA_OPEN_EXISTING | FA_READ) == FR_OK)
+  if (f_open(&SDFile, fName_nocrypt, FA_OPEN_EXISTING | FA_READ) == FR_OK)
   {
     f_close(&SDFile);
-    res == flash(FIRMWARE_FILENAME_NOCRYPT);
+    res == flash( fName_nocrypt);
     HAL_FLASH_Lock();
    
     if (res == FR_OK)
